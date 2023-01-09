@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cqut.atao</groupId>
+    <artifactId>Mini-Farm-Server</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>Mini-Farm-User</module>
+        <module>Mini-Farm-Product</module>
+        <module>Mini-Farm-Order</module>
+        <module>Mini-Farm-Pay</module>
+        <module>Mini-Farm-Cart</module>
+        <module>Mini-Farm-Coupon</module>
+        <module>Mini-Farm-Message</module>
+    </modules>
+
+    <description>
+        Mini-Farm（扶农助农平台的服务端的设计与实现）基于 DDD 领域驱动开发的实践，内置分布式锁、分布式事务、分库分表、消息队列、数据搜索、服务监控等功能。
+    </description>
+
+
+</project>
