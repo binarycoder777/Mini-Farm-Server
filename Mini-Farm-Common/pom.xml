@@ -9,13 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Mini-Farm-Message</artifactId>
+    <artifactId>Mini-Farm-Common</artifactId>
     <packaging>pom</packaging>
+
+
     <modules>
-        <module>Mini-Farm-Message-domain</module>
-        <module>Mini-Farm-Message-interface</module>
-        <module>Mini-Farm-Message-infrastructure</module>
-        <module>Mini-Farm-Message-application</module>
+        <module>Mini-Farm-mybatisplus-spring-boot-starter</module>
+        <module>Mini-Farm-log-spring-boot-starter</module>
+        <module>Mini-Farm-convention-spring-boot-starter</module>
+        <module>Mini-Farm-common-spring-boot-starter</module>
+        <module>Mini-Farm-distributedid-spring-boot-starter</module>
     </modules>
 
 

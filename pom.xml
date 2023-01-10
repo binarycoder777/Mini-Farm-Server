@@ -16,6 +16,7 @@
         <module>Mini-Farm-Cart</module>
         <module>Mini-Farm-Coupon</module>
         <module>Mini-Farm-Message</module>
+        <module>Mini-Farm-Common</module>
     </modules>
 
     <description>
