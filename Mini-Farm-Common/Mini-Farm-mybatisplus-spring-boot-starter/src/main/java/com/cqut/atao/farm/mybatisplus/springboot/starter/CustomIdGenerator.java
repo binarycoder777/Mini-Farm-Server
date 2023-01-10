@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.mybatisplus.springboot.starter;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
+import com.cqut.atao.farm.springboot.starter.distributedid.SnowflakeIdUtil;
 
 /**
  * @author atao
@@ -13,8 +14,6 @@ public class CustomIdGenerator implements IdentifierGenerator {
 
     @Override
     public Number nextId(Object entity) {
-        return null;
-        // todo 待完成
-//        return SnowflakeIdUtil.nextId();
+        return SnowflakeIdUtil.nextId();
     }
 }
