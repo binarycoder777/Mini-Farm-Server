@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Mini-Farm-web-springboot-starter</artifactId>
+    <artifactId>Mini-Farm-swagger-spring-boot-starter</artifactId>
     <build>
         <plugins>
             <plugin>
@@ -25,20 +25,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.cqut.atao</groupId>
-            <artifactId>Mini-Farm-convention-spring-boot-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>${knife4j-spring-boot-starter.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool-all.version}</version>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
