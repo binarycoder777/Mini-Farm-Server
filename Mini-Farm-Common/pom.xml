@@ -20,6 +20,7 @@
         <module>Mini-Farm-common-spring-boot-starter</module>
         <module>Mini-Farm-distributedid-spring-boot-starter</module>
         <module>Mini-Farm-base-spring-boot-starter</module>
+        <module>Mini-Farm-web-springboot-starter</module>
     </modules>
 
 
