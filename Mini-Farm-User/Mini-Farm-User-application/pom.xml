@@ -11,5 +11,12 @@
 
     <artifactId>Mini-Farm-User-application</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.cqut.atao</groupId>
+            <artifactId>Mini-Farm-User-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

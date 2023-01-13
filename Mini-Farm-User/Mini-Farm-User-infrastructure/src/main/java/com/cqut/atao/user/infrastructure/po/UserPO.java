@@ -14,6 +14,7 @@ import lombok.Data;
 @Data
 @TableName("customer_user")
 public class UserPO extends BaseDO {
+
     /**
      * id
      */
