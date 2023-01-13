@@ -4,8 +4,7 @@ import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
-import com.cqut.atao.farm.user.domain.service.UserService;
-import com.cqut.atao.user.application.service.UserLoginService;
+import com.cqut.atao.user.application.service.UserLogin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -31,12 +29,12 @@ import java.util.Map;
 public class UserController {
 
     @Resource
-    private UserLoginService userLoginService;
+    private UserLogin userLogin;
 
     @ApiOperation("登录")
     @PostMapping("/login")
     public Result<LoginRes> login(@RequestBody Map<String,String> map) {
-        LoginRes result = userLoginService.login(map);
+        LoginRes result = userLogin.login(map);
         return Results.success(result);
     }
 
