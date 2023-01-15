@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.message.application.mq.produce;
 
-import com.alibaba.fastjson.JSON;
+
+import com.alibaba.fastjson2.JSON;
 import com.cqut.atao.farm.message.application.mq.event.MailMessageSendEvent;
 import com.cqut.atao.farm.message.common.constant.MessageRocketMQConstants;
 import lombok.AllArgsConstructor;

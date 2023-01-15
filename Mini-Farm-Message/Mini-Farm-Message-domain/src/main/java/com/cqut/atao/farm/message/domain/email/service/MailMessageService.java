@@ -1,6 +1,6 @@
 package com.cqut.atao.farm.message.domain.email.service;
 
-import com.cqut.atao.farm.message.domain.email.model.req.MailMessageSendReq;
+import com.cqut.atao.farm.message.domain.email.model.aggregates.MailMessageSendAggregates;
 
 /**
  * @author atao
@@ -17,12 +17,12 @@ public interface MailMessageService {
      * @param req
      * @return
      */
-    boolean send(MailMessageSendReq req);
+    boolean send(MailMessageSendAggregates req);
 
     /**
      * 保存邮件发送记录
      *
      * @param messageSend
      */
-    void saveMailMessage(MailMessageSendReq messageSend);
+    void saveMailMessage(MailMessageSendAggregates messageSend);
 }

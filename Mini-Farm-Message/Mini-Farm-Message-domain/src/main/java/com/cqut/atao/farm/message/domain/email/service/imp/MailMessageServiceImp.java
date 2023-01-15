@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Singleton;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import com.cqut.atao.farm.message.domain.email.model.req.MailMessageSendReq;
+import com.cqut.atao.farm.message.domain.email.model.aggregates.MailMessageSendAggregates;
 import com.cqut.atao.farm.message.domain.email.model.vo.MailTemplateVO;
 import com.cqut.atao.farm.message.domain.email.repository.MailTemplateRepository;
 import com.cqut.atao.farm.message.domain.email.service.MailMessageService;
@@ -15,6 +15,7 @@ import freemarker.template.Template;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -41,15 +42,17 @@ import java.util.Map;
 @AllArgsConstructor
 public class MailMessageServiceImp implements ApplicationListener<ApplicationInitializingEvent>, MailMessageService {
 
-    private final MailTemplateRepository mailTemplateRepository;
+    @Autowired
+    private MailTemplateRepository mailTemplateRepository;
 
     private final JavaMailSender javaMailSender;
 
-    private final Configuration configuration;
+    @Autowired
+    private Configuration configuration;
 
     @SneakyThrows
     @Override
-    public boolean send(MailMessageSendReq messageSend) {
+    public boolean send(MailMessageSendAggregates messageSend) {
         try {
             // 1.查询邮件模版列表
             List<MailTemplateVO> mailTemplateDOS = mailTemplateRepository.selectList(messageSend);
@@ -104,7 +107,7 @@ public class MailMessageServiceImp implements ApplicationListener<ApplicationIni
     }
 
     @Override
-    public void saveMailMessage(MailMessageSendReq messageSend) {
+    public void saveMailMessage(MailMessageSendAggregates messageSend) {
         mailTemplateRepository.saveMailMessage(messageSend);
     }
 }

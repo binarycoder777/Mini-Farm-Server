@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.cqut.atao.farm.message.application.mq.event.MailMessageSendEvent;
 import com.cqut.atao.farm.message.application.mq.messaging.MessageSink;
-import com.cqut.atao.farm.message.domain.email.model.req.MailMessageSendReq;
+import com.cqut.atao.farm.message.domain.email.model.aggregates.MailMessageSendAggregates;
 import com.cqut.atao.farm.message.domain.email.service.MailMessageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class MailMessageSendConsume {
         long startTime = System.currentTimeMillis();
         try {
             // 1.构建信息
-            MailMessageSendReq req = BeanUtil.toBean(mailMessageSendEvent, MailMessageSendReq.class);
+            MailMessageSendAggregates req = BeanUtil.toBean(mailMessageSendEvent, MailMessageSendAggregates.class);
             // 2.发送邮件
             boolean sendResult = mailMessageService.send(req);
             // 3.信息记录落库

@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.message.application.res;
+package com.cqut.atao.farm.message.domain.email.model.res;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MailSendRes {
+public class MailSendMessageRes {
 
     /**
      * 消息发送ID

@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.message.application.service;
 
-import com.cqut.atao.farm.message.application.req.MailSendReq;
-import com.cqut.atao.farm.message.application.res.MailSendRes;
+import com.cqut.atao.farm.message.domain.email.model.req.MailMessageSendReq;
+import com.cqut.atao.farm.message.domain.email.model.res.MailSendMessageRes;
 
 /**
  * @author atao
@@ -15,8 +15,8 @@ public interface SendMessageService {
     /**
      * 邮箱消息发送
      *
-     * @param mailSendReq
+     * @param mailMessageSendReq
      * @return MessageSendRes
      */
-    MailSendRes mailMessageSend(MailSendReq mailSendReq);
+    MailSendMessageRes mailMessageSend(MailMessageSendReq mailMessageSendReq);
 }

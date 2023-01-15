@@ -1,64 +1,49 @@
 package com.cqut.atao.farm.message.domain.email.model.req;
 
-import lombok.*;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
+import lombok.Data;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName MessageSendReq.java
- * @Description MessageSendReq
- * @createTime 2023年01月11日 19:12:00
+ * @ClassName MailSendReq.java
+ * @Description 邮件发送请求
+ * @createTime 2023年01月11日 15:12:00
  */
-@Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter(AccessLevel.PRIVATE)
+@Data
+@ApiModel("邮箱发送")
 public class MailMessageSendReq {
 
-    /**
-     * 标题
-     */
+    @ApiModelProperty(value = "标题", example = "邮箱验证码提醒")
+    @NotBlank(message = "邮箱标题不能为空")
     private String title;
 
-    /**
-     * 发送者
-     */
+    @Email
+    @ApiModelProperty(value = "发送者", example = "18325061670@163.com")
+    @NotBlank(message = "邮箱发送者不能为空")
     private String sender;
 
-    /**
-     * 接收者
-     */
+    @Email
+    @ApiModelProperty(value = "接收者", example = "87337334@qq.com", notes = "实际发送时更改为自己邮箱")
+    @NotBlank(message = "邮箱接收者不能为空")
     private String receiver;
 
-    /**
-     * 抄送
-     */
+    @Email
+    @ApiModelProperty("抄送者")
     private String cc;
 
-    /**
-     * 消息参数
-     */
+    @ApiModelProperty(value = "消息参数")
     private List<String> paramList;
 
-    /**
-     * 模板ID
-     */
+    @ApiModelProperty(value = "模板ID", example = "userRegisterVerification")
+    @NotBlank(message = "邮箱模板ID不能为空")
     private String templateId;
 
-    /**
-     * 消息发送ID
-     */
-    private String messageSendId;
-
-    /**
-     * 发送结果
-     */
-    private Boolean sendResult;
-
-    public void setSendResult(boolean sendResult) {
-        this.sendResult = sendResult;
-    }
 }

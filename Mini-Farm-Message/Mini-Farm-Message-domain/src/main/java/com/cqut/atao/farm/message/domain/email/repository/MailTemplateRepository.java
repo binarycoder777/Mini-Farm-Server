@@ -1,6 +1,6 @@
 package com.cqut.atao.farm.message.domain.email.repository;
 
-import com.cqut.atao.farm.message.domain.email.model.req.MailMessageSendReq;
+import com.cqut.atao.farm.message.domain.email.model.aggregates.MailMessageSendAggregates;
 import com.cqut.atao.farm.message.domain.email.model.vo.MailTemplateVO;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public interface MailTemplateRepository {
 
 
-    List<MailTemplateVO> selectList(MailMessageSendReq req);
+    List<MailTemplateVO> selectList(MailMessageSendAggregates req);
 
-    void saveMailMessage(MailMessageSendReq messageSend);
+    void saveMailMessage(MailMessageSendAggregates messageSend);
 }

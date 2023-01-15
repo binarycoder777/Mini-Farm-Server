@@ -1,8 +1,9 @@
 package com.cqut.atao.farm.message.web.controller;
 
-import com.cqut.atao.farm.message.application.req.MailSendReq;
-import com.cqut.atao.farm.message.application.res.MailSendRes;
+
 import com.cqut.atao.farm.message.application.service.SendMessageService;
+import com.cqut.atao.farm.message.domain.email.model.req.MailMessageSendReq;
+import com.cqut.atao.farm.message.domain.email.model.res.MailSendMessageRes;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -34,8 +35,8 @@ public class MessageSendController {
 
     @PostMapping("/send/mail")
     @ApiOperation("发送邮箱消息")
-    public Result<MailSendRes> sendMailMessage(@RequestBody @Valid MailSendReq mailSendCommand) {
-        MailSendRes result = messageSendService.mailMessageSend(mailSendCommand);
+    public Result<MailSendMessageRes> sendMailMessage(@RequestBody @Valid MailMessageSendReq req) {
+        MailSendMessageRes result = messageSendService.mailMessageSend(req);
         return Results.success(result);
     }
 

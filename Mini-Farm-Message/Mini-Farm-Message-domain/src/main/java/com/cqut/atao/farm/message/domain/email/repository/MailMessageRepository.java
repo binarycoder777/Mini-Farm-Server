@@ -1,6 +1,6 @@
 package com.cqut.atao.farm.message.domain.email.repository;
 
-import com.cqut.atao.farm.message.domain.email.model.req.MailMessageSendReq;
+import com.cqut.atao.farm.message.domain.email.model.aggregates.MailMessageSendAggregates;
 
 /**
  * @author atao
@@ -17,6 +17,6 @@ public interface MailMessageRepository {
      * @param req
      * @return
      */
-    void mailMessageSave(MailMessageSendReq req);
+    void mailMessageSave(MailMessageSendAggregates req);
 
 }
