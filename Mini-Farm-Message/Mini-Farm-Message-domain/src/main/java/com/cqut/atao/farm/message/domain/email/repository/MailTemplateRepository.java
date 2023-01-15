@@ -15,7 +15,10 @@ import java.util.List;
 public interface MailTemplateRepository {
 
 
+    /**
+     * 查询邮件模版列表
+     * @param req MailMessageSendAggregates
+     * @return List<MailTemplateVO>
+     */
     List<MailTemplateVO> selectList(MailMessageSendAggregates req);
-
-    void saveMailMessage(MailMessageSendAggregates messageSend);
 }

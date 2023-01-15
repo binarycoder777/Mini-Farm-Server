@@ -6,6 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.cqut.atao.farm.message.domain.email.model.aggregates.MailMessageSendAggregates;
 import com.cqut.atao.farm.message.domain.email.model.vo.MailTemplateVO;
+import com.cqut.atao.farm.message.domain.email.repository.MailMessageRepository;
 import com.cqut.atao.farm.message.domain.email.repository.MailTemplateRepository;
 import com.cqut.atao.farm.message.domain.email.service.MailMessageService;
 import com.cqut.atao.farm.springboot.starter.base.init.ApplicationInitializingEvent;
@@ -43,12 +44,14 @@ import java.util.Map;
 public class MailMessageServiceImp implements ApplicationListener<ApplicationInitializingEvent>, MailMessageService {
 
     @Autowired
-    private MailTemplateRepository mailTemplateRepository;
-
-    private final JavaMailSender javaMailSender;
+    private MailMessageRepository mailMessageRepository;
 
     @Autowired
-    private Configuration configuration;
+    private MailTemplateRepository mailTemplateRepository;
+
+    private final Configuration configuration;
+
+    private final JavaMailSender javaMailSender;
 
     @SneakyThrows
     @Override
@@ -108,6 +111,6 @@ public class MailMessageServiceImp implements ApplicationListener<ApplicationIni
 
     @Override
     public void saveMailMessage(MailMessageSendAggregates messageSend) {
-        mailTemplateRepository.saveMailMessage(messageSend);
+        mailMessageRepository.saveMailMessage(messageSend);
     }
 }

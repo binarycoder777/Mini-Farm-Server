@@ -25,24 +25,14 @@ import java.util.List;
 @AllArgsConstructor
 public class MailTemplateRepositoryImp implements MailTemplateRepository {
 
-//    private final MailTemplateConverter mailTemplateConverter;
-
     @Resource
     private MailTemplateDAO mailTemplateDAO;
 
     @Override
     public List<MailTemplateVO> selectList(MailMessageSendAggregates req) {
         List<MailTemplatePO> mailTemplatePOS = mailTemplateDAO.selectList(Wrappers.lambdaQuery(MailTemplatePO.class).eq(MailTemplatePO::getTemplateId, req.getTemplateId()));
-//        List<MailTemplateVO> mailTemplateVOS = Collections.emptyList();
-//        for (MailTemplatePO mailTemplatePO: mailTemplatePOS) {
-//            mailTemplateVOS.add(mailTemplateConverter.mailPOToVO(mailTemplatePO));
-//        }
         List<MailTemplateVO> mailTemplateVOS = BeanUtil.copyToList(mailTemplatePOS, MailTemplateVO.class);
         return mailTemplateVOS;
     }
 
-    @Override
-    public void saveMailMessage(MailMessageSendAggregates messageSend) {
-        // todo 待定
-    }
 }
