@@ -24,4 +24,8 @@ public class ReceiveAddressMangeImp implements ReceiveAddressMange {
     public List<ReceiveAddressVO> queryAddressList(String userId) {
         return receiveAddressService.queryList(userId);
     }
+
+    public void addReceiveAddress(ReceiveAddressVO receiveAddressVO) {
+        receiveAddressService.saveReceiveAddress(receiveAddressVO);
+    }
 }

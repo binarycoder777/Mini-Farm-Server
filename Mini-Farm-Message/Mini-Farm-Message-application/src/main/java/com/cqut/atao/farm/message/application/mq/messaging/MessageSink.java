@@ -17,7 +17,7 @@ public interface MessageSink {
     /**
      * 邮箱发送
      *
-     * @return
+     * @return {@link SubscribableChannel}
      */
     @Input(MessageSink.MAIL_SEND)
     SubscribableChannel mailSend();

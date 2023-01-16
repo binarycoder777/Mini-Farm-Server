@@ -23,4 +23,9 @@ public class ReceiveAddressServiceImp implements ReceiveAddressService {
     public List<ReceiveAddressVO> queryList(String userId) {
         return receiveAddressRepository.queryList(userId);
     }
+
+    @Override
+    public void saveReceiveAddress(ReceiveAddressVO receiveAddressVO) {
+        receiveAddressRepository.saveReceiveAddress(receiveAddressVO);
+    }
 }

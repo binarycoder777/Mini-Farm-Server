@@ -15,4 +15,6 @@ public interface ReceiveAddressMange {
 
     List<ReceiveAddressVO> queryAddressList(String userId);
 
+    void addReceiveAddress(ReceiveAddressVO receiveAddressVO);
+
 }

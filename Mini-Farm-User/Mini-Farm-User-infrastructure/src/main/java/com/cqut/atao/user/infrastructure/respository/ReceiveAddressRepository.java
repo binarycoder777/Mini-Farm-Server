@@ -1,5 +1,6 @@
 package com.cqut.atao.user.infrastructure.respository;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
 import com.cqut.atao.farm.user.domain.repository.IReceiveAddressRepository;
@@ -23,8 +24,13 @@ public class ReceiveAddressRepository implements IReceiveAddressRepository {
 
     @Override
     public List<ReceiveAddressVO> queryList(String userId) {
-        // todo
-        return null;
-//        return receiveAddressDao.selectList(new QueryWrapper<ReceiveAddressPO>().lambda().eq(ReceiveAddressPO::getCustomerUserId,userId));
+        List<ReceiveAddressPO> receiveAddressPOS = receiveAddressDao.selectList(new QueryWrapper<ReceiveAddressPO>().lambda().eq(ReceiveAddressPO::getCustomerUserId, userId));
+        List<ReceiveAddressVO> receiveAddressVOS = BeanUtil.copyToList(receiveAddressPOS, ReceiveAddressVO.class);
+        return receiveAddressVOS;
+    }
+
+    @Override
+    public void saveReceiveAddress(ReceiveAddressVO receiveAddressVO) {
+        receiveAddressDao.insert(BeanUtil.toBean(receiveAddressVO,ReceiveAddressPO.class));
     }
 }

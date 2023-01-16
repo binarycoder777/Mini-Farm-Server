@@ -1,13 +1,16 @@
 package com.cqut.atao.farm.message.test;
 
 import cn.hutool.core.lang.UUID;
+import com.cqut.atao.farm.message.application.service.SendMessageService;
 import com.cqut.atao.farm.message.domain.email.model.aggregates.MailMessageSendAggregates;
 import com.cqut.atao.farm.message.domain.email.model.req.MailMessageSendReq;
+import com.cqut.atao.farm.message.domain.email.repository.MailMessageRepository;
 import com.cqut.atao.farm.message.domain.email.repository.MailTemplateRepository;
 import com.cqut.atao.farm.message.domain.email.service.MailMessageService;
 import com.cqut.atao.farm.message.infrastructure.dao.MailTemplateDAO;
 import com.cqut.atao.farm.message.web.MessageApplication;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -38,18 +41,23 @@ public class ApiTest {
     private MailTemplateDAO mailTemplateDAO;
 
     @Resource
+    private MailMessageRepository mailMessageRepository;
+
+    @Resource
     private MailMessageService mailMessageService;
 
-    @Test
-    public void testDao(){
-        logger.info("测试数据库：{}",mailTemplateDAO.selectList(null));
-    }
+    @Resource
+    private SendMessageService sendMessageService;
 
-    @Test
-    public void testMailMessageSend() {
+    private MailMessageSendReq req;
+
+    private MailMessageSendAggregates mailMessageSendAggregates;
+
+    @Before
+    public void before() {
         List<String> para = new ArrayList<String>();
         para.add("hello world!");
-        MailMessageSendReq req = MailMessageSendReq.builder()
+        req = MailMessageSendReq.builder()
                 .title("邮件发送测试")
                 .sender("1683823409@qq.com")
                 .receiver("87337334@qq.com")
@@ -57,7 +65,7 @@ public class ApiTest {
                 .paramList(para)
                 .templateId("userRegisterVerification")
                 .build();
-        MailMessageSendAggregates mailMessageSendAggregates = MailMessageSendAggregates.builder()
+        mailMessageSendAggregates = MailMessageSendAggregates.builder()
                 .title(req.getTitle())
                 .sender(req.getSender())
                 .receiver(req.getReceiver())
@@ -66,7 +74,26 @@ public class ApiTest {
                 .messageSendId(UUID.randomUUID().toString())
                 .templateId(req.getTemplateId())
                 .build();
+    }
+
+    @Test
+    public void testMailMessageRepository() {
+        mailMessageRepository.saveMailMessage(mailMessageSendAggregates);
+    }
+
+    @Test
+    public void testDao(){
+        logger.info("测试数据库：{}",mailTemplateDAO.selectList(null));
+    }
+
+    @Test
+    public void testMailMessageSend() {
         mailMessageService.send(mailMessageSendAggregates);
+    }
+
+    @Test
+    public void testMQMailMessageSend() {
+        sendMessageService.mailMessageSend(req);
     }
 
 }

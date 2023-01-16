@@ -22,6 +22,7 @@
         <module>Mini-Farm-base-spring-boot-starter</module>
         <module>Mini-Farm-web-spring-boot-starter</module>
         <module>Mini-Farm-swagger-spring-boot-starter</module>
+        <module>Mini-Farm-rocketmq-spring-boot-starter</module>
     </modules>
 
 

@@ -15,4 +15,6 @@ public interface ReceiveAddressService {
 
     List<ReceiveAddressVO> queryList(String userId);
 
+    void saveReceiveAddress(ReceiveAddressVO receiveAddressVO);
+
 }

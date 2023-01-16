@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface IReceiveAddressRepository {
 
-    public List<ReceiveAddressVO> queryList(String userId);
+    List<ReceiveAddressVO> queryList(String userId);
+
+    void saveReceiveAddress(ReceiveAddressVO receiveAddressVO);
 
 }

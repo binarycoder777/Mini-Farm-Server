@@ -1,9 +1,14 @@
 package com.cqut.atao.farm.message.infrastructure.respository;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.cqut.atao.farm.message.domain.email.model.aggregates.MailMessageSendAggregates;
 import com.cqut.atao.farm.message.domain.email.repository.MailMessageRepository;
+import com.cqut.atao.farm.message.infrastructure.dao.MailSendRecordDAO;
+import com.cqut.atao.farm.message.infrastructure.po.MailSendRecordPO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
 
 /**
  * @author atao
@@ -16,14 +21,11 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 public class MailMessageRepositoryImp implements MailMessageRepository {
 
-
-    @Override
-    public void mailMessageSave(MailMessageSendAggregates req) {
-
-    }
+    @Resource
+    private MailSendRecordDAO mailSendRecordDAO;
 
     @Override
     public void saveMailMessage(MailMessageSendAggregates req) {
-
+        mailSendRecordDAO.insert(BeanUtil.copyProperties(req, MailSendRecordPO.class));
     }
 }
