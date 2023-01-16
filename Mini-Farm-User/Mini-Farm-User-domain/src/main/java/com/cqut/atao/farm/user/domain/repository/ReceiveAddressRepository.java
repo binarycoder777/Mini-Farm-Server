@@ -11,7 +11,7 @@ import java.util.List;
  * @Description 收货地址仓储层
  * @createTime 2023年01月13日 21:18:00
  */
-public interface IReceiveAddressRepository {
+public interface ReceiveAddressRepository {
 
     List<ReceiveAddressVO> queryList(String userId);
 

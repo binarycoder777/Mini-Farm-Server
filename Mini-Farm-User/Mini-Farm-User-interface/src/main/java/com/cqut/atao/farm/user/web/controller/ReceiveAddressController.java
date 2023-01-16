@@ -1,10 +1,10 @@
-package com.cqut.atao.user.web.controller;
+package com.cqut.atao.farm.user.web.controller;
 
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
 import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
-import com.cqut.atao.user.application.service.ReceiveAddressMange;
+import com.cqut.atao.farm.user.application.service.ReceiveAddressMange;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

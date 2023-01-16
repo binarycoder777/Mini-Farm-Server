@@ -1,8 +1,12 @@
 package com.cqut.atao.farm.user.domain.service.imp;
 
 import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
-import com.cqut.atao.farm.user.domain.repository.IReceiveAddressRepository;
+import com.cqut.atao.farm.user.domain.repository.ReceiveAddressRepository;
 import com.cqut.atao.farm.user.domain.service.ReceiveAddressService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -14,10 +18,13 @@ import java.util.List;
  * @Description 收货地址服务
  * @createTime 2023年01月13日 21:15:00
  */
+@Slf4j
+@Component
+@AllArgsConstructor
 public class ReceiveAddressServiceImp implements ReceiveAddressService {
 
-    @Resource
-    private IReceiveAddressRepository receiveAddressRepository;
+    @Autowired
+    private ReceiveAddressRepository receiveAddressRepository;
 
     @Override
     public List<ReceiveAddressVO> queryList(String userId) {

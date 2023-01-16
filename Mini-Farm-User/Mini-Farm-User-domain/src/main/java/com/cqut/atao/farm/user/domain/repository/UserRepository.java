@@ -10,7 +10,7 @@ import com.cqut.atao.farm.user.domain.model.vo.VxUserLoginVO;
  * @Description 用户仓储层
  * @createTime 2023年01月12日 20:02:00
  */
-public interface IUserRepository {
+public interface UserRepository {
 
     LoginRes checkUserInfo(VxUserLoginVO vxUserLoginVO);
 

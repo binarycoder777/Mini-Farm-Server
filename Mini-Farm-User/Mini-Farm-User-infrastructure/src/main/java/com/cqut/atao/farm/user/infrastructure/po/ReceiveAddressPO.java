@@ -1,4 +1,4 @@
-package com.cqut.atao.user.infrastructure.po;
+package com.cqut.atao.farm.user.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

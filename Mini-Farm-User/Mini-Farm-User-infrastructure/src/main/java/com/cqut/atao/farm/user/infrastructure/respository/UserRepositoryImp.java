@@ -1,9 +1,11 @@
-package com.cqut.atao.user.infrastructure.respository;
+package com.cqut.atao.farm.user.infrastructure.respository;
 
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.vo.VxUserLoginVO;
-import com.cqut.atao.farm.user.domain.repository.IUserRepository;
-import com.cqut.atao.user.infrastructure.dao.UserDao;
+import com.cqut.atao.farm.user.domain.repository.UserRepository;
+import com.cqut.atao.farm.user.infrastructure.dao.UserDao;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
@@ -14,7 +16,9 @@ import javax.annotation.Resource;
  * @Description 用户仓储层
  * @createTime 2023年01月12日 20:03:00
  */
-public class UserRepository implements IUserRepository {
+@Slf4j
+@Repository
+public class UserRepositoryImp implements UserRepository {
 
     @Resource
     private UserDao userDao;

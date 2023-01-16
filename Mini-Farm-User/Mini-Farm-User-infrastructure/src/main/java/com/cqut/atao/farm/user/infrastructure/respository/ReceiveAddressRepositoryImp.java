@@ -1,11 +1,13 @@
-package com.cqut.atao.user.infrastructure.respository;
+package com.cqut.atao.farm.user.infrastructure.respository;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
-import com.cqut.atao.farm.user.domain.repository.IReceiveAddressRepository;
-import com.cqut.atao.user.infrastructure.dao.ReceiveAddressDao;
-import com.cqut.atao.user.infrastructure.po.ReceiveAddressPO;
+import com.cqut.atao.farm.user.domain.repository.ReceiveAddressRepository;
+import com.cqut.atao.farm.user.infrastructure.po.ReceiveAddressPO;
+import com.cqut.atao.farm.user.infrastructure.dao.ReceiveAddressDao;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,7 +19,9 @@ import java.util.List;
  * @Description 收货地址仓储实现
  * @createTime 2023年01月13日 21:20:00
  */
-public class ReceiveAddressRepository implements IReceiveAddressRepository {
+@Repository
+@AllArgsConstructor
+public class ReceiveAddressRepositoryImp implements ReceiveAddressRepository {
 
     @Resource
     private ReceiveAddressDao receiveAddressDao;

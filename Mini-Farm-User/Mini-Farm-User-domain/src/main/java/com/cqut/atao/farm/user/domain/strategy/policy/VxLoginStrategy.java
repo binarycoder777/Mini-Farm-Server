@@ -5,15 +5,13 @@ import com.cqut.atao.farm.user.domain.converter.UserConverter;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.vo.VxUserLoginVO;
 import com.cqut.atao.farm.user.domain.properites.WechatAuthProperites;
-import com.cqut.atao.farm.user.domain.repository.IUserRepository;
+import com.cqut.atao.farm.user.domain.repository.UserRepository;
 import com.cqut.atao.farm.user.domain.strategy.LoginStrategy;
 import com.cqut.atao.farm.user.domain.util.VxUtil;
 import org.springframework.stereotype.Component;
-import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author atao
@@ -26,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class VxLoginStrategy implements LoginStrategy{
 
     @Resource
-    private IUserRepository userRepository;
+    private UserRepository userRepository;
 
     @Resource
     private WechatAuthProperites wechatAuthProperites;

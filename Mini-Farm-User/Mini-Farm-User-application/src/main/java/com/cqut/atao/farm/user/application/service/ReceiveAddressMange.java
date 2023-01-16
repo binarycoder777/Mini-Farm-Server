@@ -1,4 +1,4 @@
-package com.cqut.atao.user.application.service;
+package com.cqut.atao.farm.user.application.service;
 
 import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
 

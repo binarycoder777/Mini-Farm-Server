@@ -1,7 +1,7 @@
-package com.cqut.atao.user.infrastructure.dao;
+package com.cqut.atao.farm.user.infrastructure.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cqut.atao.user.infrastructure.po.ReceiveAddressPO;
+import com.cqut.atao.farm.user.infrastructure.po.ReceiveAddressPO;
 
 /**
  * @author atao

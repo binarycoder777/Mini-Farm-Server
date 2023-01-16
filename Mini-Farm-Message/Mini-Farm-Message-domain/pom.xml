@@ -24,25 +24,22 @@
     </build>
 
     <dependencies>
-        <!--业务包-->
+        <!--基础组件包-->
         <dependency>
             <groupId>com.cqut.atao</groupId>
             <artifactId>Mini-Farm-convention-spring-boot-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--基础组件包-->
         <dependency>
             <groupId>com.cqut.atao</groupId>
             <artifactId>Mini-Farm-swagger-spring-boot-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
         <dependency>
             <groupId>com.cqut.atao</groupId>
             <artifactId>Mini-Farm-log-spring-boot-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
         <dependency>
             <groupId>com.cqut.atao</groupId>
             <artifactId>Mini-Farm-base-spring-boot-starter</artifactId>

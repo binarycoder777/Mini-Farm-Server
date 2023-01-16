@@ -5,7 +5,10 @@ import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.service.UserService;
 import com.cqut.atao.farm.user.domain.strategy.LoginContext;
 import com.cqut.atao.farm.user.domain.strategy.LoginStrategy;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,7 +21,9 @@ import java.util.Map;
  * @Description 用户服务
  * @createTime 2023年01月12日 20:08:00
  */
-@Service
+@Slf4j
+@Component
+@AllArgsConstructor
 public class UserServiceImp implements UserService {
 
     @Resource
