@@ -12,6 +12,6 @@ import com.cqut.atao.farm.user.domain.model.vo.VxUserLoginVO;
  */
 public interface UserRepository {
 
-    LoginRes checkUserInfo(VxUserLoginVO vxUserLoginVO);
+    LoginRes checkUserInfo(String openid);
 
 }

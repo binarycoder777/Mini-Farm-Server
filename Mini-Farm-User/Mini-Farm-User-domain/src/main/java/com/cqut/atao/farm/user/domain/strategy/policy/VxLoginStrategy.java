@@ -35,15 +35,12 @@ public class VxLoginStrategy implements LoginStrategy{
         JSONObject SessionKeyOpenId = VxUtil.getSessionKeyOrOpenId(data.get("code"),wechatAuthProperites.getSessionHost(),wechatAuthProperites.getAppId(),wechatAuthProperites.getSecret(),wechatAuthProperites.getGrantType());
         // 2.接收微信接口服务 获取返回的参数
         String openid = SessionKeyOpenId.get("openid", String.class);
-        String sessionKey = SessionKeyOpenId.get("session_key", String.class);
-        // 3.自定义登录态(与openid、session_key关联)
-        String token = VxUtil.generateAccessToken(openid,sessionKey);
-        // 4.转化用户基础信息
-        VxUserLoginVO vxUserLoginVO = UserConverter.conver(data);
-        // 5.检测是否首次登录(存储用户信息)
-        LoginRes loginRes = userRepository.checkUserInfo(vxUserLoginVO);
+        // 3.检测是否首次登录(存储用户信息)
+        LoginRes loginRes = userRepository.checkUserInfo(openid);
+        // 4.自定义登录态
+        String token = VxUtil.generateAccessToken(loginRes.getCustomerUserId());
         loginRes.setAccessToken(token);
-        // 6.返回响应结果
+        // 5.返回响应结果
         return loginRes;
     }
 }

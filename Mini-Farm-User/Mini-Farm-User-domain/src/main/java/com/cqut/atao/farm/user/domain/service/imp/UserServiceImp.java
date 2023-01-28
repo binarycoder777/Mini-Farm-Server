@@ -35,7 +35,7 @@ public class UserServiceImp implements UserService {
         // 1.获取登录类型
         String loginType = data.get("loginType");
         // 2.登录验证
-        if (loginType .equals("VX")) {
+        if (loginType.equals("VX")) {
             strategy = loginStrategy.get(Constants.LoginStrategy.VX);
         }
         return strategy.login(data);

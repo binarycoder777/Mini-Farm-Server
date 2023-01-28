@@ -1,21 +1,16 @@
 package com.cqut.atao.farm.user.domain.util;
 
-import cn.hutool.core.codec.Base64;
+
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson2.JSON;
 import com.google.common.collect.Maps;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import lombok.extern.slf4j.Slf4j;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.AlgorithmParameters;
-import java.security.Security;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +22,7 @@ import java.util.Map;
  * @Description 微信认证工具类
  * @createTime 2023年01月13日 19:37:00
  */
+@Slf4j
 public class VxUtil {
 
     private static final long EXPIRATION = 86400L;
@@ -38,21 +34,58 @@ public class VxUtil {
 
     /**
      * 生成用户 Token
-     * @param openid vx开放id
-     * @param sessionKey sessionKey
+     * @param userId 用户id
      * @return token
      */
-    public static String generateAccessToken(String openid, String sessionKey) {
+    public static String generateAccessToken(Long userId) {
         Map<String, Object> map = Maps.newHashMap();
-        map.put("openid", openid);
-        map.put("sessionKey", sessionKey);
-        return Jwts.builder()
-                .signWith(SignatureAlgorithm.HS512, SECRET)
-                .setIssuedAt(new Date())
-                .setIssuer(ISS)
+        map.put("userId", userId);
+        return Jwts
+                .builder()
+                // 信息头
+                .setHeaderParam("typ","JWT")
+                // 主题信息
                 .setSubject(JSON.toJSONString(map))
+                // 签名
+                .signWith(SignatureAlgorithm.HS512, SECRET)
+                // 创建时间
+                .setIssuedAt(new Date())
+                // 过期时间
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION * 1000))
+                .setIssuer(ISS)
                 .compact();
+    }
+
+
+    /**
+     * 验证token
+     * @return  token正确返回对象，token不正确返回null
+     */
+    public static Claims getClaimByToken(String token){
+        try {
+            return Jwts.parser()
+                    .setSigningKey(SECRET)  //获取秘钥
+                    .parseClaimsJws(token)	//解析验证token
+                    .getBody();
+        }catch (Exception e){
+            log.info("token验证失败",e);
+            return  null;
+        }
+    }
+
+    /**
+     * token是否过期
+     * @return  true：过期
+     * lastLoginDate 数据库记录的最后一次登出时间
+     * issueDate token 创建时间
+     */
+    public boolean isTokenExpired(Claims claims,Date lastLoginDate) {
+        //token创建时间小于数据库记录的最后一次登出时间 过期
+        if(lastLoginDate == null){
+            return claims.getExpiration().before(new Date());
+        }else{
+            return claims.getIssuedAt().before(lastLoginDate);
+        }
     }
 
     /**

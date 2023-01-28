@@ -24,7 +24,7 @@ public class UserRepositoryImp implements UserRepository {
     private UserDao userDao;
 
     @Override
-    public LoginRes checkUserInfo(VxUserLoginVO vxUserLoginVO) {
+    public LoginRes checkUserInfo(String openid) {
         // 1.校验是否存在该用户
         // 2.查询返回用户基本信息
         return new LoginRes();
