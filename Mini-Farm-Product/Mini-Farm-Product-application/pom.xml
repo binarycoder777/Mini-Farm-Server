@@ -11,5 +11,58 @@
 
     <artifactId>Mini-Farm-Product-application</artifactId>
 
+    <dependencies>
+<!--业务包-->
+        <dependency>
+            <groupId>com.cqut.atao</groupId>
+            <artifactId>Mini-Farm-Product-infrastructure</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+<!--基础包-->
+        <dependency>
+            <groupId>com.cqut.atao</groupId>
+            <artifactId>Mini-Farm-swagger-spring-boot-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cqut.atao</groupId>
+            <artifactId>Mini-Farm-log-spring-boot-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+<!--依赖包        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.seata</groupId>
+                    <artifactId>seata-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
