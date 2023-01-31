@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.product.test;
 
 import com.cqut.atao.farm.product.application.service.ProductService;
+import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
 import com.cqut.atao.farm.product.web.ProductApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -25,9 +26,18 @@ public class ApiTest {
     @Resource
     private ProductService productService;
 
+    @Resource
+    private ProductSpuDAO productSpuDAO;
+
+    @Test
+    public void test() {
+        Long spuId = 1477055850256982016l;
+        log.info("根据spuId查找商品",productSpuDAO.selectById(spuId));
+    }
+
     @Test
     public void get() {
-        Long spuId = 122l;
+        Long spuId = 1477055850256982016l;
         log.info("根据spuId查找商品",productService.getProductBySpuId(spuId));
     }
 

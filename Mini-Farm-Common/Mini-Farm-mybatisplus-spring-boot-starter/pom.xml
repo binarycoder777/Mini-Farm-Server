@@ -28,12 +28,13 @@
     </properties>
 
     <dependencies>
+<!--业务包-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus-boot-starter.version}</version>
         </dependency>
-
+<!--基础包-->
         <dependency>
             <groupId>com.cqut.atao</groupId>
             <artifactId>Mini-Farm-common-spring-boot-starter</artifactId>
@@ -51,7 +52,7 @@
             <artifactId>Mini-Farm-distributedid-spring-boot-starter</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
+<!--依赖包-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

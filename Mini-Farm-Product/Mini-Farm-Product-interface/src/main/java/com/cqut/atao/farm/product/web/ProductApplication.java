@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.product.web;
 
 import cn.hippo4j.core.enable.EnableDynamicThreadPool;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,6 +13,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @Description 商品服务启动类
  * @createTime 2023年01月30日 15:46:00
  */
+@EnableDiscoveryClient
+@SpringBootApplication(scanBasePackages = "com.cqut.atao.farm.product")
+@MapperScan("com.cqut.atao.farm.product.infrastructure.dao")
 public class ProductApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProductApplication.class, args);
