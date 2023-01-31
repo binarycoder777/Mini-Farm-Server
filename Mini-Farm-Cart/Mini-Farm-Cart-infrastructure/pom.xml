@@ -3,20 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>Mini-Farm-Server</artifactId>
+        <artifactId>Mini-Farm-Cart</artifactId>
         <groupId>com.cqut.atao</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Mini-Farm-Cart</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>Mini-Farm-Cart-domain</module>
-        <module>Mini-Farm-Cart-application</module>
-        <module>Mini-Farm-Cart-infrastructure</module>
-        <module>Mini-Farm-Cart-interface</module>
-    </modules>
+    <artifactId>Mini-Farm-Cart-infrastructure</artifactId>
 
 
 </project>

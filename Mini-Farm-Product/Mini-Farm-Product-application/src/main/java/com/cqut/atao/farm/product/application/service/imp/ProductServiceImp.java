@@ -1,10 +1,10 @@
 package com.cqut.atao.farm.product.application.service.imp;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.application.service.ProductService;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.product.domain.repository.ProductRepository;
+import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class ProductServiceImp implements ProductService {
 
     public ProductRes getProductBySpuId(Long spuId) {
         Product product = productRepository.getProductBySpuId(spuId);
-        return BeanUtil.copyProperties(product,ProductRes.class);
+        return BeanUtil.convert(product,ProductRes.class);
     }
 
 }

@@ -57,11 +57,6 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.hippo4j</groupId>
-            <artifactId>hippo4j-config-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
             <exclusions>
