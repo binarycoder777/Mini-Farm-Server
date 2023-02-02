@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.product.test;
 
+import com.cqut.atao.farm.product.application.service.ProductCategoryService;
 import com.cqut.atao.farm.product.application.service.ProductService;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
 import com.cqut.atao.farm.product.web.ProductApplication;
@@ -27,18 +28,28 @@ public class ApiTest {
     private ProductService productService;
 
     @Resource
+    private ProductCategoryService productCategoryService;
+
+    @Resource
     private ProductSpuDAO productSpuDAO;
 
     @Test
     public void test() {
         Long spuId = 1477055850256982016l;
-        log.info("根据spuId查找商品",productSpuDAO.selectById(spuId));
+        log.info("根据spuId查找商品->{}",productSpuDAO.selectById(spuId));
     }
 
     @Test
     public void get() {
         Long spuId = 1477055850256982016l;
-        log.info("根据spuId查找商品",productService.getProductBySpuId(spuId));
+        log.info("根据spuId查找商品->{}",productService.getProductBySpuId(spuId));
     }
+
+    @Test
+    public void listOfProductCategory(){
+        log.info("商品类别列表->{}",productCategoryService.listAllProductCategory());
+    }
+
+
 
 }

@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Mini-Farm-Cart</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>Mini-Farm-Cart-domain</module>
+        <module>Mini-Farm-Cart-application</module>
+        <module>Mini-Farm-Cart-infrastructure</module>
+        <module>Mini-Farm-Cart-interface</module>
+    </modules>
 
 
 </project>

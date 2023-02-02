@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.product.infrastructure.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
 import lombok.Data;
 import lombok.NonNull;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
  * @createTime 2023年01月30日 15:57:00
  */
 @Data
+@TableName("product_sku")
 public class ProductSkuPO  extends BaseDO {
     /**
      * id
