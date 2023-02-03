@@ -17,4 +17,5 @@ public interface ReceiveAddressService {
 
     void saveReceiveAddress(ReceiveAddressVO receiveAddressVO);
 
+    void deleteReceiveAddress(String req);
 }

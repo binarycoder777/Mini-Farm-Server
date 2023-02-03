@@ -35,4 +35,9 @@ public class ReceiveAddressServiceImp implements ReceiveAddressService {
     public void saveReceiveAddress(ReceiveAddressVO receiveAddressVO) {
         receiveAddressRepository.saveReceiveAddress(receiveAddressVO);
     }
+
+    @Override
+    public void deleteReceiveAddress(String req) {
+        receiveAddressRepository.deleteReceiveAddress(req);
+    }
 }

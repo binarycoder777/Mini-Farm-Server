@@ -29,7 +29,11 @@ public class ReceiveAddressMangeImp implements ReceiveAddressMange {
         return receiveAddressService.queryList(userId);
     }
 
-    public void addReceiveAddress(ReceiveAddressVO receiveAddressVO) {
+    public void saveReceiveAddress(ReceiveAddressVO receiveAddressVO) {
         receiveAddressService.saveReceiveAddress(receiveAddressVO);
+    }
+
+    public void deleteReceiveAddress(String req) {
+        receiveAddressService.deleteReceiveAddress(req);
     }
 }

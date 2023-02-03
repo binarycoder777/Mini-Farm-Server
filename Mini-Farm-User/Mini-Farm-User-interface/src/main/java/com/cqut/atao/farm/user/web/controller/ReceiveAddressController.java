@@ -41,14 +41,25 @@ public class ReceiveAddressController {
         return Results.success(receiveAddressMange.queryAddressList(customerUserId));
     }
 
-    @GetMapping("/add/receive-address")
-    @ApiOperation(value = "新增用户收货地址", notes = "保存上传的用户收货地址")
+    @PostMapping("/save/receive-address")
+    @ApiOperation(value = "保存用户收货地址", notes = "保存上传的用户收货地址")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ReceiveAddressVO", value = "用户收货地址", required = true, example = "ReceiveAddressVO类")
     })
-    public Result<Void> addReceiveAddress(@RequestBody ReceiveAddressVO req) {
-        receiveAddressMange.addReceiveAddress(req);
+    public Result<Void> saveReceiveAddress(@RequestBody ReceiveAddressVO req) {
+        receiveAddressMange.saveReceiveAddress(req);
         return Results.success();
     }
+
+    @DeleteMapping("/delete/receive-address/{id}")
+    @ApiOperation(value = "删除用户收货地址", notes = "删除上传的用户收货地址")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户收货地址id", required = true, example = "123456")
+    })
+    public Result<Void> deleteReceiveAddress(@PathVariable String req) {
+        receiveAddressMange.deleteReceiveAddress(req);
+        return Results.success();
+    }
+
 
 }

@@ -1,7 +1,11 @@
 package com.cqut.atao.farm.user.infrastructure.respository;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
 import com.cqut.atao.farm.user.domain.repository.ReceiveAddressRepository;
 import com.cqut.atao.farm.user.infrastructure.po.ReceiveAddressPO;
@@ -35,6 +39,18 @@ public class ReceiveAddressRepositoryImp implements ReceiveAddressRepository {
 
     @Override
     public void saveReceiveAddress(ReceiveAddressVO receiveAddressVO) {
-        receiveAddressDao.insert(BeanUtil.toBean(receiveAddressVO,ReceiveAddressPO.class));
+        if (StringUtils.isNotBlank(receiveAddressVO.getId()) && receiveAddressDao.exists(Wrappers.lambdaQuery(ReceiveAddressPO.class).eq(ReceiveAddressPO::getId,receiveAddressVO.getId()))) {
+            int res = receiveAddressDao.update(BeanUtil.toBean(receiveAddressVO,ReceiveAddressPO.class),Wrappers.lambdaQuery(ReceiveAddressPO.class).eq(ReceiveAddressPO::getId,receiveAddressVO.getId()));
+            Assert.isTrue(res > 0, () -> new ServiceException("修改收货地址失败"));
+            return;
+        }
+        int res = receiveAddressDao.insert(BeanUtil.toBean(receiveAddressVO,ReceiveAddressPO.class));
+        Assert.isTrue(res > 0, () -> new ServiceException("新增收货地址失败"));
+    }
+
+    @Override
+    public void deleteReceiveAddress(String req) {
+        int res = receiveAddressDao.delete(Wrappers.lambdaQuery(ReceiveAddressPO.class).eq(ReceiveAddressPO::getId,req));
+        Assert.isTrue(res > 0, () -> new ServiceException("删除收货地址失败"));
     }
 }
