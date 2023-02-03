@@ -13,6 +13,9 @@ import lombok.Data;
 @Data
 public class ReceiveAddressVO {
 
+    @ApiModelProperty("id")
+    private String id;
+
     @ApiModelProperty("c端用户 id")
     private Long customerUserId;
 
