@@ -19,46 +19,44 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
-
-
     /**
      * 收货人
      */
-    private String name;
+    private String cneeName;
 
     /**
      * 收货人电话
      */
-    private String phone;
+    private String cneePhone;
 
     /**
      * 收货人邮编
      */
-    private String postCode;
+    private String cneePostCode;
 
     /**
      * 收货人所在省
      */
-    private String provinc;
+    private String cneeProvinc;
 
     /**
      * 收货人所在市
      */
-    private String city;
+    private String cneeCity;
 
     /**
      * 收货人所在区
      */
-    private String region;
+    private String cneeRegion;
 
     /**
      * 收货人详细地址
      */
-    private String detailAddress;
+    private String cneeDetailAddress;
 
     /**
      * 收货时间
      */
     private Date receiveTime;
-
 }
+

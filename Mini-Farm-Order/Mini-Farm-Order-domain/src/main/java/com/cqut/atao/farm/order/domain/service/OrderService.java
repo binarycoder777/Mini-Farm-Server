@@ -1,5 +1,7 @@
 package com.cqut.atao.farm.order.domain.service;
 
+import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+
 /**
  * @author atao
  * @version 1.0.0
@@ -9,6 +11,10 @@ package com.cqut.atao.farm.order.domain.service;
  */
 public interface OrderService {
 
-
+    /**
+     * 创建订单
+     * @param order {@link Order}
+     */
+    void createOrder(Order order);
 
 }
