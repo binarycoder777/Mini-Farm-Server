@@ -1,10 +1,18 @@
 package com.cqut.atao.farm.order.web.controller;
 
+import com.cqut.atao.farm.order.application.process.OrderOperationProcess;
+import com.cqut.atao.farm.order.application.process.req.CreateOrderReq;
+import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
+import com.cqut.atao.farm.springboot.starter.web.Results;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * @author atao
@@ -20,6 +28,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/order")
 public class OrderController {
 
+    @Resource
+    private OrderOperationProcess orderOperationProcess;
+
+    @PostMapping("/create")
+    @ApiOperation("产品下单")
+    public Result<String> createOrder(@RequestBody CreateOrderReq req) {
+        String orderNo = orderOperationProcess.createOrder(req);
+        return Results.success(orderNo);
+    }
+
+    @PostMapping("/cancel/{orderNo}")
+    @ApiOperation("取消下单")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
+    )
+    public Result<Void> createOrder(@PathVariable String orderNo) {
+        orderOperationProcess.cancelOrder(orderNo);
+        return Results.success();
+    }
 
 
 }
