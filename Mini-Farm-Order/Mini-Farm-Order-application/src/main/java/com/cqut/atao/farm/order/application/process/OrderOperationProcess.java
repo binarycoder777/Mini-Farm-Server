@@ -10,7 +10,7 @@ import com.cqut.atao.farm.order.application.process.req.CreateOrderReq;
  * @Description 创建订单流程接口
  * @createTime 2023年02月04日 15:32:00
  */
-public interface CreateOrderProcess {
+public interface OrderOperationProcess {
 
 
     /**
@@ -19,5 +19,11 @@ public interface CreateOrderProcess {
      * @return 订单号
      */
     String createOrder(CreateOrderReq req);
+
+    /**
+     * 取消订单
+     * @param orderNo 订单号
+     */
+    void cancelOrder(String orderNo);
 
 }
