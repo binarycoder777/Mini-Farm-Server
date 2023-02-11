@@ -1,7 +1,10 @@
 package com.cqut.atao.farm.product.web.controller;
 
+import com.cqut.atao.farm.product.application.req.SearchProductReq;
+import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
-import com.cqut.atao.farm.product.application.service.ProductService;
+import com.cqut.atao.farm.product.application.service.ProductMange;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -32,7 +35,7 @@ import javax.annotation.Resource;
 public class ProductController {
 
     @Resource
-    private ProductService productService;
+    private ProductMange productMange;
 
     @GetMapping("/spu/{spuId}")
     @ApiOperation(value = "根据 spuId 查询商品详情")
@@ -40,8 +43,22 @@ public class ProductController {
             @ApiImplicitParam(name = "spuId", value = "商品 spuId", required = true, example = "1477055850256982016")
     })
     public Result<ProductRes> getProductBySpuId(@PathVariable("spuId") String spuId) {
-        ProductRes result = productService.getProductBySpuId(Long.parseLong(spuId));
+        ProductRes result = productMange.getProductBySpuId(Long.parseLong(spuId));
         return Results.success(result);
+    }
+
+    @GetMapping("/search")
+    @ApiOperation(value = "根据用户搜索进行商品查询")
+    public Result<PageResponse<ProductProfileRes>> searchProduct(SearchProductReq req) {
+        PageResponse<ProductProfileRes> productProfileResPageResponse = productMange.searchProduct(req);
+        return Results.success(productProfileResPageResponse);
+    }
+
+
+    @GetMapping("/recommand/{userId}")
+    @ApiOperation(value = "根据用户喜好进行商品推荐")
+    public Result<PageResponse<ProductProfileRes>> recommandProduct(@PathVariable("userId") String userId) {
+        return null;
     }
 
 }
