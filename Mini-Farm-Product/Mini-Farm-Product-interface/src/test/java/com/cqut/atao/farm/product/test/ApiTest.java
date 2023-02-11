@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.product.test;
 
-import com.cqut.atao.farm.product.application.service.ProductCategoryService;
-import com.cqut.atao.farm.product.application.service.ProductService;
+import com.cqut.atao.farm.product.application.service.ProductCategoryMange;
+import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
 import com.cqut.atao.farm.product.web.ProductApplication;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +25,10 @@ import javax.annotation.Resource;
 public class ApiTest {
 
     @Resource
-    private ProductService productService;
+    private ProductMange productService;
 
     @Resource
-    private ProductCategoryService productCategoryService;
+    private ProductCategoryMange productCategoryService;
 
     @Resource
     private ProductSpuDAO productSpuDAO;
