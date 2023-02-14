@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.user.domain.service.imp;
 
-import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
+import com.cqut.atao.farm.user.domain.model.req.ReceiveAddressReq;
+import com.cqut.atao.farm.user.domain.model.res.ReceiveAddressRes;
 import com.cqut.atao.farm.user.domain.repository.ReceiveAddressRepository;
 import com.cqut.atao.farm.user.domain.service.ReceiveAddressService;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,17 +27,17 @@ public class ReceiveAddressServiceImp implements ReceiveAddressService {
     private ReceiveAddressRepository receiveAddressRepository;
 
     @Override
-    public List<ReceiveAddressVO> queryList(String userId) {
+    public List<ReceiveAddressRes> queryList(String userId) {
         return receiveAddressRepository.queryList(userId);
     }
 
     @Override
-    public void saveReceiveAddress(ReceiveAddressVO receiveAddressVO) {
-        receiveAddressRepository.saveReceiveAddress(receiveAddressVO);
+    public void saveReceiveAddress(ReceiveAddressReq req) {
+        receiveAddressRepository.saveReceiveAddress(req);
     }
 
     @Override
-    public void deleteReceiveAddress(String req) {
-        receiveAddressRepository.deleteReceiveAddress(req);
+    public void deleteReceiveAddress(String id) {
+        receiveAddressRepository.deleteReceiveAddress(id);
     }
 }

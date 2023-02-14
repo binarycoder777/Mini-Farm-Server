@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.user.domain.model.vo;
+package com.cqut.atao.farm.user.domain.model.req;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -6,18 +6,18 @@ import lombok.Data;
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName ReceiveAddressVO.java
- * @Description 用户收货地址VO
- * @createTime 2023年01月13日 21:17:00
+ * @ClassName ReceiveAddressReq.java
+ * @Description 收货地址请求类
+ * @createTime 2023年02月14日 18:21:00
  */
 @Data
-public class ReceiveAddressVO {
+public class ReceiveAddressReq {
 
     @ApiModelProperty("id")
     private String id;
 
     @ApiModelProperty("c端用户 id")
-    private Long customerUserId;
+    private Long userId;
 
     @ApiModelProperty("收货人名称")
     private String name;
@@ -46,4 +46,3 @@ public class ReceiveAddressVO {
     @ApiModelProperty("详细地址")
     private String detailAddress;
 }
-
