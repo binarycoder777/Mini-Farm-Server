@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.user.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
 import lombok.Data;
 
 /**
@@ -11,8 +12,8 @@ import lombok.Data;
  * @createTime 2023年01月13日 20:59:00
  */
 @Data
-@TableName("customer_user_receive_address")
-public class ReceiveAddressPO {
+@TableName("tb_address")
+public class ReceiveAddress extends BaseDO {
 
     /**
      * id
@@ -22,7 +23,7 @@ public class ReceiveAddressPO {
     /**
      * c端用户 id
      */
-    private Long customerUserId;
+    private Long userId;
 
     /**
      * 收货人名称
