@@ -1,6 +1,5 @@
 package com.cqut.atao.farm.product.application.service.imp;
 
-import com.cqut.atao.farm.mybatisplus.springboot.starter.util.PageUtil;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
@@ -9,7 +8,6 @@ import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.product.domain.repository.ProductRepository;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
-import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

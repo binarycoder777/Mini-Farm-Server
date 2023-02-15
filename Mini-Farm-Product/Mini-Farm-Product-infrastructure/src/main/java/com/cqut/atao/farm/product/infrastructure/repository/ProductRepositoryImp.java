@@ -17,7 +17,7 @@ import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import lombok.SneakyThrows;
-import org.elasticsearch.index.query.FuzzyQueryBuilder;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
@@ -78,7 +78,7 @@ public class ProductRepositoryImp implements ProductRepository {
     @Override
     public PageResponse<EsProduct> searchProductInfo(PageRequest pageRequest, String keyword) {
         // 查询条件
-        FuzzyQueryBuilder matchAllQueryBuilder = QueryBuilders.fuzzyQuery("subTitle", keyword);
+        MultiMatchQueryBuilder matchAllQueryBuilder = QueryBuilders.multiMatchQuery(keyword,"name","subTitle");
         // 分页条件
         Pageable pageable= org.springframework.data.domain.PageRequest.of(Integer.parseInt(""+(pageRequest.getCurrent()-1)),Integer.parseInt(""+pageRequest.getSize()));
         // 构建请求

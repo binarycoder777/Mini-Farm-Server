@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.product.application.res;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  * @Description 商品简介
  * @createTime 2023年02月11日 11:02:00
  */
+@Data
 public class ProductProfileRes {
 
     @ApiModelProperty("商品id")
