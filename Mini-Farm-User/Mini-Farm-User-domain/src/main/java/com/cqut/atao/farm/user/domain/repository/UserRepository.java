@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.user.domain.repository;
 
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
-import com.cqut.atao.farm.user.domain.model.vo.VxUserLoginVO;
+import com.cqut.atao.farm.user.domain.model.req.VxUserLoginReq;
 
 /**
  * @author atao
@@ -12,6 +12,9 @@ import com.cqut.atao.farm.user.domain.model.vo.VxUserLoginVO;
  */
 public interface UserRepository {
 
-    LoginRes checkUserInfo(String openid);
+    boolean checkUserInfoByOpenId(String openid);
 
+    void addUser(VxUserLoginReq vxUserLoginVO);
+
+    LoginRes getUserInfoByOpenId(String openid);
 }

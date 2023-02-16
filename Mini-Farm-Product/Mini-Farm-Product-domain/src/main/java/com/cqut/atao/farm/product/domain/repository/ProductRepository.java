@@ -1,6 +1,9 @@
 package com.cqut.atao.farm.product.domain.repository;
 
+import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
 /**
  * @author atao
@@ -18,6 +21,16 @@ public interface ProductRepository {
      * @return
      */
     Product getProductBySpuId(Long spuId);
+
+
+    /**
+     * 根据关键字搜索商品
+     *
+     * @param pageRequest {@link PageRequest}
+     * @param keyword 关键字
+     * @return {@link PageResponse}
+     */
+    PageResponse<EsProduct> searchProductInfo(PageRequest pageRequest, String keyword);
 
 
 }

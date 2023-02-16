@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.user.domain.strategy;
 
+import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 
 import java.util.Map;
@@ -13,6 +14,6 @@ import java.util.Map;
  */
 public interface LoginStrategy{
 
-    LoginRes login(Map<String,String> data);
+    LoginRes login(BaseLoginReq req);
 
 }

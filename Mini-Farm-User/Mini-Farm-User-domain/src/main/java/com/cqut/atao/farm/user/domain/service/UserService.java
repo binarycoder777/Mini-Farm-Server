@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.user.domain.service;
 
+import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 
 import java.util.Map;
@@ -13,6 +14,11 @@ import java.util.Map;
  */
 public interface UserService {
 
-    LoginRes login(Map<String,String> data);
+    /**
+     * 登录服务
+     * @param req 跟进不同的策略获取数据
+     * @return {@link LoginRes}
+     */
+    LoginRes login(BaseLoginReq req);
 
 }

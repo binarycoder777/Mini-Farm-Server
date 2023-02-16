@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.user.application.service;
 
-import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
+import com.cqut.atao.farm.user.domain.model.req.ReceiveAddressReq;
+import com.cqut.atao.farm.user.domain.model.res.ReceiveAddressRes;
 
 import java.util.List;
 
@@ -13,8 +14,23 @@ import java.util.List;
  */
 public interface ReceiveAddressMange {
 
-    List<ReceiveAddressVO> queryAddressList(String userId);
+    /**
+     * 查询收货地址列表
+     * @param userId 用户id
+     * @return {@link List}
+     */
+    List<ReceiveAddressRes> queryAddressList(String userId);
 
-    void addReceiveAddress(ReceiveAddressVO receiveAddressVO);
+    /**
+     * 新增/保存收货地址
+     * @param req
+     */
+    void saveReceiveAddress(ReceiveAddressReq req);
+
+    /**
+     * 删除收货地址
+     * @param id
+     */
+    void deleteReceiveAddress(String id);
 
 }

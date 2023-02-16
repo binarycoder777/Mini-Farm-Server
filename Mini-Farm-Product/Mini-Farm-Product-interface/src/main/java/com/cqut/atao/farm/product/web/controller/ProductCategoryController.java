@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.product.web.controller;
 
 import com.cqut.atao.farm.product.application.res.ProductCategoryRes;
-import com.cqut.atao.farm.product.application.service.ProductCategoryService;
+import com.cqut.atao.farm.product.application.service.ProductCategoryMange;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductCategoryController {
 
-    private final ProductCategoryService productCategoryService;
+    private final ProductCategoryMange productCategoryService;
 
     @ApiOperation(value = "查询商品分类集合", notes = "返回全部分类")
     @GetMapping("/categories")

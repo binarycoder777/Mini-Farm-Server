@@ -10,6 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Mini-Farm-Order</artifactId>
-
+    <packaging>pom</packaging>
+    <modules>
+        <module>Mini-Farm-Order-application</module>
+        <module>Mini-Farm-Order-domain</module>
+        <module>Mini-Farm-Order-interface</module>
+        <module>Mini-Farm-Order-infrastructure</module>
+    </modules>
 
 </project>

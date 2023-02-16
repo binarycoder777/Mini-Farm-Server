@@ -1,7 +1,8 @@
 package com.cqut.atao.farm.user.application.service.imp;
 
 import com.cqut.atao.farm.user.application.service.ReceiveAddressMange;
-import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
+import com.cqut.atao.farm.user.domain.model.req.ReceiveAddressReq;
+import com.cqut.atao.farm.user.domain.model.res.ReceiveAddressRes;
 import com.cqut.atao.farm.user.domain.service.ReceiveAddressService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,11 +26,15 @@ public class ReceiveAddressMangeImp implements ReceiveAddressMange {
     @Resource
     private ReceiveAddressService receiveAddressService;
 
-    public List<ReceiveAddressVO> queryAddressList(String userId) {
+    public List<ReceiveAddressRes> queryAddressList(String userId) {
         return receiveAddressService.queryList(userId);
     }
 
-    public void addReceiveAddress(ReceiveAddressVO receiveAddressVO) {
-        receiveAddressService.saveReceiveAddress(receiveAddressVO);
+    public void saveReceiveAddress(ReceiveAddressReq req) {
+        receiveAddressService.saveReceiveAddress(req);
+    }
+
+    public void deleteReceiveAddress(String id) {
+        receiveAddressService.deleteReceiveAddress(id);
     }
 }

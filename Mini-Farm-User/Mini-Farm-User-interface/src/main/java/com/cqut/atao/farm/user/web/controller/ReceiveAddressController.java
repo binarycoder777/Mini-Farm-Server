@@ -3,8 +3,9 @@ package com.cqut.atao.farm.user.web.controller;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
-import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
 import com.cqut.atao.farm.user.application.service.ReceiveAddressMange;
+import com.cqut.atao.farm.user.domain.model.req.ReceiveAddressReq;
+import com.cqut.atao.farm.user.domain.model.res.ReceiveAddressRes;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -37,18 +38,26 @@ public class ReceiveAddressController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户 id", required = true, example = "1547742028312375296")
     })
-    public Result<List<ReceiveAddressVO>> listReceiveAddress(@PathVariable("userId") String customerUserId) {
+    public Result<List<ReceiveAddressRes>> listReceiveAddress(@PathVariable("userId") String customerUserId) {
         return Results.success(receiveAddressMange.queryAddressList(customerUserId));
     }
 
-    @GetMapping("/add/receive-address")
-    @ApiOperation(value = "新增用户收货地址", notes = "保存上传的用户收货地址")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ReceiveAddressVO", value = "用户收货地址", required = true, example = "ReceiveAddressVO类")
-    })
-    public Result<Void> addReceiveAddress(@RequestBody ReceiveAddressVO req) {
-        receiveAddressMange.addReceiveAddress(req);
+    @PostMapping("/save/receive-address")
+    @ApiOperation(value = "保存用户收货地址", notes = "保存上传的用户收货地址")
+    public Result<Void> saveReceiveAddress(@RequestBody ReceiveAddressReq req) {
+        receiveAddressMange.saveReceiveAddress(req);
         return Results.success();
     }
+
+    @DeleteMapping("/delete/receive-address/{id}")
+    @ApiOperation(value = "删除用户收货地址", notes = "删除上传的用户收货地址")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户收货地址id", required = true, example = "123456")
+    })
+    public Result<Void> deleteReceiveAddress(@PathVariable String id) {
+        receiveAddressMange.deleteReceiveAddress(id);
+        return Results.success();
+    }
+
 
 }
