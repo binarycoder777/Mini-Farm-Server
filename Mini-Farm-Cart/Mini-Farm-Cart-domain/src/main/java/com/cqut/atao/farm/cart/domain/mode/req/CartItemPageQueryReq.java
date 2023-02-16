@@ -1,9 +1,11 @@
-package com.cqut.atao.farm.cart.application.req;
+package com.cqut.atao.farm.cart.domain.mode.req;
 
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author atao
@@ -14,9 +16,11 @@ import lombok.Data;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartItemPageQueryReq extends PageRequest {
 
     @ApiModelProperty("c 端用户 id")
-    private String customerUserId;
+    private String userId;
 
 }

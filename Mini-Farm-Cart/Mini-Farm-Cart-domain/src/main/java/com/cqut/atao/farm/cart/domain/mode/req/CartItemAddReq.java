@@ -1,7 +1,10 @@
-package com.cqut.atao.farm.cart.application.req;
+package com.cqut.atao.farm.cart.domain.mode.req;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -13,6 +16,9 @@ import java.math.BigDecimal;
  * @createTime 2023年02月02日 20:42:00
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartItemAddReq {
     @ApiModelProperty("商品 spu id")
     private String productId;
@@ -21,7 +27,7 @@ public class CartItemAddReq {
     private String productSkuId;
 
     @ApiModelProperty("c 端用户 id")
-    private String customerUserId;
+    private String userId;
 
     @ApiModelProperty("商品图")
     private String productPic;

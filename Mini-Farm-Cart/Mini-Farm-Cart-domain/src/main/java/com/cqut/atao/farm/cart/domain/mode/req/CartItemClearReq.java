@@ -1,7 +1,10 @@
-package com.cqut.atao.farm.cart.application.req;
+package com.cqut.atao.farm.cart.domain.mode.req;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -13,12 +16,12 @@ import java.util.List;
  * @createTime 2023年02月02日 20:15:00
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartItemClearReq {
 
     @ApiModelProperty("用户ID")
-    private String customerUserId;
-
-    @ApiModelProperty("商品SKU集合")
-    private List<String> skuIds;
+    private String userId;
 
 }

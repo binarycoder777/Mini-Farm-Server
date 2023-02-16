@@ -30,12 +30,6 @@
             <artifactId>Mini-Farm-Cart-infrastructure</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-<!--基础包-->
-        <dependency>
-            <groupId>com.cqut.atao</groupId>
-            <artifactId>Mini-Farm-swagger-spring-boot-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 <!--依赖包-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
