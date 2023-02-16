@@ -1,7 +1,8 @@
 package com.cqut.atao.farm.cart.test;
 
-import com.cqut.atao.farm.cart.application.req.CartItemPageQueryReq;
+
 import com.cqut.atao.farm.cart.application.service.CartItemService;
+import com.cqut.atao.farm.cart.domain.mode.req.CartItemPageQueryReq;
 import com.cqut.atao.farm.cart.infrastructure.dao.CartItemDAO;
 import com.cqut.atao.farm.cart.web.CartApplication;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class ApiTest {
     public void get() {
         pageQueryReq = CartItemPageQueryReq
                 .builder()
-                .customerUserId("1547742028312375296")
+                .userId("1547742028312375296")
                 .build();
         pageQueryReq.setCurrent(0l);
         pageQueryReq.setSize(10l);
