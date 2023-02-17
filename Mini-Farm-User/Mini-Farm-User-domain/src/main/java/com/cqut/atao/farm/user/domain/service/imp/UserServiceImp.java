@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.user.domain.service.imp;
 
 import com.cqut.atao.farm.user.common.constant.Constants;
+import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.service.UserService;
 import com.cqut.atao.farm.user.domain.strategy.LoginContext;
@@ -30,15 +31,16 @@ public class UserServiceImp implements UserService {
     private Map<Constants.LoginStrategy, LoginStrategy> loginStrategy;
 
     @Override
-    public LoginRes login(Map<String, String> data) {
-        LoginStrategy strategy = null;
+    public LoginRes login(BaseLoginReq req) {
+        LoginRes res = null;
         // 1.获取登录类型
-        String loginType = data.get("loginType");
+        String loginType = req.getLoginType();
         // 2.登录验证
         if (loginType.equals("VX")) {
-            strategy = loginStrategy.get(Constants.LoginStrategy.VX);
+            res = loginStrategy.get(Constants.LoginStrategy.VX).login(req);
         }
-        return strategy.login(data);
+        // 3.策略模式进行登录
+        return res;
     }
 
 }

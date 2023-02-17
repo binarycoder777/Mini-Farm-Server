@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.user.application.service;
 
+import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 
 import java.util.Map;
@@ -11,9 +12,14 @@ import java.util.Map;
  * @Description 用户服务接口
  * @createTime 2023年01月12日 21:06:00
  */
-public interface UserLogin {
+public interface UserMange {
 
-    LoginRes login(Map<String,String> data);
+    /**
+     * 用户登录
+     * @param data {@link Map}
+     * @return {@link LoginRes}
+     */
+    LoginRes login(BaseLoginReq req);
 
 
 }

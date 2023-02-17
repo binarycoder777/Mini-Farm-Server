@@ -1,8 +1,7 @@
 package com.cqut.atao.farm.user.test;
 
 import com.cqut.atao.farm.user.application.service.ReceiveAddressMange;
-import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
-import com.cqut.atao.farm.user.domain.repository.ReceiveAddressRepository;
+import com.cqut.atao.farm.user.domain.model.res.ReceiveAddressRes;
 import com.cqut.atao.farm.user.web.UserApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -30,7 +29,7 @@ public class ApiTest {
 
     @Test
     public void testReceiveAddressMange() {
-        List<ReceiveAddressVO> receiveAddressVOS = receiveAddressMange.queryAddressList("1547742028312375296");
+        List<ReceiveAddressRes> receiveAddressVOS = receiveAddressMange.queryAddressList("1547742028312375296");
         log.info("测试结果:{}",receiveAddressVOS);
     }
 

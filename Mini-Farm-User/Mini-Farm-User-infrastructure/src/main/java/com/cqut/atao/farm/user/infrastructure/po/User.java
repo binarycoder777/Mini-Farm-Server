@@ -12,8 +12,8 @@ import lombok.Data;
  * @createTime 2023年01月12日 19:57:00
  */
 @Data
-@TableName("customer_user")
-public class UserPO extends BaseDO {
+@TableName("tb_user")
+public class User extends BaseDO {
 
     /**
      * id
@@ -23,7 +23,7 @@ public class UserPO extends BaseDO {
     /**
      * 微信唯一标识
      */
-    private String openId;
+    private String openid;
 
     /**
      * 昵称
@@ -33,7 +33,7 @@ public class UserPO extends BaseDO {
     /**
      * 账号
      */
-    private String accountNumber;
+    private String number;
 
     /**
      * 密码

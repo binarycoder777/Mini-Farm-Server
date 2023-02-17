@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.product.application.service.imp;
 
 import com.cqut.atao.farm.product.application.res.ProductCategoryRes;
-import com.cqut.atao.farm.product.application.service.ProductCategoryService;
+import com.cqut.atao.farm.product.application.service.ProductCategoryMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.ProductCategory;
 import com.cqut.atao.farm.product.domain.repository.ProductCategoryRepository;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
@@ -20,11 +20,12 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class ProductCategoryServiceImp implements ProductCategoryService {
+public class ProductCategoryMangeImpI implements ProductCategoryMange {
 
     @Resource
     private ProductCategoryRepository productCategoryRepository;
 
+    @Override
     public List<ProductCategoryRes> listAllProductCategory() {
         ProductCategory productCategory = productCategoryRepository.listAllProductCategory();
         return BeanUtil.convert(productCategory.getProductCategoryList(),ProductCategoryRes.class);

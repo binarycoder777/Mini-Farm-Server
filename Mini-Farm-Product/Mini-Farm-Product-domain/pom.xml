@@ -12,4 +12,17 @@
     <artifactId>Mini-Farm-Product-domain</artifactId>
 
 
+    <dependencies>
+<!--        基础包-->
+        <dependency>
+            <groupId>com.cqut.atao</groupId>
+            <artifactId>Mini-Farm-convention-spring-boot-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--        依赖包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+    </dependencies>
 </project>

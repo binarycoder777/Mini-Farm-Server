@@ -11,7 +11,7 @@ import java.util.List;
  * @Description 商品类别服务接口
  * @createTime 2023年01月31日 19:54:00
  */
-public interface ProductCategoryService {
+public interface ProductCategoryMange {
     /**
      * 查询全部商品分类集合
      *

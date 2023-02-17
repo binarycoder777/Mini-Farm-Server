@@ -9,13 +9,14 @@ import java.util.Date;
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName ProductSpuRes.java
- * @Description 商品 SPU
- * @createTime 2023年01月31日 19:24:00
+ * @ClassName ProductProfileRes.java
+ * @Description 商品简介
+ * @createTime 2023年02月11日 11:02:00
  */
 @Data
-public class ProductSpuRes {
-    @ApiModelProperty("id")
+public class ProductProfileRes {
+
+    @ApiModelProperty("商品id")
     private Long id;
 
     @ApiModelProperty("商品类型id")
@@ -32,9 +33,6 @@ public class ProductSpuRes {
 
     @ApiModelProperty("商品主图")
     private String pic;
-
-    @ApiModelProperty("商品图集")
-    private String photoAlbum;
 
     @ApiModelProperty("商品价格")
     private BigDecimal price;
@@ -57,15 +55,4 @@ public class ProductSpuRes {
     @ApiModelProperty("单位")
     private String unit;
 
-    @ApiModelProperty("商品详情")
-    private String detail;
-
-    @ApiModelProperty("发布状态 0：发布 1：未发布")
-    private Integer publishStatus;
-
-    @ApiModelProperty("新品状态 0：新品 1：非新品")
-    private Integer newStatus;
-
-    @ApiModelProperty("推荐状态 0：推荐 1：非推荐")
-    private Integer recommandStatus;
 }

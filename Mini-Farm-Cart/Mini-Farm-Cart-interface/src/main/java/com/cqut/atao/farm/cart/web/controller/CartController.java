@@ -1,8 +1,9 @@
 package com.cqut.atao.farm.cart.web.controller;
 
-import com.cqut.atao.farm.cart.application.req.*;
-import com.cqut.atao.farm.cart.application.res.CartItemRes;
+
 import com.cqut.atao.farm.cart.application.service.CartItemService;
+import com.cqut.atao.farm.cart.domain.mode.req.*;
+import com.cqut.atao.farm.cart.domain.mode.res.CartItemRes;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -41,12 +42,12 @@ public class CartController {
         return Results.success(resultPage);
     }
 
-    @GetMapping("/selected/{customerUserId}")
+    @GetMapping("/selected/{userId}")
     @ApiOperation(value = "查询已选中的购物车商品")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "customer_user_id", value = "用户 id", required = true, example = "1547742028312375296")
+            @ApiImplicitParam(name = "userId", value = "用户 id", required = true, example = "1547742028312375296")
     })
-    public Result<List<CartItemRes>> findSelectedCartItem(@PathVariable("customerUserId") String userId) {
+    public Result<List<CartItemRes>> findSelectedCartItem(@PathVariable("userId") String userId) {
         List<CartItemRes> response = cartItemService.getSelectedCartItemInfo(userId);
         return Results.success(response);
     }

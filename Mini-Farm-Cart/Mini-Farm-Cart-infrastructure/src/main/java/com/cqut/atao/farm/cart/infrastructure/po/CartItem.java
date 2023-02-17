@@ -1,25 +1,21 @@
-package com.cqut.atao.farm.cart.domain.mode.aggregate;
+package com.cqut.atao.farm.cart.infrastructure.po;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName CartItem.java
- * @Description 购物车
- * @createTime 2023年01月31日 21:48:00
+ * @ClassName CartItemPO.java
+ * @Description 商品购物车
+ * @createTime 2023年01月31日 21:21:00
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class CartItem {
+@TableName("cart_item")
+public class CartItem extends BaseDO {
 
     /**
      * id
@@ -39,7 +35,7 @@ public class CartItem {
     /**
      * c 端用户 id
      */
-    private Long customerUserId;
+    private Long userId;
 
     /**
      * 商品图
@@ -75,9 +71,5 @@ public class CartItem {
      * 选中标志
      */
     private Integer selectFlag;
-
-    /**
-     * 商品 sku ids
-     */
-    private List<String> skuIds;
 }
+
