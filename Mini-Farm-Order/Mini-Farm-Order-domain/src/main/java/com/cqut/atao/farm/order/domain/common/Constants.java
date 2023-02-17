@@ -1,6 +1,4 @@
-package com.cqut.atao.farm.order.domain.service.stateflow;
-
-import lombok.Data;
+package com.cqut.atao.farm.order.domain.common;
 
 /**
  * @author atao

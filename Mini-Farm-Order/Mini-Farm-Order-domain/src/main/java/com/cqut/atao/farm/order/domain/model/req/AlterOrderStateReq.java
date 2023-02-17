@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.order.domain.model.req;
 
-import com.cqut.atao.farm.order.domain.service.stateflow.Constants;
+
+import com.cqut.atao.farm.order.domain.common.Constants;
 import lombok.Data;
 
 /**

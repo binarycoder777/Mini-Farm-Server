@@ -1,8 +1,8 @@
 package com.cqut.atao.farm.order.domain.repository;
 
+import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
-import com.cqut.atao.farm.order.domain.service.stateflow.Constants;
-import com.sun.tools.internal.jxc.ap.Const;
+
 
 /**
  * @author atao
@@ -27,6 +27,6 @@ public interface OrderRepository {
      * @param nextState 下一状态
      * @return 结果
      */
-    boolean alterState(Long orderId, Enum<Constants.OrderState> currentState,Enum<Constants.OrderState> nextState);
+    boolean alterState(Long orderId, Enum<Constants.OrderState> currentState, Enum<Constants.OrderState> nextState);
 
 }

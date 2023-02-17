@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.order.infrastructure.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cqut.atao.farm.order.domain.service.stateflow.Constants;
+import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.infrastructure.po.OrderPO;
 import org.apache.ibatis.annotations.Update;
 
@@ -15,6 +15,6 @@ import org.apache.ibatis.annotations.Update;
 public interface OrderDAO extends BaseMapper<OrderPO> {
 
     @Update("update order_info set status=#{nextOrderState} where order_sn=#{orderId} and status=#{currentOrderState}")
-    int alterOrderState(Long orderId, Enum<Constants.OrderState> currentOrderState,Enum<Constants.OrderState> nextOrderState);
+    int alterOrderState(Long orderId, Enum<Constants.OrderState> currentOrderState, Enum<Constants.OrderState> nextOrderState);
 
 }

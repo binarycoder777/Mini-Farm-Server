@@ -24,4 +24,10 @@ public interface OrderService {
      */
     void payOrder(AlterOrderStateReq req);
 
+    /**
+     * 取消订单
+     * @param req 订单请求
+     */
+    void cancelOrder(AlterOrderStateReq req);
+
 }

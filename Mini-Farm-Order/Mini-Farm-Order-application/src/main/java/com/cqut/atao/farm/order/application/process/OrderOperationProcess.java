@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.order.application.process;
 
 
-import com.cqut.atao.farm.order.application.process.req.CreateOrderReq;
+import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 
 /**
  * @author atao
@@ -15,10 +15,10 @@ public interface OrderOperationProcess {
 
     /**
      * 创建订单
-     * @param req {@link CreateOrderReq}
+     * @param order {@link Order}
      * @return 订单号
      */
-    String createOrder(CreateOrderReq req);
+    String createOrder(Order order);
 
     /**
      * 取消订单

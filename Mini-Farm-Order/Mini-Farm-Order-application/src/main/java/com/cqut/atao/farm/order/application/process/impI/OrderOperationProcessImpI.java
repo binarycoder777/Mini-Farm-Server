@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.order.application.process.impI;
 
 import com.cqut.atao.farm.order.application.process.OrderOperationProcess;
-import com.cqut.atao.farm.order.application.process.req.CreateOrderReq;
+import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.service.OrderService;
 
 import javax.annotation.Resource;
@@ -18,7 +18,7 @@ public class OrderOperationProcessImpI implements OrderOperationProcess {
     @Resource
     private OrderService orderService;
 
-    public String createOrder(CreateOrderReq req) {
+    public String createOrder(Order order) {
         // 核算金额
 
         // 锁定库存

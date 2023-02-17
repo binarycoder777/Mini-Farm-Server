@@ -1,9 +1,9 @@
 package com.cqut.atao.farm.order.infrastructure.repository;
 
 import cn.hutool.core.lang.Assert;
+import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
-import com.cqut.atao.farm.order.domain.service.stateflow.Constants;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderDAO;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderItemDAO;
 import com.cqut.atao.farm.order.infrastructure.po.OrderItemPO;
