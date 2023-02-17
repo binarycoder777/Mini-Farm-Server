@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.order.domain.service;
 
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 
 /**
  * @author atao
@@ -16,5 +17,17 @@ public interface OrderService {
      * @param order {@link Order}
      */
     void createOrder(Order order);
+
+    /**
+     * 支付订单
+     * @param req 订单请求
+     */
+    void payOrder(AlterOrderStateReq req);
+
+    /**
+     * 取消订单
+     * @param req 订单请求
+     */
+    void cancelOrder(AlterOrderStateReq req);
 
 }
