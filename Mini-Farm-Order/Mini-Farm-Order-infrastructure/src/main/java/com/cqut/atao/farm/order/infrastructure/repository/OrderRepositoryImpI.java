@@ -3,6 +3,7 @@ package com.cqut.atao.farm.order.infrastructure.repository;
 import cn.hutool.core.lang.Assert;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
+import com.cqut.atao.farm.order.domain.service.stateflow.Constants;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderDAO;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderItemDAO;
 import com.cqut.atao.farm.order.infrastructure.po.OrderItemPO;
@@ -32,17 +33,20 @@ public class OrderRepositoryImpI implements OrderRepository {
 
     @Override
     public void saveOrder(Order order) {
+        // 订单基本信息
         OrderPO orderPO = BeanUtil.convert(order, OrderPO.class);
-        int res = orderDAO.insert(orderPO);
-        Assert.isTrue(res > 0 , ()->new ServiceException("保存订单异常"));
+        int res0 = orderDAO.insert(orderPO);
+        Assert.isTrue(res0 > 0 , ()->new ServiceException("保存订单异常"));
+        // 订单商品详情
+        List<OrderItemPO> orderItemPOS = BeanUtil.convert(order.getOrderProducts(), OrderItemPO.class);
+        for (OrderItemPO itemPO: orderItemPOS) {
+            int res1 = orderItemDAO.insert(itemPO);
+            Assert.isTrue(res1 > 0 , ()->new ServiceException("保存订单异常"));
+        }
     }
 
     @Override
-    public void saveOrderItem(Order order) {
-        List<OrderItemPO> orderItemPOS = BeanUtil.convert(order.getOrderProducts(), OrderItemPO.class);
-        for (OrderItemPO itemPO: orderItemPOS) {
-            int res = orderItemDAO.insert(itemPO);
-            Assert.isTrue(res > 0 , ()->new ServiceException("保存订单异常"));
-        }
+    public boolean alterState(Long orderId, Enum<Constants.OrderState> currentState, Enum<Constants.OrderState> nextState) {
+        return orderDAO.alterOrderState(orderId,currentState,nextState) > 0;
     }
 }

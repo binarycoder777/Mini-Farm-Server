@@ -1,8 +1,11 @@
 package com.cqut.atao.farm.order.domain.service.impI;
 
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
 import com.cqut.atao.farm.order.domain.service.OrderService;
+import com.cqut.atao.farm.order.domain.service.event.PayEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,11 +23,14 @@ public class OrderServiceImpI implements OrderService {
     @Resource
     private OrderRepository orderRepository;
 
+    @Resource
+    private ApplicationEventPublisher eventPublisher;
 
     public void createOrder(Order order) {
-        // 保存订单
-        orderRepository.saveOrder(order);
-        // 保存订单商品详情
-        orderRepository.saveOrderItem(order);
+        eventPublisher.publishEvent(order);
+    }
+
+    public void payOrder(AlterOrderStateReq req) {
+        eventPublisher.publishEvent(new PayEvent(req));
     }
 }
