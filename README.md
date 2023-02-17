@@ -40,6 +40,7 @@
 - Nacos 2.1+
 - Sentinel 1.8+
 - RocketMQ 4.5+
+- ElasticSearch 7.6+
 - 其它：根据项目pom依赖版本而定
 - 待定
 
