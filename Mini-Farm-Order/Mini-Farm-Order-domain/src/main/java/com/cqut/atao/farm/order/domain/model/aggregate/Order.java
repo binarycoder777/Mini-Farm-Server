@@ -29,7 +29,7 @@ public class Order {
     /**
      * 用户id
      */
-    private Long customerUserId;
+    private Long userId;
 
     /**
      * 订单编号
