@@ -3,12 +3,16 @@ package com.cqut.atao.farm.order.application.process;
 import cn.hutool.core.lang.Assert;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
+import com.cqut.atao.farm.order.domain.remote.RemoteProductService;
+import com.cqut.atao.farm.order.domain.remote.model.req.CheckAmountReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
+import com.cqut.atao.farm.order.domain.remote.model.req.LockProductStockReq;
+import com.cqut.atao.farm.order.domain.remote.model.res.CheckAmountRes;
 import com.cqut.atao.farm.order.domain.service.OrderService;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 
 import javax.annotation.Resource;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -26,6 +30,9 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
 
     @Resource
     protected RemoteCartService remoteCartService;
+
+    @Resource
+    protected RemoteProductService remoteProductService;
 
     @Override
     public String createOrder(Order order) {
@@ -54,7 +61,11 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
      * @return boolean
      */
      private boolean checkOrderAmount(Order order){
-         return true;
+         CheckAmountReq req = CheckAmountReq.builder()
+                 .skuIds(order.getOrderProducts().stream().map(e -> e.getProductSkuId()).collect(Collectors.toList()))
+                 .build();
+         CheckAmountRes res = remoteProductService.checkCartProductAmount(req).getData();
+         return res.getPayAmount().equals(order.getPayAmount());
      }
 
     /**
@@ -63,7 +74,10 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
      * @return boolean
      */
     private boolean lockStock(Order order) {
-        return true;
+        LockProductStockReq req = LockProductStockReq.builder()
+                .skuIds(order.getOrderProducts().stream().map(e -> e.getProductSkuId()).collect(Collectors.toList()))
+                .build();
+        return Result.SUCCESS_CODE.equals(remoteProductService.lockProductStock(req).getCode());
     }
 
     /**
