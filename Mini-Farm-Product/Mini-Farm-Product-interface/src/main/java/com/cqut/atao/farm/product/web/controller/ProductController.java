@@ -4,6 +4,7 @@ import com.cqut.atao.farm.product.application.req.SearchProductReq;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.application.service.ProductMange;
+import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -13,10 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -59,6 +57,20 @@ public class ProductController {
     @ApiOperation(value = "根据用户喜好进行商品推荐")
     public Result<PageResponse<ProductProfileRes>> recommandProduct(@PathVariable("userId") String userId) {
         return null;
+    }
+
+    @PutMapping("/lock/stock")
+    @ApiOperation(value = "锁定商品库存")
+    public Result<Void> lockProductStock(@RequestBody OrderInfo orderInfo){
+        productMange.lockProductStock(orderInfo);
+        return Results.success();
+    }
+
+    @PutMapping("/unlock/stock")
+    @ApiOperation(value = "释放商品库存")
+    public Result<Void> unlockProductStock(@RequestBody OrderInfo orderInfo){
+        productMange.unlockProductStock(orderInfo);
+        return Results.success();
     }
 
 }

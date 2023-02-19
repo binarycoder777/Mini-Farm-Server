@@ -5,6 +5,7 @@ import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
+import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.product.domain.repository.ProductRepository;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
@@ -39,5 +40,15 @@ public class ProductMangeImpI implements ProductMange {
     public PageResponse<ProductProfileRes> searchProduct(SearchProductReq request) {
         PageResponse<EsProduct> esProductPageResponse = productRepository.searchProductInfo(request,request.getKeyword());
         return esProductPageResponse.convert(e->BeanUtil.convert(e,ProductProfileRes.class));
+    }
+
+    @Override
+    public void lockProductStock(OrderInfo orderInfo) {
+        productRepository.lockProductStock(orderInfo);
+    }
+
+    @Override
+    public void unlockProductStock(OrderInfo orderInfo) {
+        productRepository.unlockProductStock(orderInfo);
     }
 }

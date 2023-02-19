@@ -5,6 +5,8 @@ import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.service.ProductCategoryMange;
 import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
+import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
+import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
 import com.cqut.atao.farm.product.infrastructure.es.EsProductDAO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
 import com.cqut.atao.farm.product.infrastructure.po.ProductSpuPO;
@@ -18,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,6 +82,22 @@ public class ApiTest {
     @Test
     public void listOfProductCategory(){
         log.info("商品类别列表->{}",productCategoryService.listAllProductCategory());
+    }
+
+    @Test
+    public void lockStock(){
+        OrderItemInfo orderItemInfo = OrderItemInfo.builder()
+                .num(1)
+                .skuId(1477056250724933632L)
+                .build();
+        List<OrderItemInfo> list = new ArrayList<>();
+        list.add(orderItemInfo);
+
+        OrderInfo orderInfo = OrderInfo.builder()
+                .orderNo("")
+                .orderItemInfos(list)
+                .build();
+        productService.lockProductStock(orderInfo);
     }
 
 

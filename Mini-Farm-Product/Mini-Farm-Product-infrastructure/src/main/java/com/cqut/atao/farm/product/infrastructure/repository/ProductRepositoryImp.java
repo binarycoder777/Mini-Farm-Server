@@ -1,7 +1,10 @@
 package com.cqut.atao.farm.product.infrastructure.repository;
 
+import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
+import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
+import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductBrandVO;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSkuVO;
@@ -14,6 +17,7 @@ import com.cqut.atao.farm.product.infrastructure.po.ProductBrandPO;
 import com.cqut.atao.farm.product.infrastructure.po.ProductSkuPO;
 import com.cqut.atao.farm.product.infrastructure.po.ProductSpuPO;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
+import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import lombok.SneakyThrows;
@@ -94,4 +98,20 @@ public class ProductRepositoryImp implements ProductRepository {
         return new PageResponse<EsProduct>(pageRequest.getCurrent(),pageRequest.getSize(),search.getTotalHits(),collect);
     }
 
+
+    @Override
+    public void lockProductStock(OrderInfo orderInfo) {
+        for (OrderItemInfo itemInfo: orderInfo.getOrderItemInfos()) {
+            int res = productSkuDAO.lockStock(itemInfo);
+            Assert.isTrue(res>0 ,()->new ServiceException("锁定库存失败"));
+        }
+    }
+
+    @Override
+    public void unlockProductStock(OrderInfo orderInfo) {
+        for (OrderItemInfo itemInfo: orderInfo.getOrderItemInfos()) {
+            int res = productSkuDAO.unlockStock(itemInfo);
+            Assert.isTrue(res>0 ,()->new ServiceException("锁定库存失败"));
+        }
+    }
 }

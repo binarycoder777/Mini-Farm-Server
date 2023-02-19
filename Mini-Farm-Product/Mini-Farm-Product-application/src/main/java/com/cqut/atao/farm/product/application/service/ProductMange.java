@@ -3,6 +3,7 @@ package com.cqut.atao.farm.product.application.service;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
+import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
@@ -31,5 +32,18 @@ public interface ProductMange {
      * @return 结果
      */
     PageResponse<ProductProfileRes> searchProduct(SearchProductReq req);
+
+    /**
+     * 锁定下单的商品库存
+     * @param orderInfo {@link OrderInfo}
+     */
+    void lockProductStock(OrderInfo orderInfo);
+
+    /**
+     * 释放下单的商品库存
+     * @param orderInfo {@link OrderInfo}
+     */
+    void unlockProductStock(OrderInfo orderInfo);
+
 
 }
