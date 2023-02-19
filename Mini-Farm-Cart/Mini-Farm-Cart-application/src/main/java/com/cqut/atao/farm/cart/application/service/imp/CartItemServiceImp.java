@@ -1,9 +1,9 @@
 package com.cqut.atao.farm.cart.application.service.imp;
 
-import com.cqut.atao.farm.cart.application.req.*;
-import com.cqut.atao.farm.cart.application.res.CartItemRes;
+
 import com.cqut.atao.farm.cart.application.service.CartItemService;
-import com.cqut.atao.farm.cart.domain.mode.aggregate.CartItem;
+import com.cqut.atao.farm.cart.domain.mode.req.*;
+import com.cqut.atao.farm.cart.domain.mode.res.CartItemRes;
 import com.cqut.atao.farm.cart.domain.repository.CartItemRepository;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -27,38 +27,37 @@ public class CartItemServiceImp implements CartItemService {
 
     @Override
     public PageResponse<CartItemRes> pageQueryCartItem(CartItemPageQueryReq requestParam) {
-        PageResponse<CartItem> cartItemPageResponse = cartItemRepository.pageQueryCartItem(requestParam.getCustomerUserId(), requestParam);
-        return cartItemPageResponse.convert(each -> BeanUtil.convert(each, CartItemRes.class));
+        return cartItemRepository.pageQueryCartItem(requestParam.getUserId(), requestParam);
     }
 
     @Override
     public List<CartItemRes> getSelectedCartItemInfo(String userId) {
-        List<CartItem> cartItems = cartItemRepository.querySelectedCartItem(userId);
-        return BeanUtil.convert(cartItems,CartItemRes.class);
+        return cartItemRepository.querySelectedCartItem(userId);
     }
 
     @Override
     public void addCartItem(CartItemAddReq req) {
-        CartItem addReq = BeanUtil.convert(req, CartItem.class);
-        cartItemRepository.addCartItem(addReq);
+        cartItemRepository.addCartItem(req);
     }
 
     @Override
     public void updateSelectedCartItem(CartItemSelectedReq req) {
-        CartItem modifySelecteReq = BeanUtil.convert(req, CartItem.class);
-        cartItemRepository.updateSelectedCartItem(modifySelecteReq);
+        cartItemRepository.updateSelectedCartItem(req);
     }
 
 
     @Override
     public void updateCartItemNum(CartItemNumReq req) {
-        CartItem cartItem = BeanUtil.convert(req, CartItem.class);
-        cartItemRepository.updateCartItem(cartItem);
+        cartItemRepository.updateCartItem(req);
     }
 
     @Override
     public void clearCartItem(CartItemClearReq requestParam) {
-        CartItem cartItem = BeanUtil.convert(requestParam, CartItem.class);
-        cartItemRepository.clearCartItem(cartItem);
+        cartItemRepository.clearCartItem(requestParam);
+    }
+
+    @Override
+    public void deleteCartItem(CartItemDeleteReq requestParam) {
+        cartItemRepository.deleteCartItem(requestParam);
     }
 }

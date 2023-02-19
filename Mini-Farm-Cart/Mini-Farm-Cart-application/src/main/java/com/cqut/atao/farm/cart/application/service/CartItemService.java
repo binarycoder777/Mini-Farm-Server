@@ -1,7 +1,8 @@
 package com.cqut.atao.farm.cart.application.service;
 
-import com.cqut.atao.farm.cart.application.req.*;
-import com.cqut.atao.farm.cart.application.res.CartItemRes;
+
+import com.cqut.atao.farm.cart.domain.mode.req.*;
+import com.cqut.atao.farm.cart.domain.mode.res.CartItemRes;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
 import java.util.List;
@@ -58,5 +59,12 @@ public interface CartItemService {
      * @param requestParam
      */
     void clearCartItem(CartItemClearReq requestParam);
+
+    /**
+     * 清理购物车商品
+     *
+     * @param requestParam
+     */
+    void deleteCartItem(CartItemDeleteReq requestParam);
 
 }

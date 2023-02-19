@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.user.domain.repository;
 
-import com.cqut.atao.farm.user.domain.model.vo.ReceiveAddressVO;
+import com.cqut.atao.farm.user.domain.model.req.ReceiveAddressReq;
+import com.cqut.atao.farm.user.domain.model.res.ReceiveAddressRes;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public interface ReceiveAddressRepository {
 
-    List<ReceiveAddressVO> queryList(String userId);
+    List<ReceiveAddressRes> queryList(String userId);
 
-    void saveReceiveAddress(ReceiveAddressVO receiveAddressVO);
+    void saveReceiveAddress(ReceiveAddressReq req);
 
-    void deleteReceiveAddress(String req);
+    void deleteReceiveAddress(String id);
 }

@@ -18,13 +18,16 @@ import lombok.NoArgsConstructor;
 public class LoginRes {
 
     @ApiModelProperty(value = "用户ID")
-    private Long customerUserId;
+    private Long id;
+
+    @ApiModelProperty(value = "用户头像")
+    private String avater;
 
     @ApiModelProperty(value = "用户名")
-    private String username;
+    private String name;
 
     @ApiModelProperty(value = "账号")
-    private String accountNumber;
+    private String number;
 
     @ApiModelProperty(value = "Token")
     private String accessToken;

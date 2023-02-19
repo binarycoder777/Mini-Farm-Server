@@ -1,6 +1,8 @@
 package com.cqut.atao.farm.cart.domain.repository;
 
-import com.cqut.atao.farm.cart.domain.mode.aggregate.CartItem;
+
+import com.cqut.atao.farm.cart.domain.mode.req.*;
+import com.cqut.atao.farm.cart.domain.mode.res.CartItemRes;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
@@ -20,43 +22,50 @@ public interface CartItemRepository {
      *
      * @param userId      用户id
      * @param pageRequest 分页请求
-     * @return {@link PageResponse<CartItem>}
+     * @return {@link PageResponse< CartItemRes >}
      */
-    PageResponse<CartItem> pageQueryCartItem(String userId, PageRequest pageRequest);
+    PageResponse<CartItemRes> pageQueryCartItem(String userId, PageRequest pageRequest);
 
     /**
      * 查询购物车已选中商品
      *
      * @param userId 用户id
-     * @return {@link List<CartItem>}
+     * @return {@link List< CartItemRes >}
      */
-    List<CartItem> querySelectedCartItem(String userId);
+    List<CartItemRes> querySelectedCartItem(String userId);
 
     /**
      * 更新购物车商品选中状态
      *
      * @param req
      */
-    void updateSelectedCartItem(CartItem req);
+    void updateSelectedCartItem(CartItemSelectedReq req);
 
     /**
      * 新增购物车商品
      *
      * @param req
      */
-    void addCartItem(CartItem req);
+    void addCartItem(CartItemAddReq req);
 
     /**
      * 修改购物车商品
      *
-     * @param cartItem
+     * @param req
      */
-    void updateCartItem(CartItem cartItem);
+    void updateCartItem(CartItemNumReq req);
 
     /**
      * 删除购物车商品
      *
-     * @param cartItem
+     * @param req
      */
-    void clearCartItem(CartItem cartItem);
+    void clearCartItem(CartItemClearReq req);
+
+    /**
+     * 删除购物车商品
+     *
+     * @param req
+     */
+    void deleteCartItem(CartItemDeleteReq req);
 }

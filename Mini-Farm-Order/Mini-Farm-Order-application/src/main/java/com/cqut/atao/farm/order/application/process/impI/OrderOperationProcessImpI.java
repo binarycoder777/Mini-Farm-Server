@@ -1,10 +1,16 @@
 package com.cqut.atao.farm.order.application.process.impI;
 
+import com.cqut.atao.farm.order.application.process.AbstractOrderOperation;
 import com.cqut.atao.farm.order.application.process.OrderOperationProcess;
-import com.cqut.atao.farm.order.application.process.req.CreateOrderReq;
+import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
+import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
 import com.cqut.atao.farm.order.domain.service.OrderService;
+import io.prometheus.client.Collector;
 
 import javax.annotation.Resource;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author atao
@@ -13,29 +19,21 @@ import javax.annotation.Resource;
  * @Description 创建订单实流程现类
  * @createTime 2023年02月04日 16:05:00
  */
-public class OrderOperationProcessImpI implements OrderOperationProcess {
+public class OrderOperationProcessImpI extends AbstractOrderOperation {
 
-    @Resource
-    private OrderService orderService;
 
-    public String createOrder(CreateOrderReq req) {
-        // 1.生成订单号
 
-        // 2.远程调用购物车服务，获取已选中的结算商品列表
-
-        // 3.构建订单聚合对象
-
-        // 4.创建订单
-
-        // 5.清空购物车已选中商品列表
-
-        // 6.锁定商品库存
-
-        // 发送消给延迟队列(取消未支付的订单)
-        return null;
+    @Override
+    protected String generateOrder(Order order) {
+        // 暂时用uuid生产订单号
+        String uuid = UUID.randomUUID().toString();
+        order.setOrderSn(uuid);
+        orderService.createOrder(order);
+        return uuid;
     }
 
 
+    @Override
     public void cancelOrder(String orderNo) {
         // 1.修改订单信息
 
