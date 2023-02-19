@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cqut.atao.farm.cart.domain.mode.req.CartItemAddReq;
-import com.cqut.atao.farm.cart.domain.mode.req.CartItemClearReq;
-import com.cqut.atao.farm.cart.domain.mode.req.CartItemNumReq;
-import com.cqut.atao.farm.cart.domain.mode.req.CartItemSelectedReq;
+import com.cqut.atao.farm.cart.domain.mode.req.*;
 import com.cqut.atao.farm.cart.domain.mode.res.CartItemRes;
 import com.cqut.atao.farm.cart.domain.repository.CartItemRepository;
 import com.cqut.atao.farm.cart.infrastructure.dao.CartItemDAO;
@@ -86,5 +83,16 @@ public class CartItemRepositoryImpI implements CartItemRepository {
                 .eq(CartItem::getUserId, cartItem.getUserId());
         int updateFlag = cartItemDAO.delete(updateWrapper);
         Assert.isTrue(updateFlag > 0, () -> new ServiceException("清空购物车失败"));
+    }
+
+    @Override
+    public void deleteCartItem(CartItemDeleteReq req) {
+        for (Long skuid: req.getSkuIds()) {
+             LambdaQueryWrapper<CartItem> wrapper = Wrappers.lambdaQuery(CartItem.class)
+                    .eq(CartItem::getUserId, req.getUserId())
+                    .eq(CartItem::getProductSkuId, skuid);
+             int delete = cartItemDAO.delete(wrapper);
+             Assert.isTrue(delete > 0 , () -> new ServiceException("删除购物车商品失败"));
+        }
     }
 }

@@ -55,4 +55,9 @@ public class CartItemServiceImp implements CartItemService {
     public void clearCartItem(CartItemClearReq requestParam) {
         cartItemRepository.clearCartItem(requestParam);
     }
+
+    @Override
+    public void deleteCartItem(CartItemDeleteReq requestParam) {
+        cartItemRepository.deleteCartItem(requestParam);
+    }
 }

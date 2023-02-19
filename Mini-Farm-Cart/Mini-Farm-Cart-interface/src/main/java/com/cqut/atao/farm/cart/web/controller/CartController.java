@@ -73,10 +73,17 @@ public class CartController {
         return Results.success();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/clear")
     @ApiOperation(value = "清除购物车商品")
-    public Result<Void> clearCartProduct(@RequestBody CartItemClearReq requestParam) {
+    public Result<Void> deleteCartProduct(@RequestBody CartItemClearReq requestParam) {
         cartItemService.clearCartItem(requestParam);
+        return Results.success();
+    }
+
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "删除购物车商品")
+    public Result<Void> clearCartProduct(@RequestBody CartItemDeleteReq requestParam) {
+        cartItemService.deleteCartItem(requestParam);
         return Results.success();
     }
 

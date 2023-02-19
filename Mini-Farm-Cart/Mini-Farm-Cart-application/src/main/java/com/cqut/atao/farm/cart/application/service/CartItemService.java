@@ -60,4 +60,11 @@ public interface CartItemService {
      */
     void clearCartItem(CartItemClearReq requestParam);
 
+    /**
+     * 清理购物车商品
+     *
+     * @param requestParam
+     */
+    void deleteCartItem(CartItemDeleteReq requestParam);
+
 }
