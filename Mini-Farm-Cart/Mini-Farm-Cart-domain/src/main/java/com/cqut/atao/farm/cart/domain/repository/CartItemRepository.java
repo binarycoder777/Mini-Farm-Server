@@ -1,10 +1,7 @@
 package com.cqut.atao.farm.cart.domain.repository;
 
 
-import com.cqut.atao.farm.cart.domain.mode.req.CartItemAddReq;
-import com.cqut.atao.farm.cart.domain.mode.req.CartItemClearReq;
-import com.cqut.atao.farm.cart.domain.mode.req.CartItemNumReq;
-import com.cqut.atao.farm.cart.domain.mode.req.CartItemSelectedReq;
+import com.cqut.atao.farm.cart.domain.mode.req.*;
 import com.cqut.atao.farm.cart.domain.mode.res.CartItemRes;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -64,4 +61,11 @@ public interface CartItemRepository {
      * @param req
      */
     void clearCartItem(CartItemClearReq req);
+
+    /**
+     * 删除购物车商品
+     *
+     * @param req
+     */
+    void deleteCartItem(CartItemDeleteReq req);
 }
