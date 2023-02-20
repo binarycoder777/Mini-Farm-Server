@@ -1,16 +1,13 @@
 package com.cqut.atao.farm.order.application.process.impI;
 
 import com.cqut.atao.farm.order.application.process.AbstractOrderOperation;
-import com.cqut.atao.farm.order.application.process.OrderOperationProcess;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
-import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
-import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
-import com.cqut.atao.farm.order.domain.service.OrderService;
-import io.prometheus.client.Collector;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * @author atao
@@ -19,9 +16,8 @@ import java.util.stream.Collectors;
  * @Description 创建订单实流程现类
  * @createTime 2023年02月04日 16:05:00
  */
+@Service
 public class OrderOperationProcessImpI extends AbstractOrderOperation {
-
-
 
     @Override
     protected String generateOrder(Order order) {
