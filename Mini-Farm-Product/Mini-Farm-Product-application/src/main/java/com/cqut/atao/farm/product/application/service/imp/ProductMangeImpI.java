@@ -1,6 +1,8 @@
 package com.cqut.atao.farm.product.application.service.imp;
 
+import com.cqut.atao.farm.product.application.req.CheckAmountReq;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
+import com.cqut.atao.farm.product.application.res.CheckAmountRes;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.application.service.ProductMange;
@@ -14,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 
 /**
  * @author atao
@@ -50,5 +53,11 @@ public class ProductMangeImpI implements ProductMange {
     @Override
     public void unlockProductStock(OrderInfo orderInfo) {
         productRepository.unlockProductStock(orderInfo);
+    }
+
+    @Override
+    public CheckAmountRes checkProductAmount(CheckAmountReq req) {
+        BigDecimal payAmount = productRepository.checkProductAmount(req.getSkuIds());
+        return CheckAmountRes.builder().payAmount(payAmount).build();
     }
 }

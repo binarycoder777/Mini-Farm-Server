@@ -1,6 +1,8 @@
 package com.cqut.atao.farm.product.web.controller;
 
+import com.cqut.atao.farm.product.application.req.CheckAmountReq;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
+import com.cqut.atao.farm.product.application.res.CheckAmountRes;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.application.service.ProductMange;
@@ -71,6 +73,13 @@ public class ProductController {
     public Result<Void> unlockProductStock(@RequestBody OrderInfo orderInfo){
         productMange.unlockProductStock(orderInfo);
         return Results.success();
+    }
+
+    @PostMapping("/check/amount")
+    @ApiOperation(value = "核验订单商品金额")
+    public Result<CheckAmountRes> checkProductAmount(@RequestBody CheckAmountReq req){
+        CheckAmountRes checkAmountRes = productMange.checkProductAmount(req);
+        return Results.success(checkAmountRes);
     }
 
 }
