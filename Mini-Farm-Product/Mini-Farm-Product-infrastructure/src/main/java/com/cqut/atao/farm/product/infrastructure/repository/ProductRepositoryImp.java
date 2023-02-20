@@ -21,6 +21,7 @@ import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceExcepti
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -44,6 +46,7 @@ import java.util.stream.Collectors;
  * @Description 商品存储实现类
  * @createTime 2023年01月30日 19:47:00
  */
+@Slf4j
 @Repository
 public class ProductRepositoryImp implements ProductRepository {
 
@@ -113,5 +116,16 @@ public class ProductRepositoryImp implements ProductRepository {
             int res = productSkuDAO.unlockStock(itemInfo);
             Assert.isTrue(res>0 ,()->new ServiceException("锁定库存失败"));
         }
+    }
+
+    @Override
+    public BigDecimal checkProductAmount(List<Long> skuList) {
+        BigDecimal payAmount = new BigDecimal("0");
+        for (Long skuId: skuList) {
+            ProductSkuPO productSkuPO = productSkuDAO.selectById(skuId);
+            payAmount = payAmount.add(productSkuPO.getPrice());
+        }
+        log.info("核验金额------>{}",payAmount);
+        return payAmount;
     }
 }

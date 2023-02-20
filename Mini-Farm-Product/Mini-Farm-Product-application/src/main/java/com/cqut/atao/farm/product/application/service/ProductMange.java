@@ -1,6 +1,8 @@
 package com.cqut.atao.farm.product.application.service;
 
+import com.cqut.atao.farm.product.application.req.CheckAmountReq;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
+import com.cqut.atao.farm.product.application.res.CheckAmountRes;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
@@ -45,5 +47,12 @@ public interface ProductMange {
      */
     void unlockProductStock(OrderInfo orderInfo);
 
+
+    /**
+     * 核验订单金额
+     * @param req {@link CheckAmountReq}
+     * @return {@link CheckAmountRes}
+     */
+    CheckAmountRes checkProductAmount(CheckAmountReq req);
 
 }

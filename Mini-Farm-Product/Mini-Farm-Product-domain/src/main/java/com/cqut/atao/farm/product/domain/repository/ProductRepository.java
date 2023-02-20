@@ -6,6 +6,9 @@ import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 /**
  * @author atao
  * @version 1.0.0
@@ -44,5 +47,14 @@ public interface ProductRepository {
      * @param orderInfo {@link OrderInfo}
      */
     void unlockProductStock(OrderInfo orderInfo);
+
+
+    /**
+     * 查询商品支付金额
+     * @param skuList
+     * @return
+     */
+    BigDecimal checkProductAmount(List<Long> skuList);
+
 
 }
