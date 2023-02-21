@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Description 远程购物车服务
  * @createTime 2023年02月18日 08:57:00
  */
-@FeignClient("cart-service")
+@FeignClient("cart")
 public interface RemoteCartService {
 
 
     /**
      * 删除购物车商品
      */
-    @DeleteMapping("/api/cart/product")
+    @DeleteMapping("/api/cart/product/delete")
     Result<Void> deleteCartProduct(@RequestBody DeleteCartItemReq req);
 
 }

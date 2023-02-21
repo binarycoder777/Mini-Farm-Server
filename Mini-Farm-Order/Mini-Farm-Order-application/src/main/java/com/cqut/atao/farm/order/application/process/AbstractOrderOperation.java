@@ -4,15 +4,15 @@ import cn.hutool.core.lang.Assert;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
 import com.cqut.atao.farm.order.domain.remote.RemoteProductService;
-import com.cqut.atao.farm.order.domain.remote.model.req.CheckAmountReq;
-import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
-import com.cqut.atao.farm.order.domain.remote.model.req.LockProductStockReq;
+import com.cqut.atao.farm.order.domain.remote.model.req.*;
 import com.cqut.atao.farm.order.domain.remote.model.res.CheckAmountRes;
 import com.cqut.atao.farm.order.domain.service.OrderService;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
  * @Description 订单操作抽象类
  * @createTime 2023年02月18日 09:54:00
  */
+@Slf4j
 public abstract class AbstractOrderOperation implements OrderOperationProcess{
 
 
@@ -65,7 +66,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
                  .skuIds(order.getOrderProducts().stream().map(e -> e.getProductSkuId()).collect(Collectors.toList()))
                  .build();
          CheckAmountRes res = remoteProductService.checkCartProductAmount(req).getData();
-         return res.getPayAmount().equals(order.getPayAmount());
+         return res.getPayAmount().compareTo(order.getPayAmount()) == 0;
      }
 
     /**
@@ -74,8 +75,17 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
      * @return boolean
      */
     private boolean lockStock(Order order) {
-        LockProductStockReq req = LockProductStockReq.builder()
-                .skuIds(order.getOrderProducts().stream().map(e -> e.getProductSkuId()).collect(Collectors.toList()))
+        // 商品集合
+        List<OrderItemInfo> orderItemInfo = order.getOrderProducts().stream().map(e -> {
+            return OrderItemInfo.builder()
+                    .num(e.getProductQuantity())
+                    .skuId(e.getProductSkuId())
+                    .build();
+        }).collect(Collectors.toList());
+        // 构造请求
+         OrderInfoReq req = OrderInfoReq.builder()
+                .orderNo(order.getOrderSn())
+                .orderItemInfos(orderItemInfo)
                 .build();
         return Result.SUCCESS_CODE.equals(remoteProductService.lockProductStock(req).getCode());
     }

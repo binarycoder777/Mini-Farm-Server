@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.product.domain.mode.aggregate;
+package com.cqut.atao.farm.order.domain.remote.model.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
