@@ -1,7 +1,6 @@
 package com.cqut.atao.farm.pay.domain.acquiresystem.check;
 
-import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
-
+import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 /**
  * @author atao
  * @version 1.0.0

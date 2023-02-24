@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.pay.domain.thirdpayment;
 
-import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
+
+import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 
 /**
  * @author atao

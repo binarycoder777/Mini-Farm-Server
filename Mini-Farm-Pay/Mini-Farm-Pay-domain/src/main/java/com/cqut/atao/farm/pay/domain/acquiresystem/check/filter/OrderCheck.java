@@ -1,7 +1,8 @@
 package com.cqut.atao.farm.pay.domain.acquiresystem.check.filter;
 
 import com.cqut.atao.farm.pay.domain.acquiresystem.check.AbstractCheck;
-import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
+
+import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,11 @@
 package com.cqut.atao.farm.pay.domain.thirdpayment.strategy;
 
+import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 import com.cqut.atao.farm.pay.domain.remote.RemoteMessageSerivce;
 import com.cqut.atao.farm.pay.domain.remote.RemoteUserSerivce;
 import com.cqut.atao.farm.pay.domain.remote.model.req.MailMessageSendReq;
 import com.cqut.atao.farm.pay.domain.remote.model.res.UserInfoRes;
 import com.cqut.atao.farm.pay.domain.thirdpayment.ThirdPay;
-import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
