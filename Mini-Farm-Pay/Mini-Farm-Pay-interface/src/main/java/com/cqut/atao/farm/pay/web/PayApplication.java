@@ -1,6 +1,6 @@
 package com.cqut.atao.farm.pay.web;
 
-import com.cqut.atao.farm.pay.domain.mq.message.MessageSink;
+import com.cqut.atao.farm.rocketmq.springboot.starter.message.MessageSink;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

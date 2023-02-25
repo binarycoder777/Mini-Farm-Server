@@ -40,11 +40,7 @@ public abstract class AcquireAbstract implements AcquirePay{
     @Resource
     protected PayInfoRepository payInfoRepository;
 
-    /**
-     * 付款
-     * @param payReq 支付请求
-     */
-    public void payMoney(PayReq payReq){
+    public Object generatePaySign(PayReq payReq) {
         // 风险控制
         if (!riskHandler.doRisk(payReq.getOrder())) {
             throw new ServiceException("该账号存在交易风险");
@@ -53,14 +49,30 @@ public abstract class AcquireAbstract implements AcquirePay{
         if (!checkHandler.doCheck(payReq.getOrder())) {
             throw new ServiceException("信息核验出错");
         }
-        // 生成支付单
-        Payment payment = this.generatePayment(payReq);
-        // 调用三方支付进行支付
-        thirdPayContent.getThirdPay(payReq.getPayCode()).doPay(payReq.getOrder());
-        // MQ异步通知更新订单状态
-        this.asyncUpdateOrder(payment);
+        // 生成三方支付验签
+        Object object = thirdPayContent.getThirdPay(payReq.getPayCode()).generatePaySign(payReq.getOrder());
+        // 返回结果
+        return object;
     }
 
+    public Object notifyPayResult(PayReq payReq) {
+        // 三方支付成功
+        if (this.paySuccess(payReq)) {
+            // 生成支付单
+            Payment payment = this.generatePayment(payReq);
+            // 异步更新订单信息
+            this.asyncUpdateOrder(payment);
+            return "pay success";
+        }
+        return "pay fail";
+    }
+
+    /**
+     * 判断是否支付成功
+     * @param req
+     * @return
+     */
+    public abstract boolean paySuccess(PayReq req);
 
     /**
      * 生成支付单

@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.pay.domain.mq;
+package com.cqut.atao.farm.rocketmq.springboot.starter.constants;
 
 /**
  * @author atao
@@ -11,6 +11,11 @@ public class MessageRocketMQConstants {
 
     /**
      * 邮箱消息发送 TAG
+     */
+    public static final String MESSAGE_MAIL_SEND_TAG = "common_message-center_mail-send_tag";
+
+    /**
+     * 支付消息发送 TAG
      */
     public static final String MESSAGE_PAY_SEND_TAG = "common_message-center_pay-send_tag";
 }

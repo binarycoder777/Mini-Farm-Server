@@ -1,6 +1,5 @@
 package com.cqut.atao.farm.pay.domain.mq.event;
 
-import com.cqut.atao.farm.pay.domain.acquiresystem.model.aggreate.Payment;
 import lombok.Builder;
 import lombok.Data;
 
@@ -23,9 +22,9 @@ public class PayMessageSendEvent {
     private String messageSendId;
 
     /**
-     * 支付单号
+     * 订单号
      */
-    private String paymentSn;
+    private String orderSn;
 
     /**
      * 状态 0：成功 1：失败

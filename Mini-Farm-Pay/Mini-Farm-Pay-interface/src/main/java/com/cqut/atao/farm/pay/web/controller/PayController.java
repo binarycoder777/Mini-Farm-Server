@@ -1,11 +1,18 @@
 package com.cqut.atao.farm.pay.web.controller;
 
+import com.cqut.atao.farm.pay.application.PayService;
+import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
+import com.cqut.atao.farm.springboot.starter.web.Results;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author atao
@@ -20,10 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/pay")
 public class PayController {
 
+    @Resource
+    private PayService payService;
 
     @PostMapping("/pay")
-    public Result<Void> payMoney(){
-        return null;
+    @ApiOperation("付款订单")
+    public Result<Void> payMoney(@RequestBody PayReq req){
+        payService.payMoney(req);
+        return Results.success();
     }
 
     @PostMapping("/refund")

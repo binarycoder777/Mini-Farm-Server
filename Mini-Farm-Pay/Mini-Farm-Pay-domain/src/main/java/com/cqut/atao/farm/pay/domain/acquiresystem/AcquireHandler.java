@@ -31,7 +31,7 @@ public class AcquireHandler extends AcquireAbstract{
                 .payAmount(req.getOrder().getPayAmount())
                 .userId(req.getOrder().getUserId())
                 .payType(req.getPayCode())
-                .status(Constants.PayState.UN_PAY.getCode())
+                .status(Constants.PayState.HAVE_PAY.getCode())
                 .paySn(payno)
                 .payTime(new Date())
                 .build();
@@ -39,4 +39,8 @@ public class AcquireHandler extends AcquireAbstract{
         return payment;
     }
 
+    @Override
+    public boolean paySuccess(PayReq req) {
+        return true;
+    }
 }

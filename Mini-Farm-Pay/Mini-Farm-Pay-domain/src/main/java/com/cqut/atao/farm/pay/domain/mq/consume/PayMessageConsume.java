@@ -2,7 +2,6 @@ package com.cqut.atao.farm.pay.domain.mq.consume;
 
 
 import com.alibaba.fastjson.JSON;
-import com.cqut.atao.farm.pay.domain.acquiresystem.model.aggreate.Payment;
 import com.cqut.atao.farm.pay.domain.mq.event.PayMessageSendEvent;
 import com.cqut.atao.farm.pay.domain.mq.message.MessageSink;
 import com.cqut.atao.farm.pay.domain.repository.PayInfoRepository;
@@ -15,7 +14,6 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -37,8 +35,8 @@ public class PayMessageConsume {
     public void mailMessageSend(@Payload PayMessageSendEvent payMessageSendEvent, @Headers Map headers) {
         long startTime = System.currentTimeMillis();
         try {
-             String paymentSn = payMessageSendEvent.getPaymentSn();
-             payInfoRepository.alterPayment(paymentSn,Constants.PayState.HAVE_PAY.getCode());
+             String orderSn = payMessageSendEvent.getOrderSn();
+             payInfoRepository.alterPayment(orderSn,Constants.PayState.HAVE_PAY.getCode());
         } finally {
             log.info("Keys: {}, Msg id: {}, Execute time: {} ms, Message: {}", headers.get("rocketmq_KEYS"), headers.get("rocketmq_MESSAGE_ID"), System.currentTimeMillis() - startTime,
                     JSON.toJSONString(payMessageSendEvent));

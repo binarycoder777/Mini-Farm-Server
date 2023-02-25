@@ -12,9 +12,15 @@ import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
 public interface AcquirePay {
 
     /**
-     * 付款
+     * 付款前，生成三方支付验签
      * @param payReq 支付请求
      */
-    void payMoney(PayReq payReq);
+    Object generatePaySign(PayReq payReq);
+
+    /**
+     * 通知三方支付结果
+     * @param payReq 支付请求
+     */
+    Object notifyPayResult(PayReq payReq);
 
 }
