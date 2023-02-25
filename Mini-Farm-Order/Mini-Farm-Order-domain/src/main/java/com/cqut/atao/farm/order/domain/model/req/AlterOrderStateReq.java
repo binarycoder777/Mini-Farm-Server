@@ -15,7 +15,7 @@ import lombok.Data;
 public class AlterOrderStateReq {
 
     // 订单号
-    private Long orderId;
+    private String orderSn;
 
     // 订单当前状态
     private Enum<Constants.OrderState> currentSate;

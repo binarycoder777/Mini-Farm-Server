@@ -27,6 +27,6 @@ public interface OrderRepository {
      * @param nextState 下一状态
      * @return 结果
      */
-    boolean alterState(Long orderId, Enum<Constants.OrderState> currentState, Enum<Constants.OrderState> nextState);
+    boolean alterState(String orderId, Enum<Constants.OrderState> currentState, Enum<Constants.OrderState> nextState);
 
 }

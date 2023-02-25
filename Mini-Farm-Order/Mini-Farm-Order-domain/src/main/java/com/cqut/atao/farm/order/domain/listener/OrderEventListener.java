@@ -36,13 +36,13 @@ public class OrderEventListener {
     @EventListener(PayEvent.class)
     public void pay(PayEvent event){
         AlterOrderStateReq source = (AlterOrderStateReq) event.getSource();
-        stateHandler.pay(source.getOrderId(),source.getCurrentSate());
+        stateHandler.pay(source.getOrderSn(),source.getCurrentSate());
     }
 
     @EventListener(PayEvent.class)
     public void cancelOrder(CancelOrderEvent event){
         AlterOrderStateReq source = (AlterOrderStateReq) event.getSource();
-        stateHandler.pay(source.getOrderId(),source.getCurrentSate());
+        stateHandler.pay(source.getOrderSn(),source.getCurrentSate());
     }
 
 }

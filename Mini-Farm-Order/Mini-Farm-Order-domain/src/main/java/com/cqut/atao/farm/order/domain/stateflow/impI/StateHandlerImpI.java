@@ -13,35 +13,35 @@ import com.cqut.atao.farm.order.domain.stateflow.StateHandler;
  */
 public class StateHandlerImpI extends StateConfig implements StateHandler {
 
-    public boolean pay(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean pay(String orderId, Enum<Constants.OrderState> currentOrderState) {
         return stateMap.get(currentOrderState).pay(orderId,currentOrderState);
     }
 
-    public boolean sendProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean sendProduct(String orderId, Enum<Constants.OrderState> currentOrderState) {
         return stateMap.get(currentOrderState).sendProduct(orderId,currentOrderState);
     }
 
-    public boolean signProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean signProduct(String orderId, Enum<Constants.OrderState> currentOrderState) {
         return stateMap.get(currentOrderState).signProduct(orderId,currentOrderState);
     }
 
-    public boolean commentProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean commentProduct(String orderId, Enum<Constants.OrderState> currentOrderState) {
         return stateMap.get(currentOrderState).commentProduct(orderId,currentOrderState);
     }
 
-    public boolean returnProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean returnProduct(String orderId, Enum<Constants.OrderState> currentOrderState) {
         return stateMap.get(currentOrderState).returnProduct(orderId,currentOrderState);
     }
 
-    public boolean returnMoney(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean returnMoney(String orderId, Enum<Constants.OrderState> currentOrderState) {
         return stateMap.get(currentOrderState).returnMoney(orderId,currentOrderState);
     }
 
-    public boolean finsh(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean finsh(String orderId, Enum<Constants.OrderState> currentOrderState) {
         return stateMap.get(currentOrderState).finsh(orderId,currentOrderState);
     }
 
-    public boolean cancelOrder(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean cancelOrder(String orderId, Enum<Constants.OrderState> currentOrderState) {
         return stateMap.get(currentOrderState).cancelOrder(orderId,currentOrderState);
     }
 }
