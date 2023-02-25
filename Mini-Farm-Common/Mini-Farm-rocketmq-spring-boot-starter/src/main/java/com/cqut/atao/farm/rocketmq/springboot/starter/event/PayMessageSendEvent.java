@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.pay.domain.mq.event;
+package com.cqut.atao.farm.rocketmq.springboot.starter.event;
 
 import lombok.Builder;
 import lombok.Data;

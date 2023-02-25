@@ -4,11 +4,10 @@ import com.cqut.atao.farm.pay.domain.acquiresystem.check.CheckHandler;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.aggreate.Payment;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
 import com.cqut.atao.farm.pay.domain.acquiresystem.risk.RiskHandler;
-import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
-import com.cqut.atao.farm.pay.domain.mq.event.PayMessageSendEvent;
 import com.cqut.atao.farm.pay.domain.mq.produce.PayMessageProduce;
 import com.cqut.atao.farm.pay.domain.repository.PayInfoRepository;
 import com.cqut.atao.farm.pay.domain.thirdpayment.ThirdPayContent;
+import com.cqut.atao.farm.rocketmq.springboot.starter.event.PayMessageSendEvent;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -86,12 +85,12 @@ public abstract class AcquireAbstract implements AcquirePay{
      * @param payment {@link Payment}
      */
     public void asyncUpdateOrder(Payment payment) {
-        log.info("异步更新订单、支付单");
+        log.info("异步更新订单");
         PayMessageSendEvent payMessageSendEvent = PayMessageSendEvent.builder()
                 .messageSendId(UUID.randomUUID().toString())
-                .paymentSn(payment.getPaySn())
+                .orderSn(payment.getOrderSn())
                 .build();
-        payMessageProduce.mailMessageSend(payMessageSendEvent);
+        payMessageProduce.payMessageSend(payMessageSendEvent);
     }
 
 }
