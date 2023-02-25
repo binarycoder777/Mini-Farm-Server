@@ -1,10 +1,8 @@
 package com.cqut.atao.farm.pay.domain.acquiresystem.model.req;
 
-import com.cqut.atao.farm.pay.domain.thirdpayment.Constants;
-import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
+import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 import lombok.Builder;
 import lombok.Data;
-
 /**
  * @author atao
  * @version 1.0.0

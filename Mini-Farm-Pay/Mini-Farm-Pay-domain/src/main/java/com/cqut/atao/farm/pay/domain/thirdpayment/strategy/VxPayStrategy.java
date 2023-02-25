@@ -1,11 +1,12 @@
 package com.cqut.atao.farm.pay.domain.thirdpayment.strategy;
 
+import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 import com.cqut.atao.farm.pay.domain.remote.RemoteMessageSerivce;
 import com.cqut.atao.farm.pay.domain.remote.RemoteUserSerivce;
 import com.cqut.atao.farm.pay.domain.remote.model.req.MailMessageSendReq;
 import com.cqut.atao.farm.pay.domain.remote.model.res.UserInfoRes;
 import com.cqut.atao.farm.pay.domain.thirdpayment.ThirdPay;
-import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,6 +21,7 @@ import java.util.List;
  * @createTime 2023年02月23日 15:14:00
  */
 @Component
+@Slf4j
 public class VxPayStrategy implements ThirdPay {
 
     @Resource
@@ -28,8 +30,13 @@ public class VxPayStrategy implements ThirdPay {
     @Resource
     private RemoteMessageSerivce remoteMessageSerivce;
 
-    // 模拟实现
-    public void doPay(Order orderInfo) {
+
+    public Object generatePaySign(Order order) {
+        log.info("生成三方支付签名");
+        return "success";
+    }
+
+    public void notifyPayResult(Order orderInfo) {
         UserInfoRes userInfo = remoteUserSerivce.getUserInfoByUserId(orderInfo.getUserId()).getData();
         List<String> para = new ArrayList<String>();
         para.add("支付成功!");
@@ -43,6 +50,5 @@ public class VxPayStrategy implements ThirdPay {
                 .build();
         remoteMessageSerivce.sendMailMessage(req);
     }
-
 
 }

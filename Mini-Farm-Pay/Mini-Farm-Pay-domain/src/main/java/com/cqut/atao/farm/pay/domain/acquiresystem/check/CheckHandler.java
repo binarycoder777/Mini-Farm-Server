@@ -3,7 +3,7 @@ package com.cqut.atao.farm.pay.domain.acquiresystem.check;
 import com.cqut.atao.farm.pay.domain.acquiresystem.check.filter.OrderCheck;
 import com.cqut.atao.farm.pay.domain.acquiresystem.check.filter.ProductCheck;
 import com.cqut.atao.farm.pay.domain.acquiresystem.check.filter.UserCheck;
-import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
+import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

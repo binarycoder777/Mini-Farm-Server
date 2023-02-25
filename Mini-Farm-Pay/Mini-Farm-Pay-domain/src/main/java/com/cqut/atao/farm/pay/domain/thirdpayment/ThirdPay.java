@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.pay.domain.thirdpayment;
 
-import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
+
+import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 
 /**
  * @author atao
@@ -11,6 +12,19 @@ import com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate.Order;
  */
 public interface ThirdPay {
 
-    void doPay(Order orderInfo);
+
+    /**
+     * 生成支付验签
+     * @param order
+     * @return
+     */
+    Object generatePaySign(Order order);
+
+
+    /**
+     * 通知支付结果
+     * @param orderInfo
+     */
+    void notifyPayResult(Order orderInfo);
 
 }

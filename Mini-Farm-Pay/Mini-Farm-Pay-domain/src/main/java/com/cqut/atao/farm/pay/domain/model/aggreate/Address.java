@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.pay.domain.thirdpayment.model.aggreate;
+package com.cqut.atao.farm.pay.domain.model.aggreate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
