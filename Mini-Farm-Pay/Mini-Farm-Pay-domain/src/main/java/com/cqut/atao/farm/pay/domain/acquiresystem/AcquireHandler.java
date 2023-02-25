@@ -41,6 +41,7 @@ public class AcquireHandler extends AcquireAbstract{
 
     @Override
     public boolean paySuccess(PayReq req) {
+        log.info("支付成功");
         return true;
     }
 }

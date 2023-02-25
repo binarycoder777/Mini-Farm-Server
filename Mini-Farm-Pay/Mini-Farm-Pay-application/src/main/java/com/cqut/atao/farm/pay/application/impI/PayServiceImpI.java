@@ -20,7 +20,11 @@ public class PayServiceImpI implements PayService {
     @Resource
     private AcquirePay acquirePay;
 
-    public void payMoney(PayReq req) {
-        acquirePay.payMoneyBefore(req);
+    public Object payMoneySign(PayReq req) {
+        return acquirePay.generatePaySign(req);
+    }
+
+    public Object payMoneyResult(PayReq req) {
+        return acquirePay.notifyPayResult(req);
     }
 }

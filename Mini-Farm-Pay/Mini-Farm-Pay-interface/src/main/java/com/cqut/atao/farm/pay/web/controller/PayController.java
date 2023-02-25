@@ -30,11 +30,18 @@ public class PayController {
     @Resource
     private PayService payService;
 
-    @PostMapping("/pay")
+    @PostMapping("/pay/order")
     @ApiOperation("付款订单")
-    public Result<Void> payMoney(@RequestBody PayReq req){
-        payService.payMoney(req);
-        return Results.success();
+    public Result<Object> payMoney(@RequestBody PayReq req){
+        Object o = payService.payMoneySign(req);
+        return Results.success(o);
+    }
+
+    @RequestMapping("/pay/notify")
+    @ApiOperation("三方支付后回调通知（支付成功还是失败）")
+    public Result<Object> notifyPayResult(@RequestBody PayReq payReq){
+        Object o = payService.payMoneyResult(payReq);
+        return Results.success(o);
     }
 
     @PostMapping("/refund")
