@@ -1,11 +1,12 @@
-package com.cqut.atao.farm.pay.domain.mq.consume;
+package com.cqut.atao.farm.order.domain.mq.consume;
 
 
 import com.alibaba.fastjson.JSON;
-import com.cqut.atao.farm.pay.domain.mq.event.PayMessageSendEvent;
-import com.cqut.atao.farm.pay.domain.mq.message.MessageSink;
-import com.cqut.atao.farm.pay.domain.repository.PayInfoRepository;
-import com.cqut.atao.farm.pay.domain.thirdpayment.Constants;
+import com.cqut.atao.farm.order.domain.common.Constants;
+import com.cqut.atao.farm.order.domain.repository.OrderRepository;
+
+import com.cqut.atao.farm.rocketmq.springboot.starter.event.PayMessageSendEvent;
+import com.cqut.atao.farm.rocketmq.springboot.starter.message.MessageSink;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -29,14 +30,14 @@ import java.util.Map;
 public class PayMessageConsume {
 
     @Resource
-    private PayInfoRepository payInfoRepository;
+    private OrderRepository orderRepository;
 
     @StreamListener(MessageSink.PAY_MESSAGE)
     public void mailMessageSend(@Payload PayMessageSendEvent payMessageSendEvent, @Headers Map headers) {
         long startTime = System.currentTimeMillis();
         try {
              String orderSn = payMessageSendEvent.getOrderSn();
-             payInfoRepository.alterPayment(orderSn,Constants.PayState.HAVE_PAY.getCode());
+             orderRepository.alterState(Long.valueOf(orderSn), Constants.OrderState.OBLIGATEION,Constants.OrderState.WAIT_SEND);
         } finally {
             log.info("Keys: {}, Msg id: {}, Execute time: {} ms, Message: {}", headers.get("rocketmq_KEYS"), headers.get("rocketmq_MESSAGE_ID"), System.currentTimeMillis() - startTime,
                     JSON.toJSONString(payMessageSendEvent));
