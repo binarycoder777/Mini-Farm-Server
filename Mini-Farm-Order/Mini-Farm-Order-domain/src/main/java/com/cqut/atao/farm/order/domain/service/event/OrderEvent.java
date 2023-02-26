@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.order.domain.event;
+package com.cqut.atao.farm.order.domain.service.event;
 
 import org.springframework.context.ApplicationEvent;
 

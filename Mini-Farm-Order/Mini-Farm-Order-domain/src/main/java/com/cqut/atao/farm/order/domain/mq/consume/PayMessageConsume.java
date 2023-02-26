@@ -37,7 +37,7 @@ public class PayMessageConsume {
         long startTime = System.currentTimeMillis();
         try {
              String orderSn = payMessageSendEvent.getOrderSn();
-             orderRepository.alterState(Long.valueOf(orderSn), Constants.OrderState.OBLIGATEION,Constants.OrderState.WAIT_SEND);
+             orderRepository.alterState(orderSn, Constants.OrderState.OBLIGATEION,Constants.OrderState.WAIT_SEND);
         } finally {
             log.info("Keys: {}, Msg id: {}, Execute time: {} ms, Message: {}", headers.get("rocketmq_KEYS"), headers.get("rocketmq_MESSAGE_ID"), System.currentTimeMillis() - startTime,
                     JSON.toJSONString(payMessageSendEvent));

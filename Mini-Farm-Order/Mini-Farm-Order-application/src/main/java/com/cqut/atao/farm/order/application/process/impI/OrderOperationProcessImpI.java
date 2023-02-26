@@ -20,7 +20,7 @@ import java.util.UUID;
 public class OrderOperationProcessImpI extends AbstractOrderOperation {
 
     @Override
-    protected String generateOrder(Order order) {
+    protected String saveOrder(Order order) {
         // 暂时用uuid生产订单号
         String uuid = UUID.randomUUID().toString();
         order.setOrderSn(uuid);
