@@ -115,4 +115,14 @@ public class Order {
      * 订单商品集合
      */
     private List<OrderProduct> orderProducts;
+
+    // 暂未加入优惠卷和满减等规则
+    public boolean caculatePayAmount() {
+        BigDecimal currentAmount = new BigDecimal("0");
+        for (OrderProduct orderProduct: orderProducts) {
+            currentAmount = currentAmount.add(orderProduct.getProductPrice());
+        }
+        return payAmount.equals(currentAmount);
+    }
+
 }

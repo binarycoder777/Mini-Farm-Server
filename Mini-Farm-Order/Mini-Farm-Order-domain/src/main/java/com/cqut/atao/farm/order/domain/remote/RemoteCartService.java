@@ -1,10 +1,15 @@
 package com.cqut.atao.farm.order.domain.remote;
 
 import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
+import com.cqut.atao.farm.order.domain.remote.model.res.CartItemRes;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 /**
  * @author atao
@@ -15,6 +20,13 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @FeignClient("cart")
 public interface RemoteCartService {
+
+
+    /**
+     * 获取购物车已选中商品
+     */
+    @GetMapping("/api/cart/product/selected/{userId}")
+    Result<List<CartItemRes>> findSelectedCartProduct(@PathVariable("userId") Long userId);
 
 
     /**
