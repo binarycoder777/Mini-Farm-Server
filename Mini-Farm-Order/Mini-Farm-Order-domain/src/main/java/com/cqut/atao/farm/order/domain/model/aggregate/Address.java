@@ -19,6 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
+
     /**
      * 收货人
      */

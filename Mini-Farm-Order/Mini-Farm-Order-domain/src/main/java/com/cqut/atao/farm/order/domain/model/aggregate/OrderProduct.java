@@ -19,10 +19,11 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderProduct {
+
     /**
      * 订单id
      */
-    private Long orderId;
+    private String orderId;
 
     /**
      * 订单编号
@@ -33,6 +34,11 @@ public class OrderProduct {
      * 商品id
      */
     private Long productSkuId;
+
+    /**
+     * 商家id
+     */
+    private Long merchantId;
 
     /**
      * 商品图
@@ -50,6 +56,11 @@ public class OrderProduct {
     private String productBrand;
 
     /**
+     * 运费金额
+     */
+    private BigDecimal freightAmount;
+
+    /**
      * 商品价格
      */
     private BigDecimal productPrice;
@@ -63,5 +74,11 @@ public class OrderProduct {
      * 规格，json 格式
      */
     private String productAttribute;
+
+    /**
+     * 用户留言
+     */
+    private String leaveMessage;
+
 }
 

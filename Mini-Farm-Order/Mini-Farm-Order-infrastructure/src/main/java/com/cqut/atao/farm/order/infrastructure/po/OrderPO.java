@@ -20,7 +20,12 @@ public class OrderPO extends BaseDO {
     /**
      * id
      */
-    private Long id;
+    private String id;
+
+    /**
+     * 父订单ID
+     */
+    private String parentId;
 
     /**
      * 用户id

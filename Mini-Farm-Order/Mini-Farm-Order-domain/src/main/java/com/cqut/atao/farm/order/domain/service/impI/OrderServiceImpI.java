@@ -25,14 +25,17 @@ public class OrderServiceImpI implements OrderService {
     @Resource
     private ApplicationEventPublisher eventPublisher;
 
+    @Override
     public void createOrder(Order order) {
         eventPublisher.publishEvent(new CreateOrderEvent(order));
     }
 
+    @Override
     public void payOrder(AlterOrderStateReq req) {
         eventPublisher.publishEvent(new PayEvent(req));
     }
 
+    @Override
     public void cancelOrder(AlterOrderStateReq req) {
         eventPublisher.publishEvent(new CancelOrderEvent(req));
     }

@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.application.filter.check;
 
 import com.cqut.atao.farm.order.application.filter.CheckParamterAbstract;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class CheckNullParmter extends CheckParamterAbstract {
     }
 
     @Override
-    public boolean doCheck(Order order) {
+    public boolean doCheck(PlaceOrderReq order) {
         log.info("空参数校验");
         if (next() == null) {
             return true;
