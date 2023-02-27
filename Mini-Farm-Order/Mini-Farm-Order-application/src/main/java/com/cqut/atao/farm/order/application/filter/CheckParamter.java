@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.order.application.filter;
 
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 
 /**
  * @author atao
@@ -17,6 +18,6 @@ public interface CheckParamter {
      * @param order {@link Order}
      * @return boolean
      */
-    boolean doCheck(Order order);
+    boolean doCheck(PlaceOrderReq order);
 
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author atao
@@ -21,10 +22,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
+
     /**
      * 订单id
      */
-    private Long id;
+    private String id;
+
+    /**
+     * 父订单id
+     */
+    private String parentId;
 
     /**
      * 用户id
@@ -37,6 +44,26 @@ public class Order {
     private String orderSn;
 
     /**
+     * 优惠卷id
+     */
+    private Long couponId;
+
+    /**
+     * 满减活动id
+     */
+    private Long specialActivityId;
+
+    /**
+     * 优惠总金额
+     */
+    private BigDecimal specialTotalAmount;
+
+    /**
+     * 运费金额
+     */
+    private BigDecimal freightAmount;
+
+    /**
      * 订单总金额
      */
     private BigDecimal totalAmount;
@@ -45,11 +72,6 @@ public class Order {
      * 支付金额
      */
     private BigDecimal payAmount;
-
-    /**
-     * 运费金额
-     */
-    private BigDecimal freightAmount;
 
     /**
      * 支付方式
@@ -72,24 +94,9 @@ public class Order {
     private Integer type;
 
     /**
-     * 自动确认天数
+     * 订单状态
      */
-    private Integer autoConfirmDay;
-
-    /**
-     * 物流公司
-     */
-    private String deliveryCompany;
-
-    /**
-     * 物流单号
-     */
-    private String deliverySn;
-
-    /**
-     * 收货人信息
-     */
-    private Address address;
+    private Integer status;
 
     /**
      * 订单备注信息
@@ -97,24 +104,20 @@ public class Order {
     private String remark;
 
     /**
-     * 收货状态 0：未接收 1：已接收
+     * 收货人信息
      */
-    private Integer confirmFlag;
+    private Address address;
 
     /**
-     * 发货时间
+     * 物流信息
      */
-    private Date deliveryTime;
-
-    /**
-     * 订单状态
-     */
-    private Integer status;
+    private DeliveryInfo deliveryInfo;
 
     /**
      * 订单商品集合
      */
     private List<OrderProduct> orderProducts;
+
 
     // 暂未加入优惠卷和满减等规则
     public boolean caculatePayAmount() {
@@ -123,6 +126,47 @@ public class Order {
             currentAmount = currentAmount.add(orderProduct.getProductPrice());
         }
         return payAmount.equals(currentAmount);
+    }
+
+    /**
+     * 克隆订单（主要是替换订单对应的商品和价格之流，其余收货信息等不变）
+     * @param orderProducts
+     * @return
+     */
+    public Order generateSubOrder(List<OrderProduct> orderProducts){
+        return Order.builder()
+                .parentId(parentId)
+                .orderProducts(orderProducts)
+                .address(address)
+                .freightAmount(freightAmount)
+                .orderSn(this.generateOrderSn())
+                .payAmount(payAmount)
+                .payTime(payTime)
+                .payType(payType)
+                .source(source)
+                .remark(remark)
+                .status(status)
+                .type(type)
+                .totalAmount(totalAmount)
+                .userId(userId)
+                .build();
+    }
+
+    /**
+     * 订单id生成(后续改为自增)
+     * @return 订单id
+     */
+    public String generateOrderId() {
+        return UUID.randomUUID().toString();
+    }
+
+
+    /**
+     * 订单号生成
+     * @return 订单号
+     */
+    public String generateOrderSn() {
+        return UUID.randomUUID().toString();
     }
 
 }

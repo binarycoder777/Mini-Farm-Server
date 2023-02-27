@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.web.controller;
 
 import com.cqut.atao.farm.order.application.process.OrderOperationProcess;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -33,8 +34,8 @@ public class OrderController {
 
     @PostMapping("/create")
     @ApiOperation("产品下单")
-    public Result<String> createOrder(@RequestBody Order order) {
-        String orderNo = orderOperationProcess.createOrder(order);
+    public Result<String> createOrder(@RequestBody PlaceOrderReq req) {
+        String orderNo = orderOperationProcess.createOrder(req);
         return Results.success(orderNo);
     }
 

@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.application.filter;
 
 import com.cqut.atao.farm.order.application.filter.check.CheckNullParmter;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,8 +23,8 @@ public class CheckParamterHandler {
     @Resource
     private CheckNullParmter checkNullParmter;
 
-    public boolean doCheck(Order order) {
-        return check.doCheck(order);
+    public boolean doCheck(PlaceOrderReq req) {
+        return check.doCheck(req);
     }
 
     @PostConstruct

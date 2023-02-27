@@ -1,16 +1,16 @@
 package com.cqut.atao.farm.order.application.process;
 
 import cn.hutool.core.lang.Assert;
-import com.cqut.atao.farm.order.application.filter.CheckParamter;
 import com.cqut.atao.farm.order.application.filter.CheckParamterHandler;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
-import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
+import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
 import com.cqut.atao.farm.order.domain.remote.RemoteProductService;
-import com.cqut.atao.farm.order.domain.remote.model.req.*;
-import com.cqut.atao.farm.order.domain.remote.model.res.CartItemRes;
-import com.cqut.atao.farm.order.domain.remote.model.res.CheckAmountRes;
+import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
+import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
+import com.cqut.atao.farm.order.domain.remote.model.req.OrderItemInfo;
 import com.cqut.atao.farm.order.domain.service.OrderService;
+import com.cqut.atao.farm.order.domain.split.OrderSplitHandler;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
@@ -30,7 +30,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public abstract class AbstractOrderOperation implements OrderOperationProcess{
 
-
     @Resource
     protected OrderService orderService;
 
@@ -43,23 +42,22 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
     @Resource
     private CheckParamterHandler checkParamterHandler;
 
+    @Resource
+    protected OrderSplitHandler orderSplitHandler;
+
     @Override
-    public String createOrder(Order order) {
+    public String createOrder(PlaceOrderReq req) {
         // 参数校验
-        checkParamterHandler.doCheck(order);
+        checkParamterHandler.doCheck(req);
         // 风险核验
-        Assert.isTrue(this.checkRisk(order) , ()->new ServiceException("订单风险异常"));
-        // 获取购物车已选中商品构建订单
-        order = this.generateOrder(order);
+        Assert.isTrue(this.checkRisk(req) , ()->new ServiceException("订单风险异常"));
+        // 获取参与结算商品进行订单构建
+        Order order = this.buildOrder(req);
         // 获取营销中心优惠信息
         this.getSpecialOffers(order);
         // 核算金额
         Assert.isTrue(order.caculatePayAmount(), ()->new ServiceException("金额核验出错"));
-        // 订单拆分
-
-        // 锁定库存
-        Assert.isTrue(this.lockStock(order) , ()->new ServiceException("商品库存异常"));
-        // 保存订单
+        // 订单生成(涉及到订单拆分)
         String orderNo = this.saveOrder(order);
         // 清空购物车已选中商品列表
         this.deleteCartItem(order);
@@ -67,29 +65,37 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
         return orderNo;
     }
 
+
     @Override
     public void cancelOrder(String orderNo) {
 
     }
 
-    public void splitOrder(Order order) {
-        log.info("拆分订单");
-    }
 
     public Object getSpecialOffers(Order order) {
         log.info("获取优惠信息");
         return "success";
     }
 
-    public Order generateOrder(Order order) {
-        List<CartItemRes> cartItemRes = remoteCartService.findSelectedCartProduct(order.getUserId()).getData();
-        List<OrderProduct> orderProductList = BeanUtil.convert(cartItemRes, OrderProduct.class);
-        order.setOrderProducts(orderProductList);
+    /**
+     * 构建父订单（注入订单编号）
+     * @param req {@link PlaceOrderReq}
+     * @return {@link Order}
+     */
+    public Order buildOrder(PlaceOrderReq req) {
+        // 信息转换
+        Order order = BeanUtil.convert(req, Order.class);
+        // 生成订单id
+        order.setId(order.generateOrderId());
+        // 父订单的parentId就是自身id
+        order.setParentId(order.getId());
+        // 生成订单号
+        order.setOrderSn(order.generateOrderSn());
         return order;
     }
 
 
-    public boolean checkRisk(Order order) {
+    public boolean checkRisk(PlaceOrderReq req) {
         log.info("远程调用风险控制");
         return true;
     }
@@ -99,7 +105,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
      * @param order {@link Order}
      * @return boolean
      */
-    private boolean lockStock(Order order) {
+    protected boolean lockStock(Order order) {
         // 商品集合
         List<OrderItemInfo> orderItemInfo = order.getOrderProducts().stream().map(e -> {
             return OrderItemInfo.builder()
@@ -128,7 +134,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
     }
 
     /**
-     * 生成订单
+     * 保存订单
      * @param order {@link Order}
      */
     abstract protected String saveOrder(Order order);
