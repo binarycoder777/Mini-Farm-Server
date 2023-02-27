@@ -3,6 +3,8 @@ package com.cqut.atao.farm.order.application.filter.check;
 import com.cqut.atao.farm.order.application.filter.CheckParamterAbstract;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +19,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class CheckNullParmter extends CheckParamterAbstract {
 
-    public CheckNullParmter(CheckParamterAbstract next) {
-        super(next);
-    }
 
     @Override
     public boolean doCheck(PlaceOrderReq order) {

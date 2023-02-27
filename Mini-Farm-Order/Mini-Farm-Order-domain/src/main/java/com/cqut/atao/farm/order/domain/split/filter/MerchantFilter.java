@@ -3,6 +3,8 @@ package com.cqut.atao.farm.order.domain.split.filter;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import com.cqut.atao.farm.order.domain.split.OrderSplitAbstract;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -16,12 +18,9 @@ import java.util.Map;
  * @Description 按商家拆分订单
  * @createTime 2023年02月26日 23:35:00
  */
+
 @Component
 public class MerchantFilter extends OrderSplitAbstract {
-
-    public MerchantFilter(OrderSplitAbstract next) {
-        super(next);
-    }
 
     @Override
     public List<Order> splitOrder(Order order) {
