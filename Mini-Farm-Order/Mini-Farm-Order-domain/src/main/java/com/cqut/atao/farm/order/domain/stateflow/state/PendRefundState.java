@@ -2,6 +2,8 @@ package com.cqut.atao.farm.order.domain.stateflow.state;
 
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.stateflow.AbstractState;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -11,6 +13,8 @@ import com.cqut.atao.farm.order.domain.stateflow.AbstractState;
  * @Description 待退款状态
  * @createTime 2023年02月17日 22:03:00
  */
+@Slf4j
+@Component
 public class PendRefundState extends AbstractState {
 
 

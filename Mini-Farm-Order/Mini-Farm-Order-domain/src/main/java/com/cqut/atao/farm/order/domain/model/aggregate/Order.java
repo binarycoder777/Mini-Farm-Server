@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,6 +19,7 @@ import java.util.UUID;
  * @createTime 2023年02月04日 15:50:00
  */
 @Data
+@Slf4j
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -123,7 +125,7 @@ public class Order {
     public boolean caculatePayAmount() {
         BigDecimal currentAmount = new BigDecimal("0");
         for (OrderProduct orderProduct: orderProducts) {
-            currentAmount = currentAmount.add(orderProduct.getProductPrice());
+            currentAmount = currentAmount.add(orderProduct.getProductPrice().multiply(BigDecimal.valueOf(orderProduct.getProductQuantity())));
         }
         return payAmount.equals(currentAmount);
     }
@@ -134,6 +136,9 @@ public class Order {
      * @return
      */
     public Order generateSubOrder(List<OrderProduct> orderProducts){
+        orderProducts.forEach(e->{
+            e.setOrderSn(orderSn);
+        });
         return Order.builder()
                 .parentId(parentId)
                 .orderProducts(orderProducts)

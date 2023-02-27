@@ -3,8 +3,10 @@ package com.cqut.atao.farm.order.domain.model.req;
 
 import com.cqut.atao.farm.order.domain.model.aggregate.Address;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.List;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlaceOrderReq {
 
     /**

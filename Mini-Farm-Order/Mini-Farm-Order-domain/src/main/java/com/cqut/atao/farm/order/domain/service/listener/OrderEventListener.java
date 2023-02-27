@@ -8,7 +8,9 @@ import com.cqut.atao.farm.order.domain.service.event.CancelOrderEvent;
 import com.cqut.atao.farm.order.domain.service.event.CreateOrderEvent;
 import com.cqut.atao.farm.order.domain.service.event.PayEvent;
 import com.cqut.atao.farm.order.domain.stateflow.StateHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -19,6 +21,8 @@ import javax.annotation.Resource;
  * @Description 订单事件监听器
  * @createTime 2023年02月17日 14:28:00
  */
+@Slf4j
+@Component
 public class OrderEventListener {
 
     @Resource
@@ -29,6 +33,7 @@ public class OrderEventListener {
 
     @EventListener(CreateOrderEvent.class)
     public void pay(CreateOrderEvent event){
+
         Order order = (Order) event.getSource();
         orderRepository.saveOrder(order);
     }

@@ -3,6 +3,7 @@ package com.cqut.atao.farm.order.domain.stateflow.impI;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.stateflow.StateConfig;
 import com.cqut.atao.farm.order.domain.stateflow.StateHandler;
+import org.springframework.stereotype.Component;
 
 /**
  * @author atao
@@ -11,6 +12,7 @@ import com.cqut.atao.farm.order.domain.stateflow.StateHandler;
  * @Description 状态处理器实现类
  * @createTime 2023年02月17日 14:46:00
  */
+@Component
 public class StateHandlerImpI extends StateConfig implements StateHandler {
 
     public boolean pay(String orderId, Enum<Constants.OrderState> currentOrderState) {
