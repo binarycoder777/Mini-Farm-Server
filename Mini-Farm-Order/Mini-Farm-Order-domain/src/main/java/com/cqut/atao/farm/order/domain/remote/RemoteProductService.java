@@ -1,8 +1,6 @@
 package com.cqut.atao.farm.order.domain.remote;
 
 import com.cqut.atao.farm.order.domain.remote.model.req.CheckAmountReq;
-import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
-import com.cqut.atao.farm.order.domain.remote.model.req.LockProductStockReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
 import com.cqut.atao.farm.order.domain.remote.model.res.CheckAmountRes;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;

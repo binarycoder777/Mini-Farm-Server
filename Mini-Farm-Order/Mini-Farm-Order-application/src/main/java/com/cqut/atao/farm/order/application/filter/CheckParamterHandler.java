@@ -24,12 +24,12 @@ public class CheckParamterHandler {
     private CheckNullParmter checkNullParmter;
 
     public boolean doCheck(PlaceOrderReq req) {
-        return check.doCheck(req);
+        return this.check.doCheck(req);
     }
 
     @PostConstruct
     public void InitFilter() {
-        check = checkNullParmter;
+        this.check = checkNullParmter;
     }
 
 
