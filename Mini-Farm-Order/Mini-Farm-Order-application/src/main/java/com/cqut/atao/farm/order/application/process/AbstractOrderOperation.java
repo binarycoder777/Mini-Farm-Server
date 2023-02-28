@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.application.process;
 
 import cn.hutool.core.lang.Assert;
 import com.cqut.atao.farm.order.application.filter.CheckParamterHandler;
+import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
@@ -65,10 +66,12 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
         return orderNo;
     }
 
-
     @Override
-    public void cancelOrder(String orderNo) {
+    public abstract void cancelOrder(String orderId);
 
+    public boolean isParentOrder(String orderSn) {
+        log.info("判断是否是父订单");
+        return true;
     }
 
 
@@ -91,6 +94,8 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
         order.setParentId(order.getId());
         // 生成订单号
         order.setOrderSn(order.generateOrderSn());
+        // 待付款状态
+        order.setStatus(Constants.OrderState.OBLIGATEION.getCode());
         return order;
     }
 

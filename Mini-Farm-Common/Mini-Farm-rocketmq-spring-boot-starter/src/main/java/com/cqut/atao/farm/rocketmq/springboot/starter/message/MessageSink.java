@@ -32,4 +32,14 @@ public interface MessageSink {
     @Input(MessageSink.PAY_MESSAGE)
     SubscribableChannel paySend();
 
+    String RETURN_SPECIAL_MESSAGE = "return-specail-message";
+
+    /**
+     * 返回优惠消息发送
+     *
+     * @return {@link SubscribableChannel}
+     */
+    @Input(MessageSink.RETURN_SPECIAL_MESSAGE)
+    SubscribableChannel returnSpecialSend();
+
 }

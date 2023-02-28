@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.domain.model.req;
 
 
 import com.cqut.atao.farm.order.domain.common.Constants;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -12,6 +13,7 @@ import lombok.Data;
  * @createTime 2023年02月17日 15:29:00
  */
 @Data
+@Builder
 public class AlterOrderStateReq {
 
     // 订单号

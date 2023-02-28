@@ -3,6 +3,8 @@ package com.cqut.atao.farm.order.domain.service;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 
+import java.util.List;
+
 /**
  * @author atao
  * @version 1.0.0
@@ -19,6 +21,12 @@ public interface OrderService {
     void createOrder(Order order);
 
     /**
+     * 创建父订单(不含具体商品列表信息)
+     * @param order {@link Order}
+     */
+    void createParentOrder(Order order);
+
+    /**
      * 支付订单
      * @param req 订单请求
      */
@@ -29,5 +37,19 @@ public interface OrderService {
      * @param req 订单请求
      */
     void cancelOrder(AlterOrderStateReq req);
+
+    /**
+     * 获取父订单id下的所有订单
+     * @param parentOrderId 父订单id
+     * @return {@link List}
+     */
+    List<Order> getSubOrder(String parentOrderId);
+
+    /**
+     * 根据订单id查找订单
+     * @param orderId 订单id
+     * @return {@link Order}
+     */
+    Order getOrderByOrderId(String orderId);
 
 }
