@@ -29,5 +29,10 @@ public interface RemoteProductService {
     @PutMapping("/api/product/lock/stock")
     Result<Void> lockProductStock(@RequestBody OrderInfoReq req);
 
+    /**
+     * 锁定订单商品库存
+     */
+    @PutMapping("/api/product/unlock/stock")
+    Result<Void> unlockProductStock(@RequestBody OrderInfoReq req);
 
 }

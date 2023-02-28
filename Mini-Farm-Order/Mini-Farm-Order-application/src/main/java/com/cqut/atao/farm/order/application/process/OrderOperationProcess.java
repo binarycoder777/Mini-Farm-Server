@@ -23,8 +23,8 @@ public interface OrderOperationProcess {
 
     /**
      * 取消订单
-     * @param orderNo 订单号
+     * @param orderId 订单id
      */
-    void cancelOrder(String orderNo);
+    void cancelOrder(String orderId);
 
 }

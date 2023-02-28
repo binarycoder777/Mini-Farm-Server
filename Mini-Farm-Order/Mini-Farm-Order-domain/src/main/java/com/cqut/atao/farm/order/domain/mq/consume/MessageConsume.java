@@ -27,7 +27,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PayMessageConsume {
+public class MessageConsume {
 
     @Resource
     private OrderRepository orderRepository;

@@ -3,12 +3,13 @@ package com.cqut.atao.farm.order.domain.split.filter;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import com.cqut.atao.farm.order.domain.split.OrderSplitAbstract;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author atao
@@ -33,10 +34,6 @@ public class MerchantFilter extends OrderSplitAbstract {
         });
         // 拆分后的订单
         List<Order> orders = new ArrayList<>();
-        // 只有一家商家，无需拆分
-        if (map.keySet().size() <= 1) {
-            return orders;
-        }
         // 没有继续拆分的规则，无需在拆分订单
         if (next() == null) {
             // 将同一商家的商品组装成一份订单

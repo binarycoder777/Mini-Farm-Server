@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.order.infrastructure.repository;
 
 import cn.hutool.core.lang.Assert;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
@@ -13,6 +14,7 @@ import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceExcepti
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +48,30 @@ public class OrderRepositoryImpI implements OrderRepository {
     }
 
     @Override
+    public void saveParentOrder(Order order) {
+        // 订单基本信息
+        OrderPO orderPO = BeanUtil.convert(order, OrderPO.class);
+        int res0 = orderDAO.insert(orderPO);
+        Assert.isTrue(res0 > 0 , ()->new ServiceException("保存订单异常"));
+    }
+
+    @Override
     public boolean alterState(String orderId, Enum<Constants.OrderState> currentState, Enum<Constants.OrderState> nextState) {
         return orderDAO.alterOrderState(orderId,currentState,nextState) > 0;
+    }
+
+    @Override
+    public List<Order> getSubOrder(String parentOrderId) {
+        List<OrderPO> orderPOS = orderDAO.selectList(Wrappers.lambdaQuery(OrderPO.class).eq(OrderPO::getParentId, parentOrderId));
+        orderPOS.forEach(e->{
+            List<OrderItemPO> orderItemPOS = orderItemDAO.selectList(Wrappers.lambdaQuery(OrderItemPO.class).eq(OrderItemPO::getOrderId, e.getId()));
+            e.setOrderItemPOList(orderItemPOS);
+        });
+        return BeanUtil.convert(orderPOS,Order.class);
+    }
+
+    @Override
+    public Order selectOrderByOrderId(String orderId) {
+        return BeanUtil.convert(orderDAO.selectById(orderId),Order.class);
     }
 }
