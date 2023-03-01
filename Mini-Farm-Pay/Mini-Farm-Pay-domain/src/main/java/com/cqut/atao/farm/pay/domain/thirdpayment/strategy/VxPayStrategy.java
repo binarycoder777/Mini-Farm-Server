@@ -32,7 +32,7 @@ public class VxPayStrategy implements ThirdPay {
 
 
     public Object generatePaySign(Order order) {
-        log.info("生成三方支付签名");
+        log.info("生成微信支付签名");
         return "success";
     }
 
@@ -50,5 +50,26 @@ public class VxPayStrategy implements ThirdPay {
                 .build();
         remoteMessageSerivce.sendMailMessage(req);
     }
+
+    public Object refundMoneyReq(Object o) {
+        log.info("发起微信支付退款");
+        return "success";
+    }
+
+    public void notifyRefundResult(Order orderInfo) {
+        UserInfoRes userInfo = remoteUserSerivce.getUserInfoByUserId(orderInfo.getUserId()).getData();
+        List<String> para = new ArrayList<String>();
+        para.add("退款成功!");
+        MailMessageSendReq req = MailMessageSendReq.builder()
+                .title("邮件发送测试")
+                .sender("1683823409@qq.com")
+                .receiver(userInfo.getMail())
+                .cc("")
+                .paramList(para)
+                .templateId("userRegisterVerification")
+                .build();
+        remoteMessageSerivce.sendMailMessage(req);
+    }
+
 
 }

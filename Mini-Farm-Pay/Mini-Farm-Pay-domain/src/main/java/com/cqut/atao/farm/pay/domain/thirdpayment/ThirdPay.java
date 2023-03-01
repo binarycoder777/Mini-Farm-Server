@@ -27,4 +27,17 @@ public interface ThirdPay {
      */
     void notifyPayResult(Order orderInfo);
 
+    /**
+     * 退款请求
+     * @param o
+     * @return
+     */
+    Object refundMoneyReq(Object o);
+
+    /**
+     * 退款回调处理
+     * @param orderInfo
+     */
+    void notifyRefundResult(Order orderInfo);
+
 }

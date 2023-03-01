@@ -34,4 +34,12 @@ public interface PayInfoRepository {
      */
     void alterPayment(String payNo,Integer nextState);
 
+
+    /**
+     * 通过订单号查找支付单
+     * @param orderSn 订单号
+     * @return 支付单
+     */
+    Payment getPaymentByPaymentSn(String orderSn);
+
 }

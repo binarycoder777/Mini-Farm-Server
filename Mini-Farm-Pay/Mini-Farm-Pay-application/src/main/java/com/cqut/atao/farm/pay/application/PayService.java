@@ -27,4 +27,18 @@ public interface PayService {
      */
     Object payMoneyResult(PayReq req);
 
+    /**
+     * 发起订单退款
+     * @param orderSn 退款请求
+     * @return
+     */
+    Object refundMoney(String orderSn);
+
+    /**
+     * 退款结果
+     * @param o 退款请求
+     * @return 退款结果
+     */
+    Object refundMoneyResult(Object o);
+
 }

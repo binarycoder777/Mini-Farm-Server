@@ -7,10 +7,7 @@ import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -44,8 +41,16 @@ public class PayController {
         return Results.success(o);
     }
 
-    @PostMapping("/refund")
-    public Result<Void> refundMoney(){
+    @PostMapping("/refund/order/{orderSn}")
+    @ApiOperation("发起订单退款")
+    public Result<Void> refundMoney(@PathVariable("orderSn") String orderSn){
+        payService.refundMoney(orderSn);
+        return Results.success();
+    }
+
+    @PostMapping("/refund/notify")
+    @ApiOperation("订单退款通知回调接口")
+    public Result<Void> notifyRefundMoney(){
         return null;
     }
 

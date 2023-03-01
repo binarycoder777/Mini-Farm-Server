@@ -1,4 +1,5 @@
-package com.cqut.atao.farm.pay.domain.acquiresystem;
+package com.cqut.atao.farm.pay.domain.acquiresystem.handler.acquire;
+
 
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.aggreate.Payment;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
@@ -18,7 +19,7 @@ import java.util.UUID;
  */
 @Component
 @Slf4j
-public class AcquireHandler extends AcquireAbstract{
+public class AcquireHandler extends AcquireAbstract {
 
     @Override
     public Payment generatePayment(PayReq req) {

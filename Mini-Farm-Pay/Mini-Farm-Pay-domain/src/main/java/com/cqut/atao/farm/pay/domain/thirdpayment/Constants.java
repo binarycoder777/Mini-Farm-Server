@@ -43,7 +43,8 @@ public class Constants {
     public enum PayState{
         // 1.未支付 2.已支付
         UN_PAY(1,"未支付"),
-        HAVE_PAY(2,"已支付");
+        HAVE_PAY(2,"已支付"),
+        HAVE_REFUND(3,"已退款");
         private Integer code;
         private String info;
 
