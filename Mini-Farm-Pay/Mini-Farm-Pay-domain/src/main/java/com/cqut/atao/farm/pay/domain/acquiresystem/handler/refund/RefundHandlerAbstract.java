@@ -1,15 +1,10 @@
 package com.cqut.atao.farm.pay.domain.acquiresystem.handler.refund;
 
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.aggreate.Payment;
-import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
 import com.cqut.atao.farm.pay.domain.remote.RemoteOrderService;
-import com.cqut.atao.farm.pay.domain.remote.model.res.OrderInfoRes;
 import com.cqut.atao.farm.pay.domain.repository.PayInfoRepository;
 import com.cqut.atao.farm.pay.domain.thirdpayment.Constants;
-import com.cqut.atao.farm.pay.domain.thirdpayment.ThirdPay;
 import com.cqut.atao.farm.pay.domain.thirdpayment.ThirdPayContent;
-import com.cqut.atao.farm.springboot.starter.convention.result.Result;
-import com.sun.tools.internal.jxc.ap.Const;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
