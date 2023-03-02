@@ -7,10 +7,7 @@ import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -30,15 +27,30 @@ public class PayController {
     @Resource
     private PayService payService;
 
-    @PostMapping("/pay")
+    @PostMapping("/pay/order")
     @ApiOperation("付款订单")
-    public Result<Void> payMoney(@RequestBody PayReq req){
-        payService.payMoney(req);
+    public Result<Object> payMoney(@RequestBody PayReq req){
+        Object o = payService.payMoneySign(req);
+        return Results.success(o);
+    }
+
+    @RequestMapping("/pay/notify")
+    @ApiOperation("三方支付后回调通知（支付成功还是失败）")
+    public Result<Object> notifyPayResult(@RequestBody PayReq payReq){
+        Object o = payService.payMoneyResult(payReq);
+        return Results.success(o);
+    }
+
+    @PostMapping("/refund/order/{orderSn}")
+    @ApiOperation("发起订单退款")
+    public Result<Void> refundMoney(@PathVariable("orderSn") String orderSn){
+        payService.refundMoney(orderSn);
         return Results.success();
     }
 
-    @PostMapping("/refund")
-    public Result<Void> refundMoney(){
+    @PostMapping("/refund/notify")
+    @ApiOperation("订单退款通知回调接口")
+    public Result<Void> notifyRefundMoney(){
         return null;
     }
 

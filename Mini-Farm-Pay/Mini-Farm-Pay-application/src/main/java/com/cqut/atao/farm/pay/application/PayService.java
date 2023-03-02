@@ -11,10 +11,34 @@ import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
  */
 public interface PayService {
 
+
     /**
-     * 付款
+     * 付款验签
      * @param req 支付请求
+     * @return 验签结果
      */
-    void payMoney(PayReq req);
+    Object payMoneySign(PayReq req);
+
+
+    /**
+     * 付款结果
+     * @param req 支付请求
+     * @return 支付结果
+     */
+    Object payMoneyResult(PayReq req);
+
+    /**
+     * 发起订单退款
+     * @param orderSn 退款请求
+     * @return
+     */
+    Object refundMoney(String orderSn);
+
+    /**
+     * 退款结果
+     * @param o 退款请求
+     * @return 退款结果
+     */
+    Object refundMoneyResult(Object o);
 
 }

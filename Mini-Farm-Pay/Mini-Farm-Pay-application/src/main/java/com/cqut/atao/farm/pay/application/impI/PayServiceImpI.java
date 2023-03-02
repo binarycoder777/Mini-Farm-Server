@@ -1,7 +1,10 @@
 package com.cqut.atao.farm.pay.application.impI;
 
 import com.cqut.atao.farm.pay.application.PayService;
-import com.cqut.atao.farm.pay.domain.acquiresystem.AcquirePay;
+
+import com.cqut.atao.farm.pay.domain.acquiresystem.handler.acquire.AcquirePay;
+import com.cqut.atao.farm.pay.domain.acquiresystem.handler.refund.Refund;
+import com.cqut.atao.farm.pay.domain.acquiresystem.handler.refund.RefundHandler;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,22 @@ public class PayServiceImpI implements PayService {
     @Resource
     private AcquirePay acquirePay;
 
-    public void payMoney(PayReq req) {
-        acquirePay.payMoneyBefore(req);
+    @Resource
+    private Refund refund;
+
+    public Object payMoneySign(PayReq req) {
+        return acquirePay.generatePaySign(req);
+    }
+
+    public Object payMoneyResult(PayReq req) {
+        return acquirePay.notifyPayResult(req);
+    }
+
+    public Object refundMoney(String orderSn) {
+        return refund.refundMoney(orderSn);
+    }
+
+    public Object refundMoneyResult(Object o) {
+        return refund.refundMoenyResult(o);
     }
 }

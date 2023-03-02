@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.pay.domain.acquiresystem;
+package com.cqut.atao.farm.pay.domain.acquiresystem.handler.acquire;
 
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
 

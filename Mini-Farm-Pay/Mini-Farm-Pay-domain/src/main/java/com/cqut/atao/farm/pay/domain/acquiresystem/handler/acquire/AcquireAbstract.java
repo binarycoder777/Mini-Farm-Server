@@ -1,4 +1,5 @@
-package com.cqut.atao.farm.pay.domain.acquiresystem;
+package com.cqut.atao.farm.pay.domain.acquiresystem.handler.acquire;
+
 
 import com.cqut.atao.farm.pay.domain.acquiresystem.check.CheckHandler;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.aggreate.Payment;
@@ -22,7 +23,7 @@ import java.util.UUID;
  * @createTime 2023年02月23日 16:30:00
  */
 @Slf4j
-public abstract class AcquireAbstract implements AcquirePay{
+public abstract class AcquireAbstract implements AcquirePay {
 
     @Resource
     private RiskHandler riskHandler;
@@ -59,6 +60,8 @@ public abstract class AcquireAbstract implements AcquirePay{
         if (this.paySuccess(payReq)) {
             // 生成支付单
             Payment payment = this.generatePayment(payReq);
+            // 支付结果通知
+            thirdPayContent.getThirdPay(payReq.getPayCode()).notifyPayResult(payReq.getOrder());
             // 异步更新订单信息
             this.asyncUpdateOrder(payment);
             return "pay success";
