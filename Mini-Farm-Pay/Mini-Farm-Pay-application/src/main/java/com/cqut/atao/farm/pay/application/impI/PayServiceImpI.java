@@ -52,13 +52,6 @@ public class PayServiceImpI implements PayService {
         return refund.refundMoenyResult(o);
     }
 
-    public void clear(Constants.ClearingHandler clearingHandler ,Object data) {
-        clearingSystem.doClearing(clearingHandler,data);
-    }
-
-    public void remit(Long id) {
-        remitSystem.remit(id);
-    }
 
     public void remit(RemitReq req) {
         // 清分订单
