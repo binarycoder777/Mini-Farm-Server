@@ -19,4 +19,18 @@ public interface ClearingRecordRepository {
      */
     void batchSaveClearingRecord(List<ClearingRecordRes> clearingRecordRes);
 
+    /**
+     * 通过用户id获取清分记录列表
+     * @param id 用户id
+     * @return 清分记录
+     */
+    List<ClearingRecordRes> getClearingRecordList(Long id);
+
+
+    /**
+     * 更新清分记录
+     * @param clearingRecordRes
+     */
+    void updateClearingRecord(ClearingRecordRes clearingRecordRes);
+
 }

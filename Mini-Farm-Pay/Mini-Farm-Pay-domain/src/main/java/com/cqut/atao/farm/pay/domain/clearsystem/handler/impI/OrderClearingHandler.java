@@ -50,6 +50,8 @@ public class OrderClearingHandler implements Clearing {
         this.asyncUpdateOrderStatus(data);
     }
 
+
+
     public Object getObjectModel(Object o) {
         log.info("获取对象模型");
         return new Object();

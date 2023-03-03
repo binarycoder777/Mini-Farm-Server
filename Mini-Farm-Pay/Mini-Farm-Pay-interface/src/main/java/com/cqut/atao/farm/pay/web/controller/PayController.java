@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.pay.web.controller;
 
 import com.cqut.atao.farm.pay.application.PayService;
+import com.cqut.atao.farm.pay.application.req.RemitReq;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -50,13 +51,16 @@ public class PayController {
 
     @PostMapping("/refund/notify")
     @ApiOperation("订单退款通知回调接口")
-    public Result<Void> notifyRefundMoney(){
-        return null;
+    public Result<Void> notifyRefundMoney(@RequestBody Object o){
+        payService.refundMoneyResult(o);
+        return Results.success();
     }
 
-    @PostMapping("/remit")
-    public Result<Void> remitMoney(){
-        return null;
+    @PostMapping("/remit/order")
+    @ApiOperation("商家订单结算")
+    public Result<Void> remitOrder(@RequestBody RemitReq req){
+        payService.remit(req);
+        return Results.success();
     }
 
 }

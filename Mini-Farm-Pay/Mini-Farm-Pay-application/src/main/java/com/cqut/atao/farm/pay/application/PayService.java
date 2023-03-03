@@ -1,6 +1,8 @@
 package com.cqut.atao.farm.pay.application;
 
+import com.cqut.atao.farm.pay.application.req.RemitReq;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
+import com.cqut.atao.farm.pay.domain.clearsystem.common.Constants;
 
 /**
  * @author atao
@@ -11,14 +13,12 @@ import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
  */
 public interface PayService {
 
-
     /**
      * 付款验签
      * @param req 支付请求
      * @return 验签结果
      */
     Object payMoneySign(PayReq req);
-
 
     /**
      * 付款结果
@@ -40,5 +40,12 @@ public interface PayService {
      * @return 退款结果
      */
     Object refundMoneyResult(Object o);
+
+
+    /**
+     * 结算
+     * @param id
+     */
+    void remit(RemitReq id);
 
 }
