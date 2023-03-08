@@ -29,6 +29,7 @@ public abstract class RefundHandlerAbstract implements Refund{
     @Resource
     private RemoteOrderService remoteOrderService;
 
+    @Override
     public Object refundMoney(String orderSn) {
         // 根据订单号查询对应订单的支付单
         Payment payment = payInfoRepository.getPaymentByPaymentSn(orderSn);
@@ -37,6 +38,7 @@ public abstract class RefundHandlerAbstract implements Refund{
         return "success";
     }
 
+    @Override
     public Object refundMoenyResult(Object o) {
         if (this.judgeRefundState(o)) {
             // 支付单状态流转

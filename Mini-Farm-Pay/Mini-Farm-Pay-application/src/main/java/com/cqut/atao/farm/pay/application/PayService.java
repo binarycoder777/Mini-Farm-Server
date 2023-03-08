@@ -2,7 +2,6 @@ package com.cqut.atao.farm.pay.application;
 
 import com.cqut.atao.farm.pay.application.req.RemitReq;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
-import com.cqut.atao.farm.pay.domain.clearsystem.common.Constants;
 
 /**
  * @author atao
