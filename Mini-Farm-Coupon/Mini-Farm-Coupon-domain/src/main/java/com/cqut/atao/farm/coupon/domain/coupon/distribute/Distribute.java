@@ -11,6 +11,10 @@ import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
  */
 public interface Distribute {
 
+    /**
+     * 优惠券发放
+     * @param req {@link CreateCouponReq}
+     */
     void distribute(CreateCouponReq req);
 
 }

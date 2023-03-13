@@ -2,10 +2,7 @@ package com.cqut.atao.farm.coupon.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -20,7 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("coupon")
+@TableName("coupon_info")
 public class Coupon extends BaseDO {
 
     /**
@@ -47,4 +44,28 @@ public class Coupon extends BaseDO {
      * 有效期限
      */
     private Date validityTime;
+    /**
+     * 是否可叠加
+     */
+    private Integer isSuperposition;
+    /**
+     * 优惠券类型
+     */
+    private Integer couponType;
+    /**
+     * 优惠券使用范围（0：全平台 1：指定商品(redis存储) 2：指定类型(redis存储)））
+     */
+    private Integer couponScope;
+    /**
+     * 优惠券分发类型（0：系统发放 1：人工发放 2：用户领取）
+     */
+    private Integer distributeType;
+    /**
+     * 优惠券分发规则（0：无规则 1：有规则）
+     */
+    private Integer distributeRule;
+    /**
+     * 优惠券分发对象（0：所有对象 1：筛选对象）
+     */
+    private Integer distributeObject;
 }
