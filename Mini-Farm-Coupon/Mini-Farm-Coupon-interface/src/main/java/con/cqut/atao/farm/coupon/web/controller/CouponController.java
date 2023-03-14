@@ -3,6 +3,7 @@ package con.cqut.atao.farm.coupon.web.controller;
 import com.cqut.atao.farm.coupon.application.CouponService;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -43,6 +44,13 @@ public class CouponController {
     @ApiOperation(value = "领取优惠卷")
     public Result<Void> takeCoupon(@RequestBody TakeCouponReq req) {
         couponService.takeCoupon(req);
+        return Results.success();
+    }
+
+    @PutMapping("/consume")
+    @ApiOperation(value = "消费优惠卷")
+    public Result<Void> consumeCoupon(@RequestBody UseCouponReq req) {
+        couponService.useCoupon(req);
         return Results.success();
     }
 

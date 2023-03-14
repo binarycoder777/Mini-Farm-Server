@@ -34,7 +34,7 @@ public class TakeCouponRecord extends BaseDO {
     /**
      * 优惠券id
      */
-    private Long couponId;
+    private String couponSn;
     /**
      * 领取时间
      */

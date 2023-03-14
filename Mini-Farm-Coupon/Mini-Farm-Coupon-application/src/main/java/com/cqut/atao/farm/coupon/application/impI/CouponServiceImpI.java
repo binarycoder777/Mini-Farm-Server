@@ -4,6 +4,7 @@ import com.cqut.atao.farm.coupon.application.CouponService;
 import com.cqut.atao.farm.coupon.domain.coupon.distribute.Distribute;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
 
 import javax.annotation.Resource;
@@ -34,5 +35,10 @@ public class CouponServiceImpI implements CouponService {
     @Override
     public List<CouponRes> getCouponList(Long userId) {
         return distributeCoupon.getCouponList(userId);
+    }
+
+    @Override
+    public void useCoupon(UseCouponReq req) {
+        distributeCoupon.useCoupon(req);
     }
 }

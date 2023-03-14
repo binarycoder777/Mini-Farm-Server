@@ -10,6 +10,30 @@ package com.cqut.atao.farm.coupon.domain.common;
 public class Constant {
 
     /**
+     * 优惠券状态枚举
+     */
+    public enum COUPON_STATUS {
+        // 有效
+        VAILD(0),
+        // 无效
+        INVALID(1);
+
+        private Integer code;
+
+        COUPON_STATUS(Integer code) {
+            this.code = code;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+    }
+
+    /**
      * 优惠券发放规则类型
      */
     public enum RULE_TYPE {

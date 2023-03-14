@@ -2,6 +2,7 @@ package com.cqut.atao.farm.coupon.domain.coupon.distribute;
 
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
 
 import java.util.List;
@@ -33,4 +34,10 @@ public interface Distribute {
      * @return {@link List}
      */
     List<CouponRes> getCouponList(Long userId);
+
+    /**
+     * 使用优惠券
+     * @param req {@link UseCouponReq}
+     */
+    void useCoupon(UseCouponReq req);
 }

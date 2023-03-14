@@ -53,6 +53,10 @@ public class Coupon extends BaseDO {
      */
     private Integer isSuperposition;
     /**
+     * 优惠券状态
+     */
+    private Integer couponStatus;
+    /**
      * 优惠券类型
      */
     private Integer couponType;
@@ -72,4 +76,12 @@ public class Coupon extends BaseDO {
      * 优惠券分发对象（0：所有对象 1：筛选对象）
      */
     private Integer distributeObject;
+
+    /**
+     * 判断优惠券是否失效
+     * @return boolean
+     */
+    public boolean isValidaty() {
+       return validityTime.after(new Date());
+    }
 }

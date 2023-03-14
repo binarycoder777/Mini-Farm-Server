@@ -2,8 +2,10 @@ package com.cqut.atao.farm.coupon.infrastructure.repository;
 
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.cqut.atao.farm.coupon.domain.common.Constant;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
 import com.cqut.atao.farm.coupon.domain.coupon.repository.CouponRepository;
 import com.cqut.atao.farm.coupon.infrastructure.dao.CouponMapper;
@@ -12,6 +14,7 @@ import com.cqut.atao.farm.coupon.infrastructure.po.Coupon;
 import com.cqut.atao.farm.coupon.infrastructure.po.TakeCouponRecord;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -60,12 +63,41 @@ public class CouponRepositoryImpI implements CouponRepository {
 
     @Override
     public List<CouponRes> getCouponList(Long userId) {
-        List<Long> couponIds = takeCouponMapper.selectList(Wrappers.lambdaQuery(TakeCouponRecord.class)
+        List<String> couponSns = takeCouponMapper.selectList(Wrappers.lambdaQuery(TakeCouponRecord.class)
                 .eq(TakeCouponRecord::getUserId, userId)).stream()
                 .map(e -> {
-                    return e.getCouponId();
+                    return e.getCouponSn();
                 }).collect(Collectors.toList());
-        List<Coupon> couponList = couponMapper.selectBatchIds(couponIds);
+        List<Coupon> couponList = Lists.newArrayList();
+        for (String e: couponSns) {
+            Coupon coupon = couponMapper.selectOne(Wrappers.lambdaQuery(Coupon.class).eq(Coupon::getCouponSn, e));
+            if (!judgeConponValid(coupon)) {
+                continue;
+            }
+            couponList.add(coupon);
+        }
         return BeanUtil.convert(couponList,CouponRes.class);
     }
+
+    @Override
+    public void useCoupon(UseCouponReq req) {
+        Coupon coupon = couponMapper.selectOne(Wrappers.lambdaQuery(Coupon.class).eq(Coupon::getCouponSn, req.getCouponSn()));
+        if (!judgeConponValid(coupon)) {
+            return;
+        }
+        takeCouponMapper.delete(Wrappers.lambdaQuery(TakeCouponRecord.class)
+        .eq(TakeCouponRecord::getUserId,req.getUserId())
+        .eq(TakeCouponRecord::getCouponSn,req.getCouponSn()));
+    }
+
+
+    public boolean judgeConponValid(Coupon coupon) {
+        if (!coupon.isValidaty()) {
+            couponMapper.updateCouponStatus(coupon.getCouponSn(), Constant.COUPON_STATUS.INVALID.getCode());
+            log.info("优惠券已失效:{}",coupon);
+            return false;
+        }
+        return true;
+    }
+
 }

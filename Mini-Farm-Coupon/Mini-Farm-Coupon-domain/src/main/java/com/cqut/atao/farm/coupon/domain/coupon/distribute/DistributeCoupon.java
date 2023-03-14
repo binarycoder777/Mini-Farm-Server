@@ -2,6 +2,7 @@ package com.cqut.atao.farm.coupon.domain.coupon.distribute;
 
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
 import com.cqut.atao.farm.coupon.domain.coupon.repository.CouponRepository;
 import com.cqut.atao.farm.coupon.domain.coupon.rule.RuleHandler;
@@ -76,4 +77,8 @@ public class DistributeCoupon extends DistributeAbstract{
         return couponRepository.getCouponList(userId);
     }
 
+    @Override
+    public void useCoupon(UseCouponReq req) {
+        couponRepository.useCoupon(req);
+    }
 }
