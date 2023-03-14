@@ -21,7 +21,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @TableName("take_coupon")
-public class TakeCoupon extends BaseDO {
+public class TakeCouponRecord extends BaseDO {
 
     /**
      * id

@@ -1,7 +1,7 @@
 package com.cqut.atao.farm.coupon.domain.coupon.rule.filter;
 
-import com.cqut.atao.farm.coupon.domain.coupon.rule.Rule;
-import com.cqut.atao.farm.coupon.domain.coupon.rule.RuleAbstract;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,17 +12,15 @@ import org.springframework.stereotype.Component;
  * @Description 新用户规则过滤
  * @createTime 2023年03月13日 23:12:00
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Component
 @Slf4j
-public class NewUserFilter extends RuleAbstract {
-
-    public NewUserFilter(Rule next) {
-        super(next);
-    }
+public class NewUserFilter implements Filter{
 
     @Override
-    public void doFilter() {
-        log.info("过滤新用户");
-
+    public boolean doFilter(Long userId) {
+        log.info("判断是否为新用户:{}",userId);
+        return true;
     }
 }

@@ -1,6 +1,10 @@
 package com.cqut.atao.farm.coupon.domain.coupon.repository;
 
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
+
+import java.util.List;
 
 /**
  * @author atao
@@ -16,5 +20,25 @@ public interface CouponRepository {
      * @param req {@link CreateCouponReq}
      */
     void createCoupon(CreateCouponReq req);
+
+    /**
+     * 根据优惠券id查询优惠券详情
+     * @param couponSn Long
+     * @return 优惠券信息
+     */
+    CouponRes getCoupon(String couponSn);
+
+    /**
+     * 领取优惠券
+     * @param req {@link TakeCouponReq}
+     */
+    void takeCoupon(TakeCouponReq req);
+
+    /**
+     * 获取优惠券列表
+     * @param userId 用户id
+     * @return {@link List}
+     */
+    List<CouponRes> getCouponList(Long userId);
 
 }

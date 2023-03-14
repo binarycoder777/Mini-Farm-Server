@@ -24,9 +24,9 @@ public class TakeCouponReq {
      */
     private Long userId;
     /**
-     * 优惠券id
+     * 优惠券编号
      */
-    private Long couponId;
+    private String couponSn;
     /**
      * 领取时间
      */

@@ -1,5 +1,7 @@
 package com.cqut.atao.farm.coupon.domain.coupon.rule;
 
+import java.util.List;
+
 /**
  * @author atao
  * @version 1.0.0
@@ -9,6 +11,6 @@ package com.cqut.atao.farm.coupon.domain.coupon.rule;
  */
 public interface Rule {
 
-    void doFilter();
+    boolean doFilter(Long userId,List<Integer> ruleType);
 
 }

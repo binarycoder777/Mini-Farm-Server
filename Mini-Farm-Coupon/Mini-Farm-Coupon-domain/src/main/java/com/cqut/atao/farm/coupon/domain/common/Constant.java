@@ -10,6 +10,29 @@ package com.cqut.atao.farm.coupon.domain.common;
 public class Constant {
 
     /**
+     * 优惠券发放规则类型
+     */
+    public enum RULE_TYPE {
+        // 新用户专享
+        NEW_USER(0),
+        // 消费满x元赠送
+        COMSUME(1);
+        private Integer code;
+
+        RULE_TYPE(Integer code) {
+            this.code = code;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+    }
+
+    /**
      * 优惠券发放类型
      */
     public enum DISTRBUT_TYPE {

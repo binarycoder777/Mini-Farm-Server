@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author atao
@@ -24,6 +25,10 @@ public class CreateCouponReq {
      * id
      */
     private Long id;
+    /**
+     * 优惠券编号
+     */
+    private String couponSn;
     /**
      * 优惠券名字
      */
@@ -73,6 +78,10 @@ public class CreateCouponReq {
      */
     private Integer distributeRule;
     /**
+     * 规则类型列表
+     */
+    private List<Integer> ruleType;
+    /**
      * 优惠券分发对象（0：所有对象 1：筛选对象）
      */
     private Integer distributeObject;
@@ -80,4 +89,8 @@ public class CreateCouponReq {
      * 优惠券分发的筛选用户的id列表
      */
     private List<Long> userIdList;
+
+    public static String generateCouponSn() {
+        return UUID.randomUUID().toString();
+    }
 }

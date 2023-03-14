@@ -1,24 +1,19 @@
-package com.cqut.atao.farm.coupon.infrastructure.po;
+package com.cqut.atao.farm.coupon.domain.coupon.model.res;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
-import lombok.*;
+import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName Coupon.java
- * @Description 优惠券po类
- * @createTime 2023年03月12日 15:55:00
+ * @ClassName CouponRes.java
+ * @Description 优惠券结果
+ * @createTime 2023年03月14日 09:20:00
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@TableName("coupon_info")
-public class Coupon extends BaseDO {
+public class CouponRes {
 
     /**
      * id
@@ -61,6 +56,14 @@ public class Coupon extends BaseDO {
      */
     private Integer couponScope;
     /**
+     * 优惠券可以使用范围的商品的id列表
+     */
+    private List<Long> productIdList;
+    /**
+     * 优惠券可以使用范围的商品的类别id列表
+     */
+    private List<Long> productTypeIdList;
+    /**
      * 优惠券分发类型（0：系统发放 1：人工发放 2：用户领取）
      */
     private Integer distributeType;
@@ -69,7 +72,16 @@ public class Coupon extends BaseDO {
      */
     private Integer distributeRule;
     /**
+     * 规则类型列表
+     */
+    private List<Integer> ruleType;
+    /**
      * 优惠券分发对象（0：所有对象 1：筛选对象）
      */
     private Integer distributeObject;
+    /**
+     * 优惠券分发的筛选用户的id列表
+     */
+    private List<Long> userIdList;
+
 }

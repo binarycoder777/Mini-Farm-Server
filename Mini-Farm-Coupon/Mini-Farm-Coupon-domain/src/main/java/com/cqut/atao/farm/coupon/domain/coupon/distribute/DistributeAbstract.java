@@ -60,6 +60,8 @@ public abstract class DistributeAbstract implements Distribute {
      */
     public void saveCoupon(CreateCouponReq req) {
         log.info("保存优惠券信息");
+        // 生成优惠券编码
+        req.setCouponSn(CreateCouponReq.generateCouponSn());
         couponRepository.createCoupon(req);
     }
 
