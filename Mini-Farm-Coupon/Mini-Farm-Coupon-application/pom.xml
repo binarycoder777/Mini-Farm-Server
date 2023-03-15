@@ -3,20 +3,21 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>Mini-Farm-Server</artifactId>
+        <artifactId>Mini-Farm-coupon</artifactId>
         <groupId>com.cqut.atao</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Mini-Farm-coupon</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>Mini-Farm-Coupon-application</module>
-        <module>Mini-Farm-Coupon-domain</module>
-        <module>Mini-Farm-Coupon-interface</module>
-        <module>Mini-Farm-Coupon-infrastructure</module>
-    </modules>
+    <artifactId>Mini-Farm-Coupon-application</artifactId>
 
+    <dependencies>
+<!--        业务包-->
+        <dependency>
+            <groupId>com.cqut.atao</groupId>
+            <artifactId>Mini-Farm-Coupon-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
