@@ -3,6 +3,7 @@ package con.cqut.atao.farm.coupon.web.controller;
 import com.cqut.atao.farm.coupon.domain.activity.kill.SecondKillActivity;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -25,7 +26,7 @@ import javax.annotation.Resource;
 @Api(tags = "平台活动")
 @RestController
 @RequestMapping("/api/promotion/activity")
-public class ActivityController {
+public class KillActivityController {
 
     @Resource
     private SecondKillActivity secondKillActivity;
@@ -40,8 +41,16 @@ public class ActivityController {
     @PostMapping("/kill/product/add")
     @ApiOperation(value = "添加秒杀商品")
     public Result<Void> addKillProduct(@RequestBody AddKillProductReq req) {
-        secondKillActivity.addKillActivity(req);
+        secondKillActivity.addKillProduct(req);
         return Results.success();
     }
+
+    @PostMapping("/kill/product/buy")
+    @ApiOperation(value = "抢购秒杀商品")
+    public Result<Void> buyKillProduct(@RequestBody PlaceOrderReq req) {
+
+        return Results.success();
+    }
+
 
 }
