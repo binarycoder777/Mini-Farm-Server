@@ -11,6 +11,7 @@ import com.cqut.atao.farm.user.infrastructure.dao.UserDao;
 import com.cqut.atao.farm.user.infrastructure.po.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -30,6 +31,9 @@ public class UserRepositoryImpI implements UserRepository {
 
     @Override
     public boolean checkUserInfoByOpenId(String openid) {
+        if (StringUtils.isEmpty(openid)) {
+            return false;
+        }
        return userDao.exists(new QueryWrapper<User>().lambda().eq(User::getOpenid,openid));
     }
 
