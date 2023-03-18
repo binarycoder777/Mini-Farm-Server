@@ -1,7 +1,12 @@
 package com.cqut.atao.farm.user.domain.model.req;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @author atao
@@ -11,7 +16,12 @@ import lombok.Data;
  * @createTime 2023年02月14日 18:21:00
  */
 @Data
-public class ReceiveAddressReq {
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ReceiveAddressReq implements Serializable {
+
+    private static final long serialVersionUID = -1242493306307174690L;
 
     @ApiModelProperty("id")
     private String id;

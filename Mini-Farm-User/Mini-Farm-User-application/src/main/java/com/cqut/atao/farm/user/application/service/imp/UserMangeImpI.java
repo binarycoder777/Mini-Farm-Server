@@ -22,6 +22,7 @@ public class UserMangeImpI implements UserMange {
     @Resource
     private UserService userService;
 
+    @Override
     public LoginRes login(BaseLoginReq req) {
         return userService.login(req);
     }

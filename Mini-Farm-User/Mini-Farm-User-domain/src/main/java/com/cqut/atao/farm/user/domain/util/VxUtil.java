@@ -29,7 +29,7 @@ public class VxUtil {
 
     public static final String ISS = "Mini-Farm";
 
-    public static final String SECRET = "SecretKey039245678901232039487623456783092349288901402967890140939827";
+    public static final String SECRET = "6a2aa19aa027ebe1e9d8a0bcc340ae38";
 
 
     /**

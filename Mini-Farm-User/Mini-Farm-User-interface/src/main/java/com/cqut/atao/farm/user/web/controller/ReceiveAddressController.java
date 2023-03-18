@@ -33,7 +33,7 @@ public class ReceiveAddressController {
     @Resource
     private ReceiveAddressMange receiveAddressMange;
 
-    @GetMapping("/{userId}/receive-address")
+    @GetMapping("/receive-address/{userId}")
     @ApiOperation(value = "获取用户收货地址", notes = "根据用户ID获取用户收货地址")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户 id", required = true, example = "1547742028312375296")
