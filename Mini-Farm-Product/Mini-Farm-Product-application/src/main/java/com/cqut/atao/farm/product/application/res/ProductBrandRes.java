@@ -14,7 +14,7 @@ import lombok.Data;
 public class ProductBrandRes {
 
     @ApiModelProperty("id")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("品牌名称")
     private String name;

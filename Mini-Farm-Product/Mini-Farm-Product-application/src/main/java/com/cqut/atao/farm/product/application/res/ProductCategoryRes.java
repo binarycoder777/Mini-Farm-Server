@@ -16,7 +16,7 @@ public class ProductCategoryRes {
     private String name;
 
     @ApiModelProperty(value = "父级ID")
-    private Long parentId;
+    private String parentId;
 
     @ApiModelProperty(value = "层级")
     private Integer level;

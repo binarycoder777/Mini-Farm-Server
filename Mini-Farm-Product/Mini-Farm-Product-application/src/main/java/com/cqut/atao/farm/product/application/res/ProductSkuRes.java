@@ -15,10 +15,10 @@ import java.math.BigDecimal;
 @Data
 public class ProductSkuRes {
     @ApiModelProperty("id")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("商品 id")
-    private Long productId;
+    private String productId;
 
     @ApiModelProperty("价格")
     private BigDecimal price;

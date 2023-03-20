@@ -16,13 +16,13 @@ import java.util.Date;
 @Data
 public class ProductSpuRes {
     @ApiModelProperty("id")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("商品类型id")
-    private Long categoryId;
+    private String categoryId;
 
     @ApiModelProperty("商品品牌id")
-    private Long brandId;
+    private String brandId;
 
     @ApiModelProperty("商品名称")
     private String name;
