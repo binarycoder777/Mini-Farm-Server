@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class CartItemRes {
     @ApiModelProperty("id")
-    private Long id;
+    private String id;
 
     @ApiModelProperty("商品 spu id")
     private String productId;
