@@ -60,6 +60,9 @@ public class ProductSpuRes {
     @ApiModelProperty("商品详情")
     private String detail;
 
+    @ApiModelProperty("商品详情图集")
+    private String detailPic;
+
     @ApiModelProperty("发布状态 0：发布 1：未发布")
     private Integer publishStatus;
 
