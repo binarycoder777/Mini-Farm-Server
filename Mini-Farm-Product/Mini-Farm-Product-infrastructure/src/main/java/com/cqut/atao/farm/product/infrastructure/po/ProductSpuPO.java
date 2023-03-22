@@ -2,7 +2,9 @@ package com.cqut.atao.farm.product.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,6 +17,8 @@ import java.util.Date;
  * @createTime 2023年01月30日 16:01:00
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName("product_spu")
 public class ProductSpuPO extends BaseDO {
 
@@ -92,6 +96,16 @@ public class ProductSpuPO extends BaseDO {
      * 商品详情
      */
     private String detail;
+
+    /**
+     * 详情图片
+     */
+    private String detailPic;
+
+    /**
+     * 详情服务
+     */
+    private String detailService;
 
     /**
      * 发布状态 0：发布 1：未发布

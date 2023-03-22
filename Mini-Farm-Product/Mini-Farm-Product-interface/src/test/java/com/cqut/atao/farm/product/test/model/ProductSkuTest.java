@@ -1,26 +1,21 @@
-package com.cqut.atao.farm.product.infrastructure.po;
+package com.cqut.atao.farm.product.test.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName ProductSkuPO.java
- * @Description 商品SKU
- * @createTime 2023年01月30日 15:57:00
+ * @ClassName Sku.java
+ * @Description TODO
+ * @createTime 2023年03月22日 13:00:00
  */
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-@TableName("product_sku")
-public class ProductSkuPO  extends BaseDO {
+@AllArgsConstructor
+public class ProductSkuTest {
     /**
      * id
      */

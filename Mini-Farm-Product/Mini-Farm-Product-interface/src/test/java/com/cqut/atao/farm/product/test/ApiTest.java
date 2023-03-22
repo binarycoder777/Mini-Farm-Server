@@ -1,5 +1,7 @@
 package com.cqut.atao.farm.product.test;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.service.ProductCategoryMange;
@@ -7,9 +9,13 @@ import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
+import com.cqut.atao.farm.product.infrastructure.dao.ProductSkuDAO;
 import com.cqut.atao.farm.product.infrastructure.es.EsProductDAO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
+import com.cqut.atao.farm.product.infrastructure.po.ProductSkuPO;
 import com.cqut.atao.farm.product.infrastructure.po.ProductSpuPO;
+import com.cqut.atao.farm.product.test.model.ProductSkuTest;
+import com.cqut.atao.farm.product.test.model.ProductSpuTest;
 import com.cqut.atao.farm.product.web.ProductApplication;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -18,10 +24,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author atao
@@ -45,16 +57,14 @@ public class ApiTest {
     private ProductSpuDAO productSpuDAO;
 
     @Resource
+    private ProductSkuDAO productSkuDAO;
+
+    @Resource
     private EsProductDAO esProductDAO;
 
     @Test
-    public void insertProductIntoEs() {
-        List<ProductSpuPO> productSpuPOS = productSpuDAO.selectList(null);
-        for (ProductSpuPO productSpuPO: productSpuPOS) {
-            EsProduct convert = BeanUtil.convert(productSpuPO, EsProduct.class);
-            log.info("====>{}",convert);
-            esProductDAO.save(convert);
-        }
+    public void deleteProductIntoEs() {
+        esProductDAO.deleteAll();
     }
 
     @Test
@@ -99,6 +109,119 @@ public class ApiTest {
                 .build();
         productService.lockProductStock(orderInfo);
     }
+
+
+    @Test
+    public void insertProductIntoEs() {
+        esProductDAO.deleteAll();
+        List<ProductSpuPO> productSpuPOS = productSpuDAO.selectList(Wrappers.lambdaQuery(ProductSpuPO.class).eq(ProductSpuPO::getCategoryId,1));
+        for (ProductSpuPO productSpuPO: productSpuPOS) {
+            EsProduct convert = BeanUtil.convert(productSpuPO, EsProduct.class);
+            log.info("====>{}",convert);
+            esProductDAO.save(convert);
+        }
+    }
+
+    @Test
+    public void  testFile() throws IOException {
+        String filePath = "/Users/weitao/Desktop/毕业设计/项目/爬虫/goodsItem/data/shuiguo.txt";
+        FileInputStream fin = new FileInputStream(filePath);
+        InputStreamReader reader = new InputStreamReader(fin);
+        BufferedReader buffReader = new BufferedReader(reader);
+        String strTmp = "";
+        while((strTmp = buffReader.readLine())!=null){
+            Object parse = JSON.parse(strTmp);
+            ProductSpuTest spu = BeanUtil.convert(parse, ProductSpuTest.class);
+            // 清洗数据
+            spu = clear(spu);
+
+            spu.setProductSn(UUID.randomUUID().toString());
+            ProductSpuPO spuPO = BeanUtil.convert(spu, ProductSpuPO.class);
+            System.out.println(spuPO+"\n\n");
+            productSpuDAO.insert(spuPO);
+            List<ProductSkuTest> skus = spu.getSkus();
+            skus.forEach(e->{
+                e = clear(e);
+                ProductSkuPO skuPO = BeanUtil.convert(e, ProductSkuPO.class);
+                productSkuDAO.insert(skuPO);
+            });
+        }
+        buffReader.close();
+    }
+
+    public ProductSpuTest clear(ProductSpuTest item) {
+
+        if (item.getName().length() > 2) {
+            item.setName(item.getName().substring(2,item.getName().length()-2));
+        }
+        if (item.getPic().length() > 2) {
+            item.setPic(item.getPic().substring(2, item.getPic().length() - 2));
+        }
+        if (item.getSubTitle().length() > 2) {
+            item.setSubTitle(item.getSubTitle().substring(2, item.getSubTitle().length() - 2));
+        }
+        if (item.getDetail().length() > 3) {
+            item.setDetail(item.getDetail().substring(3, item.getDetail().length() - 3));
+        }
+        // 服务
+        if (item.getDetailService().length() > 1) {
+            String[] s = item.getDetailService().substring(1, item.getDetailService().length() - 1).split(",");
+            String ser = "";
+            for (String service : s) {
+                if (service.length() > 1) {
+                    ser = ser + service.substring(1, service.length() - 1);
+                }
+            }
+            item.setDetailService(ser);
+        }
+        // 轮播图
+        if (item.getPhotoAlbum().length() > 1) {
+            String[] pic = item.getPhotoAlbum().substring(1,item.getPhotoAlbum().length()-1).split(",");
+            String res = "";
+            for (String p: pic) {
+                if (res.length() == 0) {
+                    if (p.length() > 1) {
+                        res = p.substring(1, p.length() - 1);
+                    }
+                    continue;
+                }
+                if (p.length() > 1) {
+                    res = res + ";" + p.substring(1, p.length() - 1);
+                }
+            }
+            item.setPhotoAlbum(res);
+        }
+        // 详情图片
+        if (item.getDetailPic().length() > 1) {
+            String[] pic = item.getDetailPic().substring(1, item.getDetailPic().length() - 1).split(",");
+            String res = "";
+            for (String p : pic) {
+                if (res.length() == 0) {
+                   if (p.length() > 1) {
+                       res = p.substring(1, p.length() - 1);
+                   }
+                    continue;
+                }
+                if (p.length() > 1) {
+                    res = res + ";" + p.substring(1, p.length() - 1);
+                }
+            }
+            item.setDetailPic(res);
+        }
+        return item;
+    }
+
+    public ProductSkuTest clear(ProductSkuTest item) {
+        if (item.getPic().length() > 2) {
+            item.setPic(item.getPic().substring(2, item.getPic().length() - 2));
+        }
+//        if (item.getAttribute().length() > 1) {
+//            item.setAttribute(item.getAttribute().substring(1, item.getAttribute().length() - 1));
+//        }
+        return item;
+    }
+
+
 
 
 

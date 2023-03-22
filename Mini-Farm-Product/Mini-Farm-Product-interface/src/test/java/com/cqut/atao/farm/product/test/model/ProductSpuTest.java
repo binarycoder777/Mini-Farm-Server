@@ -1,19 +1,26 @@
-package com.cqut.atao.farm.product.domain.mode.vo;
+package com.cqut.atao.farm.product.test.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName ProductSpuVO.java
- * @Description 商品 SPU
- * @createTime 2023年01月30日 19:41:00
+ * @ClassName productSpu.java
+ * @Description TODO
+ * @createTime 2023年03月22日 12:54:00
  */
 @Data
-public class ProductSpuVO {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductSpuTest {
 
     /**
      * id
@@ -91,11 +98,6 @@ public class ProductSpuVO {
     private String detail;
 
     /**
-     * 商品详情图集
-     */
-    private String detailPic;
-
-    /**
      * 发布状态 0：发布 1：未发布
      */
     private Integer publishStatus;
@@ -109,5 +111,16 @@ public class ProductSpuVO {
      * 推荐状态 0：推荐 1：非推荐
      */
     private Integer recommandStatus;
-}
 
+    /**
+     * 详情图片
+     */
+    private String detailPic;
+
+    /**
+     * 详情服务
+     */
+    private String detailService;
+
+    private List<ProductSkuTest> skus;
+}
