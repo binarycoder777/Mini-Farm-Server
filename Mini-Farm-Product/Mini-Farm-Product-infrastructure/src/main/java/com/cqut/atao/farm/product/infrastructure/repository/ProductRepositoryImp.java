@@ -2,6 +2,7 @@ package com.cqut.atao.farm.product.infrastructure.repository;
 
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
@@ -80,6 +81,18 @@ public class ProductRepositoryImp implements ProductRepository {
                 .productSkus(BeanUtil.convert(productSkuDOListFuture.get(), ProductSkuVO.class))
                 .build();
         return product;
+    }
+
+    @Override
+    public PageResponse<ProductSpuVO> searchProductByCategoryId(PageRequest pageRequest, Long categoryId) {
+        Page page = productSpuDAO.selectPage(new Page(pageRequest.getCurrent(), pageRequest.getSize()), Wrappers.lambdaQuery(ProductSpuPO.class).eq(ProductSpuPO::getCategoryId, categoryId));
+        PageResponse productPageResponse = PageResponse.builder()
+                .current(page.getCurrent())
+                .size(page.getSize())
+                .total(page.getTotal())
+                .records(page.getRecords())
+                .build();
+        return productPageResponse.convert(e->BeanUtil.convert(e,ProductSpuVO.class));
     }
 
     @Override

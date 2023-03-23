@@ -1,7 +1,6 @@
 package com.cqut.atao.farm.product.infrastructure.repository;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cqut.atao.farm.product.domain.mode.aggregate.ProductCategory;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductCategoryVO;

@@ -3,6 +3,7 @@ package com.cqut.atao.farm.product.domain.repository;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
@@ -35,6 +36,17 @@ public interface ProductRepository {
      * @return {@link PageResponse}
      */
     PageResponse<EsProduct> searchProductInfo(PageRequest pageRequest, String keyword);
+
+
+    /**
+     * 根据关键字搜索商品
+     *
+     * @param pageRequest {@link PageRequest}
+     * @param categoryId 分类Id
+     * @return {@link PageResponse}
+     */
+    PageResponse<ProductSpuVO> searchProductByCategoryId(PageRequest pageRequest, Long categoryId);
+
 
     /**
      * 锁定下单商品库存

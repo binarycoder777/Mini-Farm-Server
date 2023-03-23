@@ -114,7 +114,7 @@ public class ApiTest {
     @Test
     public void insertProductIntoEs() {
         esProductDAO.deleteAll();
-        List<ProductSpuPO> productSpuPOS = productSpuDAO.selectList(Wrappers.lambdaQuery(ProductSpuPO.class).eq(ProductSpuPO::getCategoryId,1));
+        List<ProductSpuPO> productSpuPOS = productSpuDAO.selectList(Wrappers.lambdaQuery(ProductSpuPO.class).between(ProductSpuPO::getCategoryId,100,120));
         for (ProductSpuPO productSpuPO: productSpuPOS) {
             EsProduct convert = BeanUtil.convert(productSpuPO, EsProduct.class);
             log.info("====>{}",convert);
@@ -123,8 +123,9 @@ public class ApiTest {
     }
 
     @Test
+//    @Transactional
     public void  testFile() throws IOException {
-        String filePath = "/Users/weitao/Desktop/毕业设计/项目/爬虫/goodsItem/data/shuiguo.txt";
+        String filePath = "/Users/weitao/Desktop/毕业设计/项目/爬虫/goodsItem/data/yml.txt";
         FileInputStream fin = new FileInputStream(filePath);
         InputStreamReader reader = new InputStreamReader(fin);
         BufferedReader buffReader = new BufferedReader(reader);
@@ -137,7 +138,6 @@ public class ApiTest {
 
             spu.setProductSn(UUID.randomUUID().toString());
             ProductSpuPO spuPO = BeanUtil.convert(spu, ProductSpuPO.class);
-            System.out.println(spuPO+"\n\n");
             productSpuDAO.insert(spuPO);
             List<ProductSkuTest> skus = spu.getSkus();
             skus.forEach(e->{
@@ -147,6 +147,25 @@ public class ApiTest {
             });
         }
         buffReader.close();
+    }
+
+    @Transactional
+    public void insert(String jsonStr) {
+        Object parse = JSON.parse(jsonStr);
+        ProductSpuTest spu = BeanUtil.convert(parse, ProductSpuTest.class);
+        // 清洗数据
+        spu = clear(spu);
+
+        spu.setProductSn(UUID.randomUUID().toString());
+        ProductSpuPO spuPO = BeanUtil.convert(spu, ProductSpuPO.class);
+        productSpuDAO.insert(spuPO);
+        List<ProductSkuTest> skus = spu.getSkus();
+        skus.forEach(e->{
+            e = clear(e);
+            ProductSkuPO skuPO = BeanUtil.convert(e, ProductSkuPO.class);
+            productSkuDAO.insert(skuPO);
+        });
+        log.warn("成功");
     }
 
     public ProductSpuTest clear(ProductSpuTest item) {

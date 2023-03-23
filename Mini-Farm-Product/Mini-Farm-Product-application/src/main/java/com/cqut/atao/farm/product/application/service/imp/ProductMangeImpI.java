@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.product.application.service.imp;
 
 import com.cqut.atao.farm.product.application.req.CheckAmountReq;
+import com.cqut.atao.farm.product.application.req.ProductCategoryReq;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
 import com.cqut.atao.farm.product.application.res.CheckAmountRes;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
@@ -9,6 +10,7 @@ import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.product.domain.repository.ProductRepository;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -60,4 +62,11 @@ public class ProductMangeImpI implements ProductMange {
         BigDecimal payAmount = productRepository.checkProductAmount(req.getSkuIds());
         return CheckAmountRes.builder().payAmount(payAmount).build();
     }
+
+    @Override
+    public PageResponse<ProductProfileRes> getProductByCategoryId(ProductCategoryReq req) {
+        PageResponse<ProductSpuVO> productPageResponse = productRepository.searchProductByCategoryId(req, req.getCategoryId());
+        return productPageResponse.convert(e->BeanUtil.convert(e,ProductProfileRes.class));
+    }
+
 }
