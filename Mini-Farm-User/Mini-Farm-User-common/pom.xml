@@ -11,5 +11,6 @@
 
     <artifactId>Mini-Farm-User-common</artifactId>
 
+    <packaging>jar</packaging>
 
 </project>
