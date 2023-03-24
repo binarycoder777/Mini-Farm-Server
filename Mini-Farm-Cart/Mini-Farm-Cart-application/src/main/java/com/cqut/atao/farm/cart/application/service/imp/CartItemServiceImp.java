@@ -26,6 +26,11 @@ public class CartItemServiceImp implements CartItemService {
     private CartItemRepository cartItemRepository;
 
     @Override
+    public Long queryCartItemNum(Long userId) {
+        return cartItemRepository.queryCartItemNum(userId);
+    }
+
+    @Override
     public PageResponse<CartItemRes> pageQueryCartItem(CartItemPageQueryReq requestParam) {
         return cartItemRepository.pageQueryCartItem(requestParam.getUserId(), requestParam);
     }

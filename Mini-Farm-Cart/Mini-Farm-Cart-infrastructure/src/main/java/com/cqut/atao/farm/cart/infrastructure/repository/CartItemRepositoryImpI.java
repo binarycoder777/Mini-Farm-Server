@@ -42,6 +42,11 @@ public class CartItemRepositoryImpI implements CartItemRepository {
     private CartItemDAO cartItemDAO;
 
     @Override
+    public Long queryCartItemNum(Long userId) {
+        return cartItemDAO.selectCount(Wrappers.lambdaQuery(CartItem.class).eq(CartItem::getUserId,userId));
+    }
+
+    @Override
     public PageResponse<CartItemRes> pageQueryCartItem(String userId, PageRequest pageRequest) {
         LambdaQueryWrapper<CartItem> queryWrapper = Wrappers.lambdaQuery(CartItem.class)
                 .eq(CartItem::getUserId, userId);

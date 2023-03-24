@@ -8,10 +8,7 @@ import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +31,13 @@ public class CartController {
 
     @Resource
     private CartItemService cartItemService;
+
+    @GetMapping("/num/{userId}")
+    @ApiModelProperty(value = "购物车商品数量")
+    public Result<Long> queryCartItemNum(@PathVariable(value = "userId")Long userId) {
+        Long nums = cartItemService.queryCartItemNum(userId);
+        return Results.success(nums);
+    }
 
     @GetMapping("/page")
     @ApiOperation(value = "分页查询购物车商品")

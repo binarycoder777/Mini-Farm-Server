@@ -18,6 +18,14 @@ import java.util.List;
 public interface CartItemRepository {
 
     /**
+     * 查询购物车商品数量
+     *
+     * @param userId
+     * @return Integer
+     */
+    Long queryCartItemNum(Long userId);
+
+    /**
      * 分页查询购物车商品
      *
      * @param userId      用户id
