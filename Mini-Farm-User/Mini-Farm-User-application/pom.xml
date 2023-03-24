@@ -11,6 +11,8 @@
 
     <artifactId>Mini-Farm-User-application</artifactId>
 
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>com.cqut.atao</groupId>
