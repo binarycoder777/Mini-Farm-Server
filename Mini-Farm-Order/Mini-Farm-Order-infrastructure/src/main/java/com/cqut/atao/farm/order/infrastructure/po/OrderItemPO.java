@@ -24,7 +24,7 @@ public class OrderItemPO extends BaseDO {
     /**
      * 订单id
      */
-    private Long orderId;
+    private String orderId;
 
     /**
      * 订单编号

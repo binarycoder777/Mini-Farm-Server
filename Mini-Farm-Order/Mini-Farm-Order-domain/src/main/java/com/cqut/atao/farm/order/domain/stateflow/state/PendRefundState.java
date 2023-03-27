@@ -2,6 +2,8 @@ package com.cqut.atao.farm.order.domain.stateflow.state;
 
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.stateflow.AbstractState;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -11,46 +13,48 @@ import com.cqut.atao.farm.order.domain.stateflow.AbstractState;
  * @Description 待退款状态
  * @createTime 2023年02月17日 22:03:00
  */
+@Slf4j
+@Component
 public class PendRefundState extends AbstractState {
 
 
     @Override
-    public boolean pay(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean pay(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean sendProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean sendProduct(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean signProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean signProduct(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean commentProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean commentProduct(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean returnProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean returnProduct(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean returnMoney(Long orderId, Enum<Constants.OrderState> currentOrderState) {
-        return orderRepository.alterState(orderId,currentOrderState, Constants.OrderState.TRADING_CLOSED);
+    public boolean returnMoney(String orderSn, Enum<Constants.OrderState> currentOrderState) {
+        return orderRepository.alterState(orderSn,currentOrderState, Constants.OrderState.TRADING_CLOSED);
     }
 
     @Override
-    public boolean finsh(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean finsh(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean cancelOrder(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean cancelOrder(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 }

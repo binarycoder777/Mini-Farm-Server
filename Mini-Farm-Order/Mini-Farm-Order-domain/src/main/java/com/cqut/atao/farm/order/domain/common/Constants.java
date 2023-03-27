@@ -31,6 +31,36 @@ public class Constants {
             this.code = code;
             this.info = info;
         }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+
+        public static OrderState getStateByCode(Integer code) {
+            switch (code) {
+                case 1:return OBLIGATEION;
+                case 2:return WAIT_SEND;
+                case 3:return WAIT_SIGNATURE;
+                case 4:return WAIT_COMMENT;
+                case 5:return HAVE_COMMENT;
+                case 6:return PEND_REFUND;
+                case 7:return AFTER_SALE;
+                case 8:return TRADING_CLOSED;
+                default:return null;
+            }
+        }
     }
 
 }

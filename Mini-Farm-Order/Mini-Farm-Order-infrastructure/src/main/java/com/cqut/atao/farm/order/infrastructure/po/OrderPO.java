@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author atao
@@ -20,7 +21,12 @@ public class OrderPO extends BaseDO {
     /**
      * id
      */
-    private Long id;
+    private String id;
+
+    /**
+     * 父订单ID
+     */
+    private String parentId;
 
     /**
      * 用户id
@@ -141,4 +147,9 @@ public class OrderPO extends BaseDO {
      * 订单状态
      */
     private Integer status;
+
+    /**
+     * 订单商品详情
+     */
+    private List<OrderItemPO> orderItemPOList;
 }

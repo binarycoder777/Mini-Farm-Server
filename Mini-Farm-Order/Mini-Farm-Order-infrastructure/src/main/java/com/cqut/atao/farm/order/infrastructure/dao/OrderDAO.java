@@ -15,6 +15,6 @@ import org.apache.ibatis.annotations.Update;
 public interface OrderDAO extends BaseMapper<OrderPO> {
 
     @Update("update order_info set status=#{nextOrderState} where order_sn=#{orderId} and status=#{currentOrderState}")
-    int alterOrderState(Long orderId, Enum<Constants.OrderState> currentOrderState, Enum<Constants.OrderState> nextOrderState);
+    int alterOrderState(String orderId, Enum<Constants.OrderState> currentOrderState, Enum<Constants.OrderState> nextOrderState);
 
 }

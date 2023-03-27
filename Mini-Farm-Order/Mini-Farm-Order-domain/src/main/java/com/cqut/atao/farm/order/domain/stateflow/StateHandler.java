@@ -12,19 +12,19 @@ import com.cqut.atao.farm.order.domain.common.Constants;
 public interface StateHandler {
 
 
-    public abstract boolean pay(Long orderId, Enum<Constants.OrderState> currentOrderState);
+    public abstract boolean pay(String orderSn, Enum<Constants.OrderState> currentOrderState);
 
-    public abstract boolean sendProduct(Long orderId, Enum<Constants.OrderState> currentOrderState);
+    public abstract boolean sendProduct(String orderSn, Enum<Constants.OrderState> currentOrderState);
 
-    public abstract boolean signProduct(Long orderId, Enum<Constants.OrderState> currentOrderState);
+    public abstract boolean signProduct(String orderSn, Enum<Constants.OrderState> currentOrderState);
 
-    public abstract boolean commentProduct(Long orderId, Enum<Constants.OrderState> currentOrderState);
+    public abstract boolean commentProduct(String orderSn, Enum<Constants.OrderState> currentOrderState);
 
-    public abstract boolean returnProduct(Long orderId, Enum<Constants.OrderState> currentOrderState);
+    public abstract boolean returnProduct(String orderSn, Enum<Constants.OrderState> currentOrderState);
 
-    public abstract boolean returnMoney(Long orderId, Enum<Constants.OrderState> currentOrderState);
+    public abstract boolean returnMoney(String orderSn, Enum<Constants.OrderState> currentOrderState);
 
-    public abstract boolean finsh(Long orderId, Enum<Constants.OrderState> currentOrderState);
+    public abstract boolean finsh(String orderSn, Enum<Constants.OrderState> currentOrderState);
 
-    public abstract boolean cancelOrder(Long orderId, Enum<Constants.OrderState> currentOrderState);
+    public abstract boolean cancelOrder(String orderSn, Enum<Constants.OrderState> currentOrderState);
 }

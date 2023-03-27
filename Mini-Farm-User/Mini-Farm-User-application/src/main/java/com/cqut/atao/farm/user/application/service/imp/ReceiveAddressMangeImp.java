@@ -26,14 +26,17 @@ public class ReceiveAddressMangeImp implements ReceiveAddressMange {
     @Resource
     private ReceiveAddressService receiveAddressService;
 
+    @Override
     public List<ReceiveAddressRes> queryAddressList(String userId) {
         return receiveAddressService.queryList(userId);
     }
 
+    @Override
     public void saveReceiveAddress(ReceiveAddressReq req) {
         receiveAddressService.saveReceiveAddress(req);
     }
 
+    @Override
     public void deleteReceiveAddress(String id) {
         receiveAddressService.deleteReceiveAddress(id);
     }

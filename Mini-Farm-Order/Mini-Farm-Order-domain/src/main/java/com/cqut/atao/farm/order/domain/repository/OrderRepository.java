@@ -3,6 +3,8 @@ package com.cqut.atao.farm.order.domain.repository;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 
+import java.util.List;
+
 
 /**
  * @author atao
@@ -27,6 +29,26 @@ public interface OrderRepository {
      * @param nextState 下一状态
      * @return 结果
      */
-    boolean alterState(Long orderId, Enum<Constants.OrderState> currentState, Enum<Constants.OrderState> nextState);
+    boolean alterState(String orderId, Enum<Constants.OrderState> currentState, Enum<Constants.OrderState> nextState);
 
+    /**
+     * 获取父订单id下的所有订单
+     * @param parentOrderId 父订单id
+     * @return {@link Order}
+     */
+    List<Order> getSubOrder(String parentOrderId);
+
+
+    /**
+     * 根据订单id查找订单
+     * @param orderId 订单id
+     * @return {@link Order}
+     */
+    Order selectOrderByOrderId(String orderId);
+
+    /**
+     * 保存订单
+     * @param order {@link Order}
+     */
+    void saveParentOrder(Order order);
 }

@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Mini-Farm-Pay</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>Mini-Farm-Pay-domain</module>
+        <module>Mini-Farm-Pay-infrastructure</module>
+        <module>Mini-Farm-Pay-application</module>
+        <module>Mini-Farm-Pay-interface</module>
+    </modules>
 
 
 </project>

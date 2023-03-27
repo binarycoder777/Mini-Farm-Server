@@ -18,42 +18,42 @@ public class WaitSendState extends AbstractState {
 
 
     @Override
-    public boolean pay(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean pay(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean sendProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
-        return orderRepository.alterState(orderId,currentOrderState, Constants.OrderState.WAIT_SIGNATURE);
+    public boolean sendProduct(String orderSn, Enum<Constants.OrderState> currentOrderState) {
+        return orderRepository.alterState(orderSn,currentOrderState, Constants.OrderState.WAIT_SIGNATURE);
     }
 
     @Override
-    public boolean signProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean signProduct(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean commentProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean commentProduct(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean returnProduct(Long orderId, Enum<Constants.OrderState> currentOrderState) {
-        return orderRepository.alterState(orderId,currentOrderState, Constants.OrderState.PEND_REFUND);
+    public boolean returnProduct(String orderSn, Enum<Constants.OrderState> currentOrderState) {
+        return orderRepository.alterState(orderSn,currentOrderState, Constants.OrderState.PEND_REFUND);
     }
 
     @Override
-    public boolean returnMoney(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean returnMoney(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean finsh(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean finsh(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 
     @Override
-    public boolean cancelOrder(Long orderId, Enum<Constants.OrderState> currentOrderState) {
+    public boolean cancelOrder(String orderSn, Enum<Constants.OrderState> currentOrderState) {
         return false;
     }
 }
