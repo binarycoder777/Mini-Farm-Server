@@ -9,6 +9,9 @@ import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
+import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.vo.ProductSkuVO;
+import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSkuDAO;
 import com.cqut.atao.farm.product.infrastructure.es.EsProductDAO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
@@ -33,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -61,6 +65,9 @@ public class ApiTest {
 
     @Resource
     private EsProductDAO esProductDAO;
+
+    @Resource
+    private ProductMange productMange;
 
     @Test
     public void deleteProductIntoEs() {
@@ -114,7 +121,7 @@ public class ApiTest {
     @Test
     public void insertProductIntoEs() {
         esProductDAO.deleteAll();
-        List<ProductSpuPO> productSpuPOS = productSpuDAO.selectList(Wrappers.lambdaQuery(ProductSpuPO.class).eq(ProductSpuPO::getCategoryId,1));
+        List<ProductSpuPO> productSpuPOS = productSpuDAO.selectList(Wrappers.lambdaQuery(ProductSpuPO.class).between(ProductSpuPO::getCategoryId,100,120));
         for (ProductSpuPO productSpuPO: productSpuPOS) {
             EsProduct convert = BeanUtil.convert(productSpuPO, EsProduct.class);
             log.info("====>{}",convert);
@@ -123,8 +130,9 @@ public class ApiTest {
     }
 
     @Test
+//    @Transactional
     public void  testFile() throws IOException {
-        String filePath = "/Users/weitao/Desktop/毕业设计/项目/爬虫/goodsItem/data/shuiguo.txt";
+        String filePath = "/Users/weitao/Desktop/毕业设计/项目/爬虫/goodsItem/data/yml.txt";
         FileInputStream fin = new FileInputStream(filePath);
         InputStreamReader reader = new InputStreamReader(fin);
         BufferedReader buffReader = new BufferedReader(reader);
@@ -137,7 +145,6 @@ public class ApiTest {
 
             spu.setProductSn(UUID.randomUUID().toString());
             ProductSpuPO spuPO = BeanUtil.convert(spu, ProductSpuPO.class);
-            System.out.println(spuPO+"\n\n");
             productSpuDAO.insert(spuPO);
             List<ProductSkuTest> skus = spu.getSkus();
             skus.forEach(e->{
@@ -147,6 +154,25 @@ public class ApiTest {
             });
         }
         buffReader.close();
+    }
+
+    @Transactional
+    public void insert(String jsonStr) {
+        Object parse = JSON.parse(jsonStr);
+        ProductSpuTest spu = BeanUtil.convert(parse, ProductSpuTest.class);
+        // 清洗数据
+        spu = clear(spu);
+
+        spu.setProductSn(UUID.randomUUID().toString());
+        ProductSpuPO spuPO = BeanUtil.convert(spu, ProductSpuPO.class);
+        productSpuDAO.insert(spuPO);
+        List<ProductSkuTest> skus = spu.getSkus();
+        skus.forEach(e->{
+            e = clear(e);
+            ProductSkuPO skuPO = BeanUtil.convert(e, ProductSkuPO.class);
+            productSkuDAO.insert(skuPO);
+        });
+        log.warn("成功");
     }
 
     public ProductSpuTest clear(ProductSpuTest item) {
@@ -219,6 +245,34 @@ public class ApiTest {
 //            item.setAttribute(item.getAttribute().substring(1, item.getAttribute().length() - 1));
 //        }
         return item;
+    }
+
+    @Test
+    public void find() {
+        Optional<EsProduct> byId = esProductDAO.findById("716");
+        log.info(byId.toString());
+    }
+
+
+
+    @Test
+    public void updateProductInfo() {
+        ProductSpuPO productSpuPO = productSpuDAO.selectById("716");
+        log.warn("spu:{}",productSpuPO);
+        List<ProductSkuPO> productSkuPOS = productSkuDAO.selectList(Wrappers.lambdaQuery(ProductSkuPO.class).eq(ProductSkuPO::getProductId, "716"));
+        log.warn("sku:{}",productSkuPOS);
+
+        Product product = Product.builder()
+                .productSpu(BeanUtil.convert(productSpuPO, ProductSpuVO.class))
+                .productSkus(BeanUtil.convert(productSkuPOS, ProductSkuVO.class))
+                .build();
+        product.getProductSpu().setSales(792);
+
+        log.warn("product:{}",product);
+
+        productMange.updateProductInfo(product);
+
+
     }
 
 

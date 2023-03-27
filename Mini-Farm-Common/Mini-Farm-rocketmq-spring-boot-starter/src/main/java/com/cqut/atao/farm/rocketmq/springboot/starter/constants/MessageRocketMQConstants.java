@@ -10,6 +10,10 @@ package com.cqut.atao.farm.rocketmq.springboot.starter.constants;
 public class MessageRocketMQConstants {
 
     /**
+     * 修改ES商品信息 TAG
+     */
+    public static final String UPDATE_ES_PRODUCT_TAG = "common_product-center_update-es-product-send_tag";
+
      * 邮箱消息发送 TAG
      */
     public static final String MESSAGE_MAIL_SEND_TAG = "common_message-center_mail-send_tag";
@@ -23,4 +27,5 @@ public class MessageRocketMQConstants {
      * 返还优惠消息发送 TAG
      */
     public static final String RETURN_SPECIAL_SEND_TAG = "common_message-center_return-special-send_tag";
+
 }

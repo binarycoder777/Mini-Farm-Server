@@ -1,12 +1,14 @@
 package com.cqut.atao.farm.product.web.controller;
 
 import com.cqut.atao.farm.product.application.req.CheckAmountReq;
+import com.cqut.atao.farm.product.application.req.ProductCategoryReq;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
 import com.cqut.atao.farm.product.application.res.CheckAmountRes;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
+import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -47,11 +49,26 @@ public class ProductController {
         return Results.success(result);
     }
 
+    @GetMapping("/spu/category")
+    @ApiOperation(value = "根据 categoryId 查询商品列表")
+    public Result<PageResponse<ProductProfileRes>> getProductByCategoryId(ProductCategoryReq req) {
+        PageResponse<ProductProfileRes> data = productMange.getProductByCategoryId(req);
+        return Results.success(data);
+    }
+
+
     @GetMapping("/search")
     @ApiOperation(value = "根据用户搜索进行商品查询")
     public Result<PageResponse<ProductProfileRes>> searchProduct(SearchProductReq req) {
         PageResponse<ProductProfileRes> productProfileResPageResponse = productMange.searchProduct(req);
         return Results.success(productProfileResPageResponse);
+    }
+
+    @PutMapping("/modify")
+    @ApiOperation(value = "修改商品信息")
+    public Result<Void> updateProduct(@RequestBody Product req) {
+        productMange.updateProductInfo(req);
+        return Results.success();
     }
 
 

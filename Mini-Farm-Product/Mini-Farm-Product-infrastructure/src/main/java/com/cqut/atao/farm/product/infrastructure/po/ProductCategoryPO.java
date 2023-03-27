@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author atao
  * @version 1.0.0
@@ -57,6 +59,5 @@ public class ProductCategoryPO extends BaseDO {
      * 状态 0：展示 1：隐藏
      */
     private Integer status;
-
 }
 

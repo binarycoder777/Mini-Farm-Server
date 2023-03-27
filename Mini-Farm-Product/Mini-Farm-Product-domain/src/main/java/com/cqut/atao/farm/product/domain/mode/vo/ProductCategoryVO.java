@@ -2,6 +2,8 @@ package com.cqut.atao.farm.product.domain.mode.vo;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author atao
  * @version 1.0.0
@@ -51,5 +53,10 @@ public class ProductCategoryVO {
      * 状态 0：展示 1：隐藏
      */
     private Integer status;
+
+    /**
+     * 子节点
+     */
+    private List<ProductCategoryVO> child;
 }
 

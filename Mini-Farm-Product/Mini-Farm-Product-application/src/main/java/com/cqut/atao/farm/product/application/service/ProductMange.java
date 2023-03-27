@@ -1,11 +1,13 @@
 package com.cqut.atao.farm.product.application.service;
 
 import com.cqut.atao.farm.product.application.req.CheckAmountReq;
+import com.cqut.atao.farm.product.application.req.ProductCategoryReq;
 import com.cqut.atao.farm.product.application.req.SearchProductReq;
 import com.cqut.atao.farm.product.application.res.CheckAmountRes;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
+import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
@@ -26,6 +28,14 @@ public interface ProductMange {
      * @return 商品详细信息
      */
     ProductRes getProductBySpuId(Long spuId);
+
+
+    /**
+     * 根据categoryId分页搜索查询商品
+     * @param req 请求
+     * @return 结果
+     */
+    PageResponse<ProductProfileRes> getProductByCategoryId(ProductCategoryReq req);
 
 
     /**
@@ -55,4 +65,9 @@ public interface ProductMange {
      */
     CheckAmountRes checkProductAmount(CheckAmountReq req);
 
+    /**
+     * 修改商品信息
+     * @param req {@link Product}
+     */
+    void updateProductInfo(Product req);
 }
