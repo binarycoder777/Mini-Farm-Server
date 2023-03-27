@@ -9,6 +9,9 @@ import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
+import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.vo.ProductSkuVO;
+import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSkuDAO;
 import com.cqut.atao.farm.product.infrastructure.es.EsProductDAO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
@@ -33,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -61,6 +65,9 @@ public class ApiTest {
 
     @Resource
     private EsProductDAO esProductDAO;
+
+    @Resource
+    private ProductMange productMange;
 
     @Test
     public void deleteProductIntoEs() {
@@ -238,6 +245,34 @@ public class ApiTest {
 //            item.setAttribute(item.getAttribute().substring(1, item.getAttribute().length() - 1));
 //        }
         return item;
+    }
+
+    @Test
+    public void find() {
+        Optional<EsProduct> byId = esProductDAO.findById("716");
+        log.info(byId.toString());
+    }
+
+
+
+    @Test
+    public void updateProductInfo() {
+        ProductSpuPO productSpuPO = productSpuDAO.selectById("716");
+        log.warn("spu:{}",productSpuPO);
+        List<ProductSkuPO> productSkuPOS = productSkuDAO.selectList(Wrappers.lambdaQuery(ProductSkuPO.class).eq(ProductSkuPO::getProductId, "716"));
+        log.warn("sku:{}",productSkuPOS);
+
+        Product product = Product.builder()
+                .productSpu(BeanUtil.convert(productSpuPO, ProductSpuVO.class))
+                .productSkus(BeanUtil.convert(productSkuPOS, ProductSkuVO.class))
+                .build();
+        product.getProductSpu().setSales(792);
+
+        log.warn("product:{}",product);
+
+        productMange.updateProductInfo(product);
+
+
     }
 
 

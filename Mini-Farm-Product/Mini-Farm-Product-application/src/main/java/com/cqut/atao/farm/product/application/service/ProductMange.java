@@ -7,6 +7,7 @@ import com.cqut.atao.farm.product.application.res.CheckAmountRes;
 import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
+import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
@@ -64,4 +65,9 @@ public interface ProductMange {
      */
     CheckAmountRes checkProductAmount(CheckAmountReq req);
 
+    /**
+     * 修改商品信息
+     * @param req {@link Product}
+     */
+    void updateProductInfo(Product req);
 }

@@ -14,6 +14,7 @@ import com.cqut.atao.farm.product.domain.repository.ProductRepository;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductBrandDAO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSkuDAO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
+import com.cqut.atao.farm.product.infrastructure.es.EsProductDAO;
 import com.cqut.atao.farm.product.infrastructure.po.ProductBrandPO;
 import com.cqut.atao.farm.product.infrastructure.po.ProductSkuPO;
 import com.cqut.atao.farm.product.infrastructure.po.ProductSpuPO;
@@ -32,6 +33,7 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -65,6 +67,9 @@ public class ProductRepositoryImp implements ProductRepository {
 
     @Resource
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
+
+    @Resource
+    private EsProductDAO esProductDAO;
 
 
     @Override
@@ -140,5 +145,29 @@ public class ProductRepositoryImp implements ProductRepository {
         }
         log.info("核验金额------>{}",payAmount);
         return payAmount;
+    }
+
+    @Override
+    @Transactional
+    public void updateProductInfo(Product req) {
+        // spu
+        ProductSpuVO productSpu = req.getProductSpu();
+        ProductSpuPO spuPO = BeanUtil.convert(productSpu, ProductSpuPO.class);
+        productSpuDAO.updateById(spuPO);
+        // sku
+        List<ProductSkuVO> productSkus = req.getProductSkus();
+        List<ProductSkuPO> productSkuPOS = BeanUtil.convert(productSkus, ProductSkuPO.class);
+        productSkuPOS.forEach(skuPO->{
+            productSkuDAO.updateById(skuPO);
+        });
+        // brand (暂未加入brand)
+//        ProductBrandVO productBrand = req.getProductBrand();
+//        ProductBrandPO productBrandPO = BeanUtil.convert(productBrand, ProductBrandPO.class);
+//        productBrandDAO.updateById(productBrandPO);
+    }
+
+    @Override
+    public void saveEsProduct(EsProduct esProduct) {
+        esProductDAO.save(esProduct);
     }
 }

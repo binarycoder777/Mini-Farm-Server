@@ -1,9 +1,12 @@
 package com.cqut.atao.farm.product.web;
 
+import com.cqut.atao.farm.product.domain.mq.messaging.MessageSink;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 /**
@@ -14,6 +17,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
  * @createTime 2023年01月30日 15:46:00
  */
 @EnableDiscoveryClient
+@EnableBinding({Source.class, MessageSink.class})
 @EnableElasticsearchRepositories(basePackages = "com.cqut.atao.farm.product.infrastructure.es")
 @SpringBootApplication(scanBasePackages = "com.cqut.atao.farm.product")
 @MapperScan("com.cqut.atao.farm.product.infrastructure.dao")

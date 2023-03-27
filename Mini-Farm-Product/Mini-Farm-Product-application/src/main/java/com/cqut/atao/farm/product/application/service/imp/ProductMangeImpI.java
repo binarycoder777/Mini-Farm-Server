@@ -11,6 +11,8 @@ import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
+import com.cqut.atao.farm.product.domain.mq.event.ProductMessageSendEvent;
+import com.cqut.atao.farm.product.domain.mq.produce.ProductProduce;
 import com.cqut.atao.farm.product.domain.repository.ProductRepository;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author atao
@@ -33,6 +37,9 @@ public class ProductMangeImpI implements ProductMange {
 
     @Resource
     private ProductRepository productRepository;
+
+    @Resource
+    private ProductProduce productProduce;
 
 
     @Override
@@ -69,4 +76,17 @@ public class ProductMangeImpI implements ProductMange {
         return productPageResponse.convert(e->BeanUtil.convert(e,ProductProfileRes.class));
     }
 
+    @Override
+    public void updateProductInfo(Product req) {
+        // 修改数据
+        productRepository.updateProductInfo(req);
+        // MQ异步修改ES数据
+        EsProduct esProduct = BeanUtil.convert(req.getProductSpu(), EsProduct.class);
+        ProductMessageSendEvent build = ProductMessageSendEvent.builder()
+                .messageSendId(UUID.randomUUID().toString())
+                .esProduct(esProduct)
+                .sendTime(new Date())
+                .build();
+        productProduce.productMessageSend(build);
+    }
 }
