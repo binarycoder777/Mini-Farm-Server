@@ -26,6 +26,11 @@ public class CartItemServiceImp implements CartItemService {
     private CartItemRepository cartItemRepository;
 
     @Override
+    public Long queryCartItemNum(Long userId) {
+        return cartItemRepository.queryCartItemNum(userId);
+    }
+
+    @Override
     public PageResponse<CartItemRes> pageQueryCartItem(CartItemPageQueryReq requestParam) {
         return cartItemRepository.pageQueryCartItem(requestParam.getUserId(), requestParam);
     }
@@ -59,5 +64,15 @@ public class CartItemServiceImp implements CartItemService {
     @Override
     public void deleteCartItem(CartItemDeleteReq requestParam) {
         cartItemRepository.deleteCartItem(requestParam);
+    }
+
+    @Override
+    public void selectedAllCartItem(Long userId) {
+        cartItemRepository.selectedAllCartItem(userId);
+    }
+
+    @Override
+    public void cancelSelectedAllCartItem(Long userId) {
+        cartItemRepository.cancelSelectedAllCartItem(userId);
     }
 }

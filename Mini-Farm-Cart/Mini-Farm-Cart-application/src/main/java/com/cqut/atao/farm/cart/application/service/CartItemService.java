@@ -17,6 +17,15 @@ import java.util.List;
 public interface CartItemService {
 
     /**
+     * 查询购物车商品数量
+     *
+     * @param userId
+     * @return nums
+     */
+    Long queryCartItemNum(Long userId);
+
+
+    /**
      * 分页查询购物车商品
      *
      * @param requestParam
@@ -67,4 +76,15 @@ public interface CartItemService {
      */
     void deleteCartItem(CartItemDeleteReq requestParam);
 
+    /**
+     * 全选
+     * @param userId
+     */
+    void selectedAllCartItem(Long userId);
+
+    /**
+     * 取消全选
+     * @param userId
+     */
+    void cancelSelectedAllCartItem(Long userId);
 }

@@ -11,6 +11,8 @@
 
     <artifactId>Mini-Farm-Cart-domain</artifactId>
 
+    <packaging>jar</packaging>
+
     <dependencies>
 <!--        基础包-->
         <dependency>
