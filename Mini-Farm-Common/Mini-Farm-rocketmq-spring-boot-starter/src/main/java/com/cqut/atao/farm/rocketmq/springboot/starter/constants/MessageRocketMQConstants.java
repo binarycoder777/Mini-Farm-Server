@@ -14,6 +14,7 @@ public class MessageRocketMQConstants {
      */
     public static final String UPDATE_ES_PRODUCT_TAG = "common_product-center_update-es-product-send_tag";
 
+    /*
      * 邮箱消息发送 TAG
      */
     public static final String MESSAGE_MAIL_SEND_TAG = "common_message-center_mail-send_tag";
