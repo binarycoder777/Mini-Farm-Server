@@ -1,9 +1,9 @@
 package com.cqut.atao.farm.user.domain.service;
 
 import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
+import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
+import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
-
-import java.util.Map;
 
 /**
  * @author atao
@@ -20,5 +20,17 @@ public interface UserService {
      * @return {@link LoginRes}
      */
     LoginRes login(BaseLoginReq req);
+
+    /**
+     * 用户收藏/取消收藏商品
+     * @param req
+     */
+    void collectProduct(CollectProductReq req);
+
+    /**
+     * 评论商品
+     * @param req {@link CommentProductReq}
+     */
+    void commentProduct(CommentProductReq req);
 
 }

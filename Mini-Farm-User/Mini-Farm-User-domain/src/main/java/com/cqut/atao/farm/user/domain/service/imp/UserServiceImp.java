@@ -2,7 +2,10 @@ package com.cqut.atao.farm.user.domain.service.imp;
 
 import com.cqut.atao.farm.user.common.constant.Constants;
 import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
+import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
+import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
+import com.cqut.atao.farm.user.domain.repository.UserRepository;
 import com.cqut.atao.farm.user.domain.service.UserService;
 import com.cqut.atao.farm.user.domain.strategy.LoginContext;
 import com.cqut.atao.farm.user.domain.strategy.LoginStrategy;
@@ -30,6 +33,9 @@ public class UserServiceImp implements UserService {
     @Resource
     private Map<Constants.LoginStrategy, LoginStrategy> loginStrategy;
 
+    @Resource
+    private UserRepository userRepository;
+
     @Override
     public LoginRes login(BaseLoginReq req) {
         LoginRes res = null;
@@ -43,4 +49,19 @@ public class UserServiceImp implements UserService {
         return res;
     }
 
+    @Override
+    public void collectProduct(CollectProductReq req) {
+        if (req.getId() == null) {
+            // 新增
+            userRepository.addCollectProduct(req);
+            return;
+        }
+        // 修改
+        userRepository.updateCollectProduct(req);
+    }
+
+    @Override
+    public void commentProduct(CommentProductReq req) {
+        userRepository.addCommentProduct(req);
+    }
 }

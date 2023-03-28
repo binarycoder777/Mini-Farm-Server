@@ -4,11 +4,17 @@ import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
+import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.req.VxUserLoginReq;
 import com.cqut.atao.farm.user.domain.repository.UserRepository;
+import com.cqut.atao.farm.user.infrastructure.dao.UserCollectionDao;
+import com.cqut.atao.farm.user.infrastructure.dao.UserCommentDao;
 import com.cqut.atao.farm.user.infrastructure.dao.UserDao;
 import com.cqut.atao.farm.user.infrastructure.po.User;
+import com.cqut.atao.farm.user.infrastructure.po.UserCollection;
+import com.cqut.atao.farm.user.infrastructure.po.UserComment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -28,6 +34,12 @@ public class UserRepositoryImpI implements UserRepository {
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private UserCollectionDao userCollectionDao;
+
+    @Resource
+    private UserCommentDao userCommentDao;
 
     @Override
     public boolean checkUserInfoByOpenId(String openid) {
@@ -49,4 +61,20 @@ public class UserRepositoryImpI implements UserRepository {
         User user = userDao.selectOne(new QueryWrapper<User>().lambda().eq(User::getOpenid, openid));
         return BeanUtil.convert(user,LoginRes.class);
     }
+
+    @Override
+    public void addCollectProduct(CollectProductReq req) {
+        userCollectionDao.insert(BeanUtil.convert(req, UserCollection.class));
+    }
+
+    @Override
+    public void updateCollectProduct(CollectProductReq req) {
+        userCollectionDao.updateById(BeanUtil.convert(req,UserCollection.class));
+    }
+
+    @Override
+    public void addCommentProduct(CommentProductReq req) {
+        userCommentDao.insert(BeanUtil.convert(req, UserComment.class));
+    }
+
 }
