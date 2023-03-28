@@ -69,16 +69,6 @@ public class UserRepositoryImpI implements UserRepository {
     }
 
     @Override
-    public void addCollectProduct(CollectProductReq req) {
-        userCollectionDao.insert(BeanUtil.convert(req, UserCollection.class));
-    }
-
-    @Override
-    public void updateCollectProduct(CollectProductReq req) {
-        userCollectionDao.updateById(BeanUtil.convert(req,UserCollection.class));
-    }
-
-    @Override
     public void addCommentProduct(CommentProductReq req) {
         userCommentDao.insert(BeanUtil.convert(req, UserComment.class));
     }
@@ -88,5 +78,21 @@ public class UserRepositoryImpI implements UserRepository {
         Page<UserComment> userCommentPage = userCommentDao.selectPage(new Page<>(req.getCurrent(), req.getSize()),
                 Wrappers.lambdaQuery(UserComment.class).eq(UserComment::getProductId, productId));
         return PageUtil.convert(userCommentPage,ProductComment.class);
+    }
+
+    @Override
+    public void saveCollectProduct(CollectProductReq req) {
+        // 不存在
+        if (!userCollectionDao.exists(Wrappers.lambdaQuery(UserCollection.class)
+                .eq(UserCollection::getUserId,req.getUserId())
+                .eq(UserCollection::getProductId,req.getProductId()))) {
+            // 新增
+            userCollectionDao.insert(BeanUtil.convert(req,UserCollection.class));
+            return;
+        }
+        // 修改
+        userCollectionDao.update(BeanUtil.convert(req,UserCollection.class),Wrappers.lambdaQuery(UserCollection.class)
+                .eq(UserCollection::getUserId,req.getUserId())
+                .eq(UserCollection::getProductId,req.getProductId()));
     }
 }
