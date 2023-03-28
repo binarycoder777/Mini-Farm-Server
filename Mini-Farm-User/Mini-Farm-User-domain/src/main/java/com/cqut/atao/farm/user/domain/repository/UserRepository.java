@@ -28,4 +28,6 @@ public interface UserRepository {
     PageResponse<ProductComment> pageProductComment(Long productId, PageRequest req);
 
     void saveCollectProduct(CollectProductReq req);
+
+    boolean getCollectProductStatus(Long userId,Long productId);
 }

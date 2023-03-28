@@ -41,4 +41,11 @@ public class CollectionController {
         return Results.success();
     }
 
+    @GetMapping("/product/{userId}/{productId}")
+    @ApiOperation(value = "用户收藏商品查询")
+    public Result<Boolean> collectProduct(@PathVariable(value = "userId") Long userId,
+                                       @PathVariable(value = "productId") Long productId) {
+        boolean status = userMange.getProductCollectStatus(userId,productId);
+        return Results.success(status);
+    }
 }
