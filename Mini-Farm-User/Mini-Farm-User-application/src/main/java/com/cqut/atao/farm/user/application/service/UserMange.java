@@ -34,6 +34,14 @@ public interface UserMange {
     void collecteProduct(CollectProductReq req);
 
     /**
+     * 获取收藏商品状态
+     * @param userId 用户id
+     * @param productId 商品id
+     * @return true/false
+     */
+    boolean getProductCollectStatus(Long userId,Long productId);
+
+    /**
      * 用户评论商品
      * @param req {@link CommentProductReq}
      */
@@ -45,4 +53,6 @@ public interface UserMange {
      * @return 分页结果
      */
     PageResponse<ProductComment> productCommentPage(CommentProductPageReq req);
+
+
 }

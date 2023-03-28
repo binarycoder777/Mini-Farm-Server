@@ -95,4 +95,15 @@ public class UserRepositoryImpI implements UserRepository {
                 .eq(UserCollection::getUserId,req.getUserId())
                 .eq(UserCollection::getProductId,req.getProductId()));
     }
+
+    @Override
+    public boolean getCollectProductStatus(Long userId, Long productId) {
+        UserCollection userCollection = userCollectionDao.selectOne(Wrappers.lambdaQuery(UserCollection.class)
+                .eq(UserCollection::getUserId, userId)
+                .eq(UserCollection::getProductId, productId));
+        if (userCollection == null) {
+            return false;
+        }
+        return userCollection.isStatus();
+    }
 }

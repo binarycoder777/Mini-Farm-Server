@@ -7,6 +7,7 @@ import com.cqut.atao.farm.user.domain.model.req.CommentProductPageReq;
 import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.res.ProductComment;
+import com.cqut.atao.farm.user.domain.repository.UserRepository;
 import com.cqut.atao.farm.user.domain.service.UserService;
 import com.cqut.atao.farm.user.application.service.UserMange;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class UserMangeImpI implements UserMange {
     @Resource
     private UserService userService;
 
+    @Resource
+    private UserRepository userRepository;
+
     @Override
     public LoginRes login(BaseLoginReq req) {
         return userService.login(req);
@@ -45,5 +49,10 @@ public class UserMangeImpI implements UserMange {
     @Override
     public PageResponse<ProductComment> productCommentPage(CommentProductPageReq req) {
         return userService.productCommentPage(req.getProductId(),req);
+    }
+
+    @Override
+    public boolean getProductCollectStatus(Long userId, Long productId) {
+        return userRepository.getCollectProductStatus(userId,productId);
     }
 }
