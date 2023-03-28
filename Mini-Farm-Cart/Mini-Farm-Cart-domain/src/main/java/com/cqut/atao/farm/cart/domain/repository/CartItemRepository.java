@@ -76,4 +76,17 @@ public interface CartItemRepository {
      * @param req
      */
     void deleteCartItem(CartItemDeleteReq req);
+
+
+    /**
+     * 全选
+     * @param userId
+     */
+    void selectedAllCartItem(Long userId);
+
+    /**
+     * 取消全选
+     * @param userId
+     */
+    void cancelSelectedAllCartItem(Long userId);
 }

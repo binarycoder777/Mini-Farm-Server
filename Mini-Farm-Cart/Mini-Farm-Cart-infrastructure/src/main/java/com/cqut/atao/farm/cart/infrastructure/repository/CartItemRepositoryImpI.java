@@ -100,4 +100,34 @@ public class CartItemRepositoryImpI implements CartItemRepository {
              Assert.isTrue(delete > 0 , () -> new ServiceException("删除购物车商品失败"));
         }
     }
+
+    @Override
+    public void selectedAllCartItem(Long userId) {
+        List<CartItem> cartItems = cartItemDAO.selectList(Wrappers.lambdaQuery(CartItem.class).eq(CartItem::getUserId, userId));
+        if (cartItems == null || cartItems.size() == 0) {
+            return;
+        }
+        cartItems.forEach(e->{
+             CartItemSelectedReq selectedReq = CartItemSelectedReq.builder()
+                    .id(e.getId() + "")
+                    .selectFlag(1)
+                    .build();
+            cartItemDAO.updateCartItemSelected(selectedReq);
+        });
+    }
+
+    @Override
+    public void cancelSelectedAllCartItem(Long userId) {
+        List<CartItem> cartItems = cartItemDAO.selectList(Wrappers.lambdaQuery(CartItem.class).eq(CartItem::getUserId, userId));
+        if (cartItems == null || cartItems.size() == 0) {
+            return;
+        }
+        cartItems.forEach(e->{
+            CartItemSelectedReq selectedReq = CartItemSelectedReq.builder()
+                    .id(e.getId() + "")
+                    .selectFlag(0)
+                    .build();
+            cartItemDAO.updateCartItemSelected(selectedReq);
+        });
+    }
 }

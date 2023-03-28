@@ -46,6 +46,20 @@ public class CartController {
         return Results.success(resultPage);
     }
 
+    @PutMapping("/selected/all/{userId}")
+    @ApiOperation(value = "全选所有商品")
+    public Result<Void> selecteAllCartItem(@PathVariable(value = "userId")Long userId) {
+        cartItemService.selectedAllCartItem(userId);
+        return Results.success();
+    }
+
+    @PutMapping("/cancel/selected/all/{userId}")
+    @ApiOperation(value = "取消全选所有商品")
+    public Result<Void> cancelSelecteAllCartItem(@PathVariable(value = "userId")Long userId) {
+        cartItemService.cancelSelectedAllCartItem(userId);
+        return Results.success();
+    }
+
     @GetMapping("/selected/{userId}")
     @ApiOperation(value = "查询已选中的购物车商品")
     @ApiImplicitParams({

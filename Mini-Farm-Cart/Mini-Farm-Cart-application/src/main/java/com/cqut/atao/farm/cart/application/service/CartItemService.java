@@ -76,4 +76,15 @@ public interface CartItemService {
      */
     void deleteCartItem(CartItemDeleteReq requestParam);
 
+    /**
+     * 全选
+     * @param userId
+     */
+    void selectedAllCartItem(Long userId);
+
+    /**
+     * 取消全选
+     * @param userId
+     */
+    void cancelSelectedAllCartItem(Long userId);
 }

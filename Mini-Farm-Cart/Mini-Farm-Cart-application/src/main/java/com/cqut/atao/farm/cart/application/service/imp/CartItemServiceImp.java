@@ -65,4 +65,14 @@ public class CartItemServiceImp implements CartItemService {
     public void deleteCartItem(CartItemDeleteReq requestParam) {
         cartItemRepository.deleteCartItem(requestParam);
     }
+
+    @Override
+    public void selectedAllCartItem(Long userId) {
+        cartItemRepository.selectedAllCartItem(userId);
+    }
+
+    @Override
+    public void cancelSelectedAllCartItem(Long userId) {
+        cartItemRepository.cancelSelectedAllCartItem(userId);
+    }
 }
