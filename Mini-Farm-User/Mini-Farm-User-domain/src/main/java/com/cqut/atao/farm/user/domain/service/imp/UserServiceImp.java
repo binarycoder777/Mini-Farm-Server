@@ -54,13 +54,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void collectProduct(CollectProductReq req) {
-        if (req.getId() == null) {
-            // 新增
-            userRepository.addCollectProduct(req);
-            return;
-        }
-        // 修改
-        userRepository.updateCollectProduct(req);
+        userRepository.saveCollectProduct(req);
     }
 
     @Override
@@ -70,6 +64,6 @@ public class UserServiceImp implements UserService {
 
     @Override
     public PageResponse<ProductComment> productCommentPage(Long productId, PageRequest req) {
-        return userRepository.pageProductComment(productId,req);
+        return userRepository.pageProductComment(productId, req);
     }
 }

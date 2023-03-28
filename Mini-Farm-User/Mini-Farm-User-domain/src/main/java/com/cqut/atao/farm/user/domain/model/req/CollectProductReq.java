@@ -19,11 +19,6 @@ import lombok.NoArgsConstructor;
 public class CollectProductReq {
 
     /**
-     * id
-     */
-    private Long id;
-
-    /**
      * userId
      */
     private Long userId;

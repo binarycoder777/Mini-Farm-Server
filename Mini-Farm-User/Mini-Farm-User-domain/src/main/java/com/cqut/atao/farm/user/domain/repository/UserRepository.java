@@ -23,11 +23,9 @@ public interface UserRepository {
 
     LoginRes getUserInfoByOpenId(String openid);
 
-    void addCollectProduct(CollectProductReq req);
-
-    void updateCollectProduct(CollectProductReq req);
-
     void addCommentProduct(CommentProductReq req);
 
     PageResponse<ProductComment> pageProductComment(Long productId, PageRequest req);
+
+    void saveCollectProduct(CollectProductReq req);
 }
