@@ -1,9 +1,12 @@
 package com.cqut.atao.farm.user.domain.service;
 
+import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
+import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
+import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
-
-import java.util.Map;
+import com.cqut.atao.farm.user.domain.model.res.ProductComment;
 
 /**
  * @author atao
@@ -21,4 +24,24 @@ public interface UserService {
      */
     LoginRes login(BaseLoginReq req);
 
+    /**
+     * 用户收藏/取消收藏商品
+     * @param req
+     */
+    void collectProduct(CollectProductReq req);
+
+    /**
+     * 评论商品
+     * @param req {@link CommentProductReq}
+     */
+    void commentProduct(CommentProductReq req);
+
+
+    /**
+     * 商品评论分页
+     * @param productId 商品id
+     * @param req 分页请求
+     * @return 分页结果
+     */
+    PageResponse<ProductComment> productCommentPage(Long productId,PageRequest req);
 }
