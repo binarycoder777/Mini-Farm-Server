@@ -1,11 +1,14 @@
 package com.cqut.atao.farm.user.web.controller;
 
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
 import com.cqut.atao.farm.user.application.service.UserMange;
 import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
+import com.cqut.atao.farm.user.domain.model.req.CommentProductPageReq;
 import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
+import com.cqut.atao.farm.user.domain.model.res.ProductComment;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,6 +38,13 @@ public class CommentController {
     public Result<Void> commentProduct(@RequestBody CommentProductReq req) {
         userMange.commentProduct(req);
         return Results.success();
+    }
+
+    @GetMapping("/product/list")
+    @ApiOperation(value = "用户评商品论列表")
+    public Result<PageResponse<ProductComment>> commentProductList(CommentProductPageReq req) {
+        PageResponse<ProductComment> productCommentPageResponse = userMange.productCommentPage(req);
+        return Results.success(productCommentPageResponse);
     }
 
 }

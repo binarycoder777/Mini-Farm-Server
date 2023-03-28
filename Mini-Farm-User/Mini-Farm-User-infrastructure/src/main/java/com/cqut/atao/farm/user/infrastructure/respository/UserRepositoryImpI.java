@@ -2,12 +2,18 @@ package com.cqut.atao.farm.user.infrastructure.respository;
 
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cqut.atao.farm.mybatisplus.springboot.starter.util.PageUtil;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
 import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.req.VxUserLoginReq;
+import com.cqut.atao.farm.user.domain.model.res.ProductComment;
 import com.cqut.atao.farm.user.domain.repository.UserRepository;
 import com.cqut.atao.farm.user.infrastructure.dao.UserCollectionDao;
 import com.cqut.atao.farm.user.infrastructure.dao.UserCommentDao;
@@ -77,4 +83,10 @@ public class UserRepositoryImpI implements UserRepository {
         userCommentDao.insert(BeanUtil.convert(req, UserComment.class));
     }
 
+    @Override
+    public PageResponse<ProductComment> pageProductComment(Long productId, PageRequest req) {
+        Page<UserComment> userCommentPage = userCommentDao.selectPage(new Page<>(req.getCurrent(), req.getSize()),
+                Wrappers.lambdaQuery(UserComment.class).eq(UserComment::getProductId, productId));
+        return PageUtil.convert(userCommentPage,ProductComment.class);
+    }
 }

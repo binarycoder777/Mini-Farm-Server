@@ -1,9 +1,12 @@
 package com.cqut.atao.farm.user.domain.repository;
 
+import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
 import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.req.VxUserLoginReq;
+import com.cqut.atao.farm.user.domain.model.res.ProductComment;
 
 /**
  * @author atao
@@ -25,4 +28,6 @@ public interface UserRepository {
     void updateCollectProduct(CollectProductReq req);
 
     void addCommentProduct(CommentProductReq req);
+
+    PageResponse<ProductComment> pageProductComment(Long productId, PageRequest req);
 }

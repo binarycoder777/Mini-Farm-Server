@@ -1,10 +1,13 @@
 package com.cqut.atao.farm.user.domain.service.imp;
 
+import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.user.common.constant.Constants;
 import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
 import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
 import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
+import com.cqut.atao.farm.user.domain.model.res.ProductComment;
 import com.cqut.atao.farm.user.domain.repository.UserRepository;
 import com.cqut.atao.farm.user.domain.service.UserService;
 import com.cqut.atao.farm.user.domain.strategy.LoginContext;
@@ -63,5 +66,10 @@ public class UserServiceImp implements UserService {
     @Override
     public void commentProduct(CommentProductReq req) {
         userRepository.addCommentProduct(req);
+    }
+
+    @Override
+    public PageResponse<ProductComment> productCommentPage(Long productId, PageRequest req) {
+        return userRepository.pageProductComment(productId,req);
     }
 }

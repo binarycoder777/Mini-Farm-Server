@@ -1,9 +1,12 @@
 package com.cqut.atao.farm.user.application.service;
 
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.user.domain.model.req.BaseLoginReq;
 import com.cqut.atao.farm.user.domain.model.req.CollectProductReq;
+import com.cqut.atao.farm.user.domain.model.req.CommentProductPageReq;
 import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
+import com.cqut.atao.farm.user.domain.model.res.ProductComment;
 
 import java.util.Map;
 
@@ -35,4 +38,11 @@ public interface UserMange {
      * @param req {@link CommentProductReq}
      */
     void commentProduct(CommentProductReq req);
+
+    /**
+     * 商品评论分页
+     * @param req 分页请求
+     * @return 分页结果
+     */
+    PageResponse<ProductComment> productCommentPage(CommentProductPageReq req);
 }
