@@ -15,6 +15,13 @@ import java.util.List;
 public interface ReceiveAddressMange {
 
     /**
+     * 获取用户默认收货地址
+     * @param userId 用户id
+     * @return {@link ReceiveAddressRes}
+     */
+    ReceiveAddressRes defaultAddress(Long userId);
+
+    /**
      * 查询收货地址列表
      * @param userId 用户id
      * @return {@link List}

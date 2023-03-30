@@ -3,6 +3,7 @@ package com.cqut.atao.farm.user.application.service.imp;
 import com.cqut.atao.farm.user.application.service.ReceiveAddressMange;
 import com.cqut.atao.farm.user.domain.model.req.ReceiveAddressReq;
 import com.cqut.atao.farm.user.domain.model.res.ReceiveAddressRes;
+import com.cqut.atao.farm.user.domain.repository.ReceiveAddressRepository;
 import com.cqut.atao.farm.user.domain.service.ReceiveAddressService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class ReceiveAddressMangeImp implements ReceiveAddressMange {
     @Resource
     private ReceiveAddressService receiveAddressService;
 
+    @Resource
+    private ReceiveAddressRepository receiveAddressRepository;
+
     @Override
     public List<ReceiveAddressRes> queryAddressList(String userId) {
         return receiveAddressService.queryList(userId);
@@ -40,4 +44,10 @@ public class ReceiveAddressMangeImp implements ReceiveAddressMange {
     public void deleteReceiveAddress(String id) {
         receiveAddressService.deleteReceiveAddress(id);
     }
+
+    @Override
+    public ReceiveAddressRes defaultAddress(Long userId) {
+        return receiveAddressRepository.getDefaultAddress(userId);
+    }
+
 }
