@@ -15,6 +15,7 @@ import com.cqut.atao.farm.order.domain.split.OrderSplitHandler;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
+import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
@@ -110,6 +111,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
      * @param order {@link Order}
      * @return boolean
      */
+    @MiniLog
     protected boolean lockStock(Order order) {
         // 商品集合
         List<OrderItemInfo> orderItemInfo = order.getOrderProducts().stream().map(e -> {
@@ -123,6 +125,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
                 .orderNo(order.getOrderSn())
                 .orderItemInfos(orderItemInfo)
                 .build();
+         log.warn("{}",req);
         return Result.SUCCESS_CODE.equals(remoteProductService.lockProductStock(req).getCode());
     }
 

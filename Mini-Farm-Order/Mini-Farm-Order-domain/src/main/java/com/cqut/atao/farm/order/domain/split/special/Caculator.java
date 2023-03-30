@@ -35,11 +35,11 @@ public class Caculator implements SpecialSplit {
             // 满减优惠(远程调用营销服务获取)
             BigDecimal fullSubtractionAmount = new BigDecimal("0");
             // 满减分摊优惠
-            BigDecimal fullSubtractionSplitAmount = (totalAmount.subtract(specialAmount)).divide(order.getTotalAmount()).multiply(fullSubtractionAmount);
+            BigDecimal fullSubtractionSplitAmount = (totalAmount.subtract(specialAmount)).divide(order.getTotalAmount(),BigDecimal.ROUND_CEILING).multiply(fullSubtractionAmount);
             // 优惠卷优惠(远程调用营销服务获取)
             BigDecimal couponAmount = new BigDecimal("0");
             // 优惠券分摊优惠
-            BigDecimal couponSplitAmount = (totalAmount.subtract(couponAmount)).divide(order.getTotalAmount()).multiply(fullSubtractionAmount);
+            BigDecimal couponSplitAmount = (totalAmount.subtract(couponAmount)).divide(order.getTotalAmount(),BigDecimal.ROUND_CEILING).multiply(fullSubtractionAmount);
             // 子订单实付款
             BigDecimal payAmount = totalAmount.subtract(specialAmount).subtract(fullSubtractionSplitAmount).subtract(couponSplitAmount);
             // 相加

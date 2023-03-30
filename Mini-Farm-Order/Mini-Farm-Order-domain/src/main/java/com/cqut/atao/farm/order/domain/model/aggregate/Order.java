@@ -127,7 +127,7 @@ public class Order {
         for (OrderProduct orderProduct: orderProducts) {
             currentAmount = currentAmount.add(orderProduct.getProductPrice().multiply(BigDecimal.valueOf(orderProduct.getProductQuantity())));
         }
-        return payAmount.equals(currentAmount);
+        return payAmount.subtract(currentAmount).intValue() < 1;
     }
 
     /**

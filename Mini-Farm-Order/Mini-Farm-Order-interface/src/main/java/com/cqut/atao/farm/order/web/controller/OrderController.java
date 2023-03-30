@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.web.controller;
 
 import com.cqut.atao.farm.order.application.process.OrderOperationProcess;
 import com.cqut.atao.farm.order.application.process.impI.KillOrderOperationProcessImpI;
+import com.cqut.atao.farm.order.application.process.impI.OrderOperationProcessImpI;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
@@ -31,7 +32,7 @@ import javax.annotation.Resource;
 public class OrderController {
 
     @Resource
-    private OrderOperationProcess orderOperationProcess;
+    private OrderOperationProcessImpI orderOperationProcessImpI;
 
     @Resource
     private KillOrderOperationProcessImpI killOrderOperationProcessImpI;
@@ -39,7 +40,7 @@ public class OrderController {
     @PostMapping("/create")
     @ApiOperation("商品下单")
     public Result<String> createOrder(@RequestBody PlaceOrderReq req) {
-        String orderNo = orderOperationProcess.createOrder(req);
+        String orderNo = orderOperationProcessImpI.createOrder(req);
         return Results.success(orderNo);
     }
 
@@ -49,7 +50,7 @@ public class OrderController {
             @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
     )
     public Result<Void> createOrder(@PathVariable String orderNo) {
-        orderOperationProcess.cancelOrder(orderNo);
+        orderOperationProcessImpI.cancelOrder(orderNo);
         return Results.success();
     }
 
