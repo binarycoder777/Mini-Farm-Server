@@ -3,6 +3,7 @@ package com.cqut.atao.farm.order.domain.model.req;
 
 import com.cqut.atao.farm.order.domain.model.aggregate.Address;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,61 +28,73 @@ public class PlaceOrderReq {
     /**
      * 用户id
      */
+    @ApiModelProperty("用户id")
     private Long userId;
 
     /**
      * 收货人信息
      */
+    @ApiModelProperty("收货人信息")
     private Address address;
 
     /**
      * 订单商品集合
      */
+    @ApiModelProperty("订单商品集合")
     private List<OrderProduct> orderProducts;
 
     /**
      * 优惠卷id
      */
+    @ApiModelProperty("优惠卷id")
     private Long couponId;
 
     /**
      * 满减活动id
      */
+    @ApiModelProperty("满减活动id")
     private Long specialActivityId;
 
     /**
      * 优惠总金额
      */
+    @ApiModelProperty("优惠总金额")
     private BigDecimal specialTotalAmount;
 
     /**
      * 运费金额
      */
+    @ApiModelProperty("运费金额")
     private BigDecimal freightAmount;
 
     /**
      * 订单总金额
      */
+    @ApiModelProperty("订单总金额")
     private BigDecimal totalAmount;
 
     /**
      * 支付金额
      */
+    @ApiModelProperty("支付金额")
     private BigDecimal payAmount;
 
     /**
      * 支付方式(组合支付、普通支付、差补支付)
      */
+    @ApiModelProperty("支付方式(组合支付、普通支付、差补支付)")
     private Integer payType;
 
     /**
      * 订单来源
      */
+    @ApiModelProperty("订单来源")
     private Integer source;
 
     /**
      * 订单类型 0：正常订单 1：秒杀订单 2：促销订单
      */
+    @ApiModelProperty("订单类型 0：正常订单 1：秒杀订单 2：促销订单")
     private Integer type;
 
 }
