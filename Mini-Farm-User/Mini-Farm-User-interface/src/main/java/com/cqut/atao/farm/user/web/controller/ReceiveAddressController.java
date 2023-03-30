@@ -33,6 +33,15 @@ public class ReceiveAddressController {
     @Resource
     private ReceiveAddressMange receiveAddressMange;
 
+    @GetMapping("/default/receive-address/{userId}")
+    @ApiOperation(value = "获取用户默认的收货地址", notes = "根据用户ID获取用户默认收货地址")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户 id", required = true, example = "1547742028312375296")
+    })
+    public Result<ReceiveAddressRes> defaultReceiveAddress(@PathVariable("userId") Long userId) {
+        return Results.success(receiveAddressMange.defaultAddress(userId));
+    }
+
     @GetMapping("/receive-address/{userId}")
     @ApiOperation(value = "获取用户收货地址", notes = "根据用户ID获取用户收货地址")
     @ApiImplicitParams({

@@ -19,4 +19,6 @@ public interface ReceiveAddressRepository {
     void saveReceiveAddress(ReceiveAddressReq req);
 
     void deleteReceiveAddress(String id);
+
+    ReceiveAddressRes getDefaultAddress(Long userId);
 }
