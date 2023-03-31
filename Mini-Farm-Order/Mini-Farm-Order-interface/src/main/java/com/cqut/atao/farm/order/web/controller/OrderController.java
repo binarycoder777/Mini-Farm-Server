@@ -4,7 +4,9 @@ import com.cqut.atao.farm.order.application.process.OrderOperationProcess;
 import com.cqut.atao.farm.order.application.process.impI.KillOrderOperationProcessImpI;
 import com.cqut.atao.farm.order.application.process.impI.OrderOperationProcessImpI;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -36,6 +38,13 @@ public class OrderController {
 
     @Resource
     private KillOrderOperationProcessImpI killOrderOperationProcessImpI;
+
+    @GetMapping("/page")
+    @ApiOperation("订单分页查询")
+    public Result<PageResponse<Order>> createOrder(OrderPageReq req) {
+         PageResponse<Order> orderPageResponse = orderOperationProcessImpI.pageQueryOrder(req);
+        return Results.success(orderPageResponse);
+    }
 
     @PostMapping("/create")
     @ApiOperation("商品下单")

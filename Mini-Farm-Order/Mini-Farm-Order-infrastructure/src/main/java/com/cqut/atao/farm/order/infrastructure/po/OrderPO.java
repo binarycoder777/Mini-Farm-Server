@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.order.infrastructure.po;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
 import lombok.Data;
@@ -151,5 +152,7 @@ public class OrderPO extends BaseDO {
     /**
      * 订单商品详情
      */
-    private List<OrderItemPO> orderItemPOList;
+    @TableField(exist = false)
+    private List<OrderItemPO> orderProducts;
+
 }
