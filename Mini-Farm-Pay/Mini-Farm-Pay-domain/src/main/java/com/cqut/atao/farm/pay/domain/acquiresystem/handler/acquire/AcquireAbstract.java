@@ -40,6 +40,7 @@ public abstract class AcquireAbstract implements AcquirePay {
     @Resource
     protected PayInfoRepository payInfoRepository;
 
+    @Override
     public Object generatePaySign(PayReq payReq) {
         // 风险控制
         if (!riskHandler.doRisk(payReq.getOrder())) {
@@ -55,6 +56,7 @@ public abstract class AcquireAbstract implements AcquirePay {
         return object;
     }
 
+    @Override
     public Object notifyPayResult(PayReq payReq) {
         // 三方支付成功
         if (this.paySuccess(payReq)) {

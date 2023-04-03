@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class RiskHandlerImpI implements RiskHandler{
 
+    @Override
     public boolean doRisk(Order order) {
         log.info("风控处理");
         return true;

@@ -31,11 +31,13 @@ public class VxPayStrategy implements ThirdPay {
     private RemoteMessageSerivce remoteMessageSerivce;
 
 
+    @Override
     public Object generatePaySign(Order order) {
         log.info("生成微信支付签名");
         return "success";
     }
 
+    @Override
     public void notifyPayResult(Order orderInfo) {
         UserInfoRes userInfo = remoteUserSerivce.getUserInfoByUserId(orderInfo.getUserId()).getData();
         List<String> para = new ArrayList<String>();
@@ -51,11 +53,13 @@ public class VxPayStrategy implements ThirdPay {
         remoteMessageSerivce.sendMailMessage(req);
     }
 
+    @Override
     public Object refundMoneyReq(Object o) {
         log.info("发起微信支付退款");
         return "success";
     }
 
+    @Override
     public void notifyRefundResult(Order orderInfo) {
         UserInfoRes userInfo = remoteUserSerivce.getUserInfoByUserId(orderInfo.getUserId()).getData();
         List<String> para = new ArrayList<String>();

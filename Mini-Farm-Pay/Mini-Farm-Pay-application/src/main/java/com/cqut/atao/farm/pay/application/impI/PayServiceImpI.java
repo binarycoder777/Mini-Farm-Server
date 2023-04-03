@@ -33,23 +33,28 @@ public class PayServiceImpI implements PayService {
     @Resource
     private Refund refund;
 
+    @Override
     public Object payMoneySign(PayReq req) {
         return acquirePay.generatePaySign(req);
     }
 
+    @Override
     public Object payMoneyResult(PayReq req) {
         return acquirePay.notifyPayResult(req);
     }
 
+    @Override
     public Object refundMoney(String orderSn) {
         return refund.refundMoney(orderSn);
     }
 
+    @Override
     public Object refundMoneyResult(Object o) {
         return refund.refundMoenyResult(o);
     }
 
 
+    @Override
     public void remit(RemitReq req) {
         // 清分订单
         clearingSystem.doClearing(req.getClearingHandler(),req.getData());
