@@ -2,8 +2,10 @@ package com.cqut.atao.farm.message.domain.email.model.req;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,6 +21,8 @@ import java.util.List;
 @Builder
 @Data
 @ApiModel("邮箱发送")
+@NoArgsConstructor
+@AllArgsConstructor
 public class MailMessageSendReq {
 
     @ApiModelProperty(value = "标题", example = "邮箱验证码提醒")
