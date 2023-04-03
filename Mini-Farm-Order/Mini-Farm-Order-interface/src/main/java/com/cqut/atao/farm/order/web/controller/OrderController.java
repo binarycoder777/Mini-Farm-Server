@@ -53,13 +53,13 @@ public class OrderController {
         return Results.success(orderNo);
     }
 
-    @PostMapping("/cancel/{orderNo}")
+    @PutMapping("/cancel/{parentOrderId}")
     @ApiOperation("取消下单")
     @ApiImplicitParams(
-            @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
+            @ApiImplicitParam(name = "parentOrderId", value = "父订单id", required = true, example = "1593868838284611584")
     )
-    public Result<Void> createOrder(@PathVariable String orderNo) {
-        orderOperationProcessImpI.cancelOrder(orderNo);
+    public Result<Void> createOrder(@PathVariable(value = "parentOrderId") String parentOrderId) {
+        orderOperationProcessImpI.cancelOrder(parentOrderId);
         return Results.success();
     }
 

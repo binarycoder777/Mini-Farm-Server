@@ -65,7 +65,7 @@ public class OrderRepositoryImpI implements OrderRepository {
 
     @Override
     public boolean alterState(String orderId, Enum<Constants.OrderState> currentState, Enum<Constants.OrderState> nextState) {
-        return orderDAO.alterOrderState(orderId, currentState, nextState) > 0;
+        return orderDAO.alterOrderState(orderId, Constants.OrderState.getCodeByConstans(currentState), Constants.OrderState.getCodeByConstans(nextState)) > 0;
     }
 
     @Override

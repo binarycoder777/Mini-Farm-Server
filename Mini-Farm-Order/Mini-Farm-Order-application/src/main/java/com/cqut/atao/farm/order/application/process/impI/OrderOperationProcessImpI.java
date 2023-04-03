@@ -49,9 +49,9 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
 
 
     @Override
-    public void cancelOrder(String orderId) {
+    public void cancelOrder(String parentOrderId) {
         // 获取该订单下的订单集合
-        List<Order> orderList = orderService.getSubOrder(orderId);
+        List<Order> orderList = orderService.getSubOrder(parentOrderId);
         // 订单状态流转为取消状态
         orderList.forEach(e -> {
             AlterOrderStateReq req = AlterOrderStateReq.builder()
@@ -77,7 +77,7 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
                 .build();
         remoteProductService.unlockProductStock(orderInfoReq);
         // MQ异步返还用户的优惠信息
-        Order order = orderService.getOrderByOrderId(orderId);
+        Order order = orderService.getOrderByOrderId(parentOrderId);
         if (order.getCouponId() != null || order.getSpecialActivityId() != null) {
             ReturnSpecialMessageSendEvent returnSpecialMessageSendEvent = ReturnSpecialMessageSendEvent.builder()
                     .messageSendId(UUID.randomUUID().toString())

@@ -21,7 +21,7 @@ import java.util.List;
 public interface OrderDAO extends BaseMapper<OrderPO> {
 
     @Update("update order_info set status=#{nextOrderState} where order_sn=#{orderId} and status=#{currentOrderState}")
-    int alterOrderState(String orderId, Enum<Constants.OrderState> currentOrderState, Enum<Constants.OrderState> nextOrderState);
+    int alterOrderState(@Param("orderId") String orderId,@Param("currentOrderState") Integer currentOrderState,@Param("nextOrderState") Integer nextOrderState);
 
     @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id = id limit #{current},#{size}")
     List<OrderPO> pageParentOrder(OrderPageReq req);
