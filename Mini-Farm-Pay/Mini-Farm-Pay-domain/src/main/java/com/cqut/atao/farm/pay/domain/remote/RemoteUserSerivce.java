@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @Description 远程消息服务
  * @createTime 2023年02月23日 15:37:00
  */
-@FeignClient
+@FeignClient("user")
 public interface RemoteUserSerivce {
 
     @GetMapping("/api/user/getInfo/{userId}")
-    Result<UserInfoRes> getUserInfoByUserId(@PathVariable Long userId);
+    Result<UserInfoRes> getUserInfoByUserId(@PathVariable("userId") Long userId);
 
 }

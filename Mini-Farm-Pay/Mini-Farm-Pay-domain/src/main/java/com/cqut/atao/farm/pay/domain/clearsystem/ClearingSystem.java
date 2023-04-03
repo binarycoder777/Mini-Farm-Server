@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @NoArgsConstructor
-@AllArgsConstructor
 public class ClearingSystem extends ClearingConfig{
 
     /**

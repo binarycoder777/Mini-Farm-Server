@@ -20,7 +20,7 @@ import org.springframework.cloud.stream.messaging.Source;
 @EnableBinding({Source.class, MessageSink.class})
 @EnableFeignClients("com.cqut.atao.farm.pay.domain.remote")
 @SpringBootApplication(scanBasePackages = "com.cqut.atao.farm.pay")
-@MapperScan("com.cqut.atao.farm.order.infrastructure.dao")
+@MapperScan("com.cqut.atao.farm.pay.infrastructure.dao")
 public class PayApplication {
 
     public static void main(String[] args) {

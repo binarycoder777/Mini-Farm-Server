@@ -35,16 +35,16 @@ public class PayController {
         return Results.success(o);
     }
 
-    @RequestMapping("/pay/notify")
+    @PostMapping("/pay/notify")
     @ApiOperation("三方支付后回调通知（支付成功还是失败）")
     public Result<Object> notifyPayResult(@RequestBody PayReq payReq){
         Object o = payService.payMoneyResult(payReq);
         return Results.success(o);
     }
 
-    @PostMapping("/refund/order/{orderSn}")
+    @PutMapping("/refund/order")
     @ApiOperation("发起订单退款")
-    public Result<Void> refundMoney(@PathVariable("orderSn") String orderSn){
+    public Result<Void> refundMoney(String orderSn){
         payService.refundMoney(orderSn);
         return Results.success();
     }

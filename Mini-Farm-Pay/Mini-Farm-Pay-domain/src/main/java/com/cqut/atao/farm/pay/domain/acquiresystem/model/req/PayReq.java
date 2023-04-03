@@ -1,8 +1,11 @@
 package com.cqut.atao.farm.pay.domain.acquiresystem.model.req;
 
 import com.cqut.atao.farm.pay.domain.model.aggreate.Order;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author atao
  * @version 1.0.0
@@ -12,6 +15,8 @@ import lombok.Data;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PayReq {
 
     /**
