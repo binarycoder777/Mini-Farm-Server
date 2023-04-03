@@ -11,5 +11,6 @@
 
     <artifactId>Mini-Farm-Message-common</artifactId>
 
+    <packaging>jar</packaging>
 
 </project>
