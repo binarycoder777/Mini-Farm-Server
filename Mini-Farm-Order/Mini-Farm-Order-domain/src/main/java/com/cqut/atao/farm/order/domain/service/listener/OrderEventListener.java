@@ -53,7 +53,7 @@ public class OrderEventListener {
     @EventListener(CancelOrderEvent.class)
     public void cancelOrder(CancelOrderEvent event){
         AlterOrderStateReq source = (AlterOrderStateReq) event.getSource();
-        stateHandler.pay(source.getOrderSn(),source.getCurrentSate());
+        stateHandler.cancelOrder(source.getOrderSn(),source.getCurrentSate());
     }
 
 }

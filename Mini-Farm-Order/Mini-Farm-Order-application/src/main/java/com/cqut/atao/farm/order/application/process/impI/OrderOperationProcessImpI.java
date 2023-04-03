@@ -6,11 +6,13 @@ import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
+import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.mq.produce.MessageProduce;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderItemInfo;
 import com.cqut.atao.farm.rocketmq.springboot.starter.event.ReturnSpecialMessageSendEvent;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -47,9 +49,9 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
 
 
     @Override
-    public void cancelOrder(String orderId) {
+    public void cancelOrder(String parentOrderId) {
         // 获取该订单下的订单集合
-        List<Order> orderList = orderService.getSubOrder(orderId);
+        List<Order> orderList = orderService.getSubOrder(parentOrderId);
         // 订单状态流转为取消状态
         orderList.forEach(e -> {
             AlterOrderStateReq req = AlterOrderStateReq.builder()
@@ -75,7 +77,7 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
                 .build();
         remoteProductService.unlockProductStock(orderInfoReq);
         // MQ异步返还用户的优惠信息
-        Order order = orderService.getOrderByOrderId(orderId);
+        Order order = orderService.getOrderByOrderId(parentOrderId);
         if (order.getCouponId() != null || order.getSpecialActivityId() != null) {
             ReturnSpecialMessageSendEvent returnSpecialMessageSendEvent = ReturnSpecialMessageSendEvent.builder()
                     .messageSendId(UUID.randomUUID().toString())
@@ -84,6 +86,15 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
                     .build();
             messageProduce.returnSpecialMessageSend(returnSpecialMessageSendEvent);
         }
+    }
+
+    /**
+     * 分页查询订单
+     * @param req 分页请求
+     * @return 分页结果
+     */
+    public PageResponse<Order> pageQueryOrder(OrderPageReq req) {
+        return orderService.queryOrderPageInfo(req);
     }
 
 }

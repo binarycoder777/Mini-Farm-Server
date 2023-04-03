@@ -2,6 +2,8 @@ package com.cqut.atao.farm.order.domain.repository;
 
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
 import java.util.List;
 
@@ -51,4 +53,11 @@ public interface OrderRepository {
      * @param order {@link Order}
      */
     void saveParentOrder(Order order);
+
+    /**
+     * 查询订单分页信息
+     * @param req 分页请求
+     * @return 分页结果
+     */
+    PageResponse<Order> queryOrderPageInfo(OrderPageReq req);
 }

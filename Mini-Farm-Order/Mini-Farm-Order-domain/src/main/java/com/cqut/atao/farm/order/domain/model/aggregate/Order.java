@@ -136,15 +136,16 @@ public class Order {
      * @return
      */
     public Order generateSubOrder(List<OrderProduct> orderProducts){
+        String sn = this.generateOrderSn();
         orderProducts.forEach(e->{
-            e.setOrderSn(orderSn);
+            e.setOrderSn(sn);
         });
         return Order.builder()
                 .parentId(parentId)
                 .orderProducts(orderProducts)
                 .address(address)
                 .freightAmount(freightAmount)
-                .orderSn(this.generateOrderSn())
+                .orderSn(sn)
                 .payAmount(payAmount)
                 .payTime(payTime)
                 .payType(payType)

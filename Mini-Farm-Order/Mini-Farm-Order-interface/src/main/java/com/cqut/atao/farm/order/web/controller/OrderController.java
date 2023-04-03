@@ -4,7 +4,9 @@ import com.cqut.atao.farm.order.application.process.OrderOperationProcess;
 import com.cqut.atao.farm.order.application.process.impI.KillOrderOperationProcessImpI;
 import com.cqut.atao.farm.order.application.process.impI.OrderOperationProcessImpI;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -37,6 +39,13 @@ public class OrderController {
     @Resource
     private KillOrderOperationProcessImpI killOrderOperationProcessImpI;
 
+    @GetMapping("/page")
+    @ApiOperation("订单分页查询")
+    public Result<PageResponse<Order>> createOrder(OrderPageReq req) {
+         PageResponse<Order> orderPageResponse = orderOperationProcessImpI.pageQueryOrder(req);
+        return Results.success(orderPageResponse);
+    }
+
     @PostMapping("/create")
     @ApiOperation("商品下单")
     public Result<String> createOrder(@RequestBody PlaceOrderReq req) {
@@ -44,13 +53,13 @@ public class OrderController {
         return Results.success(orderNo);
     }
 
-    @PostMapping("/cancel/{orderNo}")
+    @PutMapping("/cancel/{parentOrderId}")
     @ApiOperation("取消下单")
     @ApiImplicitParams(
-            @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
+            @ApiImplicitParam(name = "parentOrderId", value = "父订单id", required = true, example = "1593868838284611584")
     )
-    public Result<Void> createOrder(@PathVariable String orderNo) {
-        orderOperationProcessImpI.cancelOrder(orderNo);
+    public Result<Void> createOrder(@PathVariable(value = "parentOrderId") String parentOrderId) {
+        orderOperationProcessImpI.cancelOrder(parentOrderId);
         return Results.success();
     }
 

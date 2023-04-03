@@ -2,6 +2,8 @@ package com.cqut.atao.farm.order.domain.service;
 
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
+import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
 import java.util.List;
 
@@ -51,5 +53,12 @@ public interface OrderService {
      * @return {@link Order}
      */
     Order getOrderByOrderId(String orderId);
+
+    /**
+     * 查询订单分页信息
+     * @param req 分页请求
+     * @return 分页结果
+     */
+    PageResponse<Order> queryOrderPageInfo(OrderPageReq req);
 
 }

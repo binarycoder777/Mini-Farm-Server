@@ -3,12 +3,14 @@ package com.cqut.atao.farm.order.domain.service.impI;
 
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
+import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
 import com.cqut.atao.farm.order.domain.service.OrderService;
 import com.cqut.atao.farm.order.domain.service.event.CancelOrderEvent;
 import com.cqut.atao.farm.order.domain.service.event.CreateOrderEvent;
 import com.cqut.atao.farm.order.domain.service.event.CreateParentOrderEvent;
 import com.cqut.atao.farm.order.domain.service.event.PayEvent;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +61,10 @@ public class OrderServiceImpI implements OrderService {
     @Override
     public void createParentOrder(Order order) {
         eventPublisher.publishEvent(new CreateParentOrderEvent(order));
+    }
+
+    @Override
+    public PageResponse<Order> queryOrderPageInfo(OrderPageReq req) {
+        return orderRepository.queryOrderPageInfo(req);
     }
 }

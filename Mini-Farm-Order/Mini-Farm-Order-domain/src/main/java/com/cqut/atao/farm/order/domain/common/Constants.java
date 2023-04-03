@@ -61,6 +61,27 @@ public class Constants {
                 default:return null;
             }
         }
+
+        public static Integer getCodeByConstans(Enum<Constants.OrderState> state) {
+            if (OrderState.OBLIGATEION.equals(state)) {
+                return 1;
+            } else if (OrderState.WAIT_SEND.equals(state)) {
+                return 2;
+            } else if (OrderState.WAIT_SIGNATURE.equals(state)) {
+                return 3;
+            } else if (OrderState.WAIT_COMMENT.equals(state)) {
+                return 4;
+            } else if (OrderState.HAVE_COMMENT.equals(state)) {
+                return 5;
+            } else if (OrderState.PEND_REFUND.equals(state)) {
+                return 6;
+            } else if (OrderState.AFTER_SALE.equals(state)) {
+                return 7;
+            } else if (OrderState.TRADING_CLOSED.equals(state)) {
+                return 8;
+            }
+            return null;
+        }
     }
 
 }
