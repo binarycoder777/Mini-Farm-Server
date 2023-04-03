@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * @Description 远程消息服务
  * @createTime 2023年02月23日 15:37:00
  */
-@FeignClient
+@FeignClient("message")
 public interface RemoteMessageSerivce {
 
     @PostMapping("/api/message/send/mail")

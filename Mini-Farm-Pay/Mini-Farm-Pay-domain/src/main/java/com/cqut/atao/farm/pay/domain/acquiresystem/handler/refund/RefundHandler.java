@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
  * @createTime 2023年03月01日 20:35:00
  */
 @Component
-public class RefundHandler {
+public class RefundHandler extends RefundHandlerAbstract {
+
 
 
 }

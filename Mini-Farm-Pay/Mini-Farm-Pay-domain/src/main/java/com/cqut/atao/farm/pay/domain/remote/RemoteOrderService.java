@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @Description 远程订单服务
  * @createTime 2023年03月01日 20:48:00
  */
-@FeignClient
+@FeignClient("order")
 public interface RemoteOrderService {
 
     @GetMapping("/api/order/get/{orderSn}")

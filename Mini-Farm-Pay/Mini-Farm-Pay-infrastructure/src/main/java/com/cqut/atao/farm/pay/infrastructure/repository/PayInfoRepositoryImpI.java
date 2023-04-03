@@ -42,4 +42,9 @@ public class PayInfoRepositoryImpI implements PayInfoRepository {
         int res = payInfoDao.alertPaymentState(payNo,nextState);
         Assert.isTrue(res > 0, ()->new ServiceException("修改支付单状态异常"));
     }
+
+    @Override
+    public Payment getPaymentByPaymentSn(String orderSn) {
+        return null;
+    }
 }
