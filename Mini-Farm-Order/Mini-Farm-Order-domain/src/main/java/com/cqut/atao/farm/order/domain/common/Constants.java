@@ -9,6 +9,53 @@ package com.cqut.atao.farm.order.domain.common;
  */
 public class Constants {
 
+
+    /**
+     * 前端订单状态: 0.全部订单 1.未付款订单 2正常订单(待发货 待签收 待评价) -1.售后订单
+     */
+    public enum FrontOrderState {
+
+        // 订单状态码
+        ALL(0,"全部订单"),
+        UN_PAID(1,"未付款订单"),
+        NORMAL(2,"正常订单"),
+        AFTER_SALES(-1,"售后订单");
+
+        private Integer code;
+        private String info;
+
+        FrontOrderState(Integer code, String info) {
+            this.code = code;
+            this.info = info;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+
+        public static FrontOrderState getStateByCode(Integer code) {
+            switch (code) {
+                case 0:return ALL;
+                case 1:return UN_PAID;
+                case 2:return NORMAL;
+                case -1:return AFTER_SALES;
+                default:return null;
+            }
+        }
+    }
+
     /**
      * 订单状态: 1.待付款 2.待发货 3.待签收 4.交易成功(待评价) 5.已评价 6.待退款 7.售后 8.交易关闭
      */

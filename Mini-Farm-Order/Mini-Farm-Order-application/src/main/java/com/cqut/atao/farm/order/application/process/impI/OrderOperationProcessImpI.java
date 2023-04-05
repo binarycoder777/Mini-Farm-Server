@@ -62,17 +62,17 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         });
         // 远程调用商品服务释放锁定商品库存
         List<OrderItemInfo> list = new ArrayList<>();
-        orderList.forEach(e->{
+        orderList.forEach(e -> {
             List<OrderProduct> orderProducts = e.getOrderProducts();
-            orderProducts.forEach(p->{
-                 OrderItemInfo orderItemInfo = OrderItemInfo.builder()
+            orderProducts.forEach(p -> {
+                OrderItemInfo orderItemInfo = OrderItemInfo.builder()
                         .skuId(p.getProductSkuId())
                         .num(p.getProductQuantity())
                         .build();
-                 list.add(orderItemInfo);
+                list.add(orderItemInfo);
             });
         });
-         OrderInfoReq orderInfoReq = OrderInfoReq.builder()
+        OrderInfoReq orderInfoReq = OrderInfoReq.builder()
                 .orderItemInfos(list)
                 .build();
         remoteProductService.unlockProductStock(orderInfoReq);
@@ -90,11 +90,22 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
 
     /**
      * 分页查询订单
+     *
      * @param req 分页请求
      * @return 分页结果
      */
     public PageResponse<Order> pageQueryOrder(OrderPageReq req) {
         return orderService.queryOrderPageInfo(req);
     }
+
+    /**
+     * 提醒商家发货订单
+     *
+     * @param orderSn
+     */
+    public void remindOrder(String orderSn) {
+        orderService.remindOrderDelivery(orderSn);
+    }
+
 
 }

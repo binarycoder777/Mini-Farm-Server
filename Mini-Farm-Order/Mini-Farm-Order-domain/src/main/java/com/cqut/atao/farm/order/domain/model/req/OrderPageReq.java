@@ -24,7 +24,12 @@ public class OrderPageReq extends PageRequest {
     private Long userId;
 
     /**
-     * 订单状态
+     * 前端订单状态码
+     */
+    private Integer frontOrderStatus;
+
+    /**
+     * 后端订单状态码
      */
     private Integer orderStatus;
 }
