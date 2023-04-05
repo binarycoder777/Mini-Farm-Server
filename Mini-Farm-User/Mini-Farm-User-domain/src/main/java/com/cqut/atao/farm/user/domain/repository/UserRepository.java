@@ -7,6 +7,7 @@ import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.req.VxUserLoginReq;
 import com.cqut.atao.farm.user.domain.model.res.ProductComment;
+import com.cqut.atao.farm.user.domain.model.res.UserInfoRes;
 
 /**
  * @author atao
@@ -30,4 +31,6 @@ public interface UserRepository {
     void saveCollectProduct(CollectProductReq req);
 
     boolean getCollectProductStatus(Long userId,Long productId);
+
+    UserInfoRes findUserInfo(Long userId);
 }

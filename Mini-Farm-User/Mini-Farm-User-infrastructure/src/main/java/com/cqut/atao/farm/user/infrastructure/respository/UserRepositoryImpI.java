@@ -14,6 +14,7 @@ import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.req.VxUserLoginReq;
 import com.cqut.atao.farm.user.domain.model.res.ProductComment;
+import com.cqut.atao.farm.user.domain.model.res.UserInfoRes;
 import com.cqut.atao.farm.user.domain.repository.UserRepository;
 import com.cqut.atao.farm.user.infrastructure.dao.UserCollectionDao;
 import com.cqut.atao.farm.user.infrastructure.dao.UserCommentDao;
@@ -105,5 +106,11 @@ public class UserRepositoryImpI implements UserRepository {
             return false;
         }
         return userCollection.isStatus();
+    }
+
+    @Override
+    public UserInfoRes findUserInfo(Long userId) {
+         User user = userDao.selectOne(Wrappers.lambdaQuery(User.class).eq(User::getId,userId));
+         return BeanUtil.convert(user,UserInfoRes.class);
     }
 }

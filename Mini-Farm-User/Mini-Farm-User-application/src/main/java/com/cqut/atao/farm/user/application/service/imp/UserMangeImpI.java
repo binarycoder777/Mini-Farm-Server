@@ -7,6 +7,7 @@ import com.cqut.atao.farm.user.domain.model.req.CommentProductPageReq;
 import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.res.ProductComment;
+import com.cqut.atao.farm.user.domain.model.res.UserInfoRes;
 import com.cqut.atao.farm.user.domain.repository.UserRepository;
 import com.cqut.atao.farm.user.domain.service.UserService;
 import com.cqut.atao.farm.user.application.service.UserMange;
@@ -54,5 +55,10 @@ public class UserMangeImpI implements UserMange {
     @Override
     public boolean getProductCollectStatus(Long userId, Long productId) {
         return userRepository.getCollectProductStatus(userId,productId);
+    }
+
+    @Override
+    public UserInfoRes queryUserInfo(Long userId) {
+        return userRepository.findUserInfo(userId);
     }
 }

@@ -7,6 +7,7 @@ import com.cqut.atao.farm.user.domain.model.req.CommentProductPageReq;
 import com.cqut.atao.farm.user.domain.model.req.CommentProductReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.domain.model.res.ProductComment;
+import com.cqut.atao.farm.user.domain.model.res.UserInfoRes;
 
 import java.util.Map;
 
@@ -54,5 +55,11 @@ public interface UserMange {
      */
     PageResponse<ProductComment> productCommentPage(CommentProductPageReq req);
 
+    /**
+     * 查询用户信息
+     * @param userId
+     * @return
+     */
+    UserInfoRes queryUserInfo(Long userId);
 
 }
