@@ -27,6 +27,11 @@ public class OrderItemPO extends BaseDO {
     private String orderId;
 
     /**
+     * 商家id
+     */
+    private Long merchantId;
+
+    /**
      * 订单编号
      */
     private String orderSn;

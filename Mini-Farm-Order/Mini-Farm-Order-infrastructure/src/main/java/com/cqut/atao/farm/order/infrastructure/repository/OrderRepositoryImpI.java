@@ -93,4 +93,12 @@ public class OrderRepositoryImpI implements OrderRepository {
                 .queryOrderPageInfo(req);
         return response;
     }
+
+    @Override
+    public Long queryMerchantId(String orderSn) {
+        // 同一子订单下商家一定相同
+        OrderItemPO itemPO = orderItemDAO.selectList(Wrappers.lambdaQuery(OrderItemPO.class)
+                .eq(OrderItemPO::getOrderSn, orderSn)).get(0);
+        return itemPO.getMerchantId();
+    }
 }

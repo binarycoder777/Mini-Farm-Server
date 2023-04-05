@@ -60,4 +60,11 @@ public interface OrderRepository {
      * @return 分页结果
      */
     PageResponse<Order> queryOrderPageInfo(OrderPageReq req);
+
+    /**
+     * 根据订单号查询对应查询商家ID
+     * @param orderSn
+     * @return
+     */
+    Long queryMerchantId(String orderSn);
 }

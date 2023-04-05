@@ -147,5 +147,4 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
      */
     abstract protected String saveOrder(Order order);
 
-
 }
