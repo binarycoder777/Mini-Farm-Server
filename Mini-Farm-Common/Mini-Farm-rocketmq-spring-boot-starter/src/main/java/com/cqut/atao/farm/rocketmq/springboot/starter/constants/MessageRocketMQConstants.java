@@ -22,7 +22,7 @@ public class MessageRocketMQConstants {
     /**
      * 支付消息发送 TAG
      */
-    public static final String MESSAGE_PAY_SEND_TAG = "common_message-center_pay-send_tag";
+    public static final String MESSAGE_PAY_SEND_TAG = "common_pay-center_pay-send_tag";
 
     /**
      * 返还优惠消息发送 TAG

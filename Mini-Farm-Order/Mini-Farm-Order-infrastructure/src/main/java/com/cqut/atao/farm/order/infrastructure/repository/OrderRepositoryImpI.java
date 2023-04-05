@@ -101,4 +101,22 @@ public class OrderRepositoryImpI implements OrderRepository {
                 .eq(OrderItemPO::getOrderSn, orderSn)).get(0);
         return itemPO.getMerchantId();
     }
+
+    @Override
+    public Order queryOrderInfo(String orderSn) {
+        // 查询父订单
+        OrderPO parentOrder = orderDAO.parentOrder(orderSn);
+        // 查询父订单的子订单
+        List<OrderPO> subOrders = orderDAO.subOrderList(parentOrder.getId());
+        List<OrderItemPO> orderProductList = Lists.newArrayList();
+        // 查询子订单对应的商品详情
+        subOrders.forEach(e -> {
+            List<OrderItemPO> orderItemPOS = orderItemDAO.selectList(Wrappers.lambdaQuery(OrderItemPO.class)
+                    .eq(OrderItemPO::getOrderSn, e.getOrderSn()));
+            orderProductList.addAll(orderItemPOS);
+        });
+        parentOrder.setOrderProducts(orderProductList);
+        return BeanUtil.convert(parentOrder,Order.class);
+    }
+
 }

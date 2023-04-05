@@ -74,4 +74,11 @@ public interface OrderService {
      * @param orderSn 订单号
      */
     void remindOrderDelivery(String orderSn);
+
+    /**
+     * 获取订单信息
+     * @param orderSn
+     * @return
+     */
+    Order getOrder(String orderSn);
 }

@@ -107,5 +107,13 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         orderService.remindOrderDelivery(orderSn);
     }
 
+    /**
+     * 查询订单信息
+     * @param orderSn
+     * @return
+     */
+    public Order getOrderInfo(String orderSn) {
+        return orderService.getOrder(orderSn);
+    }
 
 }

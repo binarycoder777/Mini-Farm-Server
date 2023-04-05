@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.pay.application;
 
+import com.cqut.atao.farm.pay.application.req.PayResultReq;
 import com.cqut.atao.farm.pay.application.req.RemitReq;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
 
@@ -24,7 +25,7 @@ public interface PayService {
      * @param req 支付请求
      * @return 支付结果
      */
-    Object payMoneyResult(PayReq req);
+    Object payMoneyResult(PayResultReq req);
 
     /**
      * 发起订单退款

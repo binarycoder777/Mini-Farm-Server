@@ -38,6 +38,14 @@ public class OrderController {
     @Resource
     private KillOrderOperationProcessImpI killOrderOperationProcessImpI;
 
+
+    @GetMapping("/detail/{orderSn}")
+    @ApiOperation("订单详情信息")
+    public Result<Order> orderDetail(@PathVariable("orderSn") String orderSn) {
+        Order order = orderOperationProcessImpI.getOrderInfo(orderSn);
+        return Results.success(order);
+    }
+
     @GetMapping("/page")
     @ApiOperation("订单分页查询")
     public Result<PageResponse<Order>> createOrder(OrderPageReq req) {

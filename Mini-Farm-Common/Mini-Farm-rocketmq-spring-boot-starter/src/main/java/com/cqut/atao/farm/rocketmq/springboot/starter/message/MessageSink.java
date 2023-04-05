@@ -22,7 +22,7 @@ public interface MessageSink {
     @Input(MessageSink.MAIL_SEND)
     SubscribableChannel mailSend();
 
-    String PAY_MESSAGE = "pay-message";
+    String PAY_MESSAGE = "pay-send";
 
     /**
      * 支付消息发送

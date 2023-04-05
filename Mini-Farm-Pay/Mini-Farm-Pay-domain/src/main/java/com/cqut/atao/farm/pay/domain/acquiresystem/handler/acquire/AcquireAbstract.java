@@ -61,11 +61,11 @@ public abstract class AcquireAbstract implements AcquirePay {
         // 三方支付成功
         if (this.paySuccess(payReq)) {
             // 生成支付单
-//            Payment payment = this.generatePayment(payReq);
+            Payment payment = this.generatePayment(payReq);
             // 支付结果通知
             thirdPayContent.getThirdPay(payReq.getPayCode()).notifyPayResult(payReq.getOrder());
             // 异步更新订单信息
-//            this.asyncUpdateOrder(payment);
+            this.asyncUpdateOrder(payment);
             return "pay success";
         }
         return "pay fail";

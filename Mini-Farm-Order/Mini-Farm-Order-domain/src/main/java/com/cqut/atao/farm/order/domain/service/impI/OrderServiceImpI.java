@@ -69,4 +69,9 @@ public class OrderServiceImpI implements OrderService {
     public void remindOrderDelivery(String orderSn) {
         eventPublisher.publishEvent(new RemindDeliveryEvent(orderSn));
     }
+
+    @Override
+    public Order getOrder(String orderSn) {
+        return orderRepository.queryOrderInfo(orderSn);
+    }
 }

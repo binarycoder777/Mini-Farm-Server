@@ -2,8 +2,10 @@ package com.cqut.atao.farm.pay.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,6 +19,8 @@ import java.util.Date;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("pay_info")
 public class PayInfo extends BaseDO {
 

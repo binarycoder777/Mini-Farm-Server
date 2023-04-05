@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.pay.web.controller;
 
 import com.cqut.atao.farm.pay.application.PayService;
+import com.cqut.atao.farm.pay.application.req.PayResultReq;
 import com.cqut.atao.farm.pay.application.req.RemitReq;
 import com.cqut.atao.farm.pay.domain.acquiresystem.model.req.PayReq;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
@@ -37,8 +38,8 @@ public class PayController {
 
     @PostMapping("/pay/notify")
     @ApiOperation("三方支付后回调通知（支付成功还是失败）")
-    public Result<Object> notifyPayResult(@RequestBody PayReq payReq){
-        Object o = payService.payMoneyResult(payReq);
+    public Result<Object> notifyPayResult(@RequestBody PayResultReq req){
+        Object o = payService.payMoneyResult(req);
         return Results.success(o);
     }
 

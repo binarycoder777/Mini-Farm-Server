@@ -1,7 +1,9 @@
 package com.cqut.atao.farm.pay.domain.remote.model.res;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author atao
@@ -10,8 +12,10 @@ import lombok.Data;
  * @Description 用户信息
  * @createTime 2023年02月23日 16:01:00
  */
-@Data
 @Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserInfoRes {
 
     /**

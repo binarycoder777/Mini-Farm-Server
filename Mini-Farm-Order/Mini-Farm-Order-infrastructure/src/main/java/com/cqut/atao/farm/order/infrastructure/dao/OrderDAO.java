@@ -26,11 +26,18 @@ public interface OrderDAO extends BaseMapper<OrderPO> {
     @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id = id limit #{current},#{size}")
     List<OrderPO> pageParentOrder(OrderPageReq req);
 
+    @Select("select * from order_info where order_sn = #{orderSn} and parent_id = id")
+    OrderPO parentOrder(String orderSn);
+
     @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id != id limit #{current},#{size}")
     List<OrderPO> pageSubOrder(OrderPageReq req);
 
     @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id != id and parent_id=#{parentId}")
     List<OrderPO> listSubOrder(@Param("userId") Long userId,@Param("parentId") String parentId,@Param("orderStatus") Integer orderStatus);
+
+    @Select("select * from order_info where  parent_id != id and parent_id=#{parentId}")
+    List<OrderPO> subOrderList(@Param("parentId") String parentId);
+
 
     @Select("select count(*) from order_info where status =#{orderStatus} and parent_id != id")
     int countSubOrder(Integer orderStatus);

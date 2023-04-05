@@ -39,13 +39,13 @@ public class VxPayStrategy implements ThirdPay {
 
     @Override
     public void notifyPayResult(Order orderInfo) {
-//        UserInfoRes userInfo = remoteUserSerivce.getUserInfoByUserId(orderInfo.getUserId()).getData();
+        UserInfoRes userInfo = remoteUserSerivce.getUserInfoByUserId(orderInfo.getUserId()).getData();
         List<String> para = new ArrayList<String>();
         para.add("支付成功!");
         MailMessageSendReq req = MailMessageSendReq.builder()
                 .title("邮件发送测试")
                 .sender("1683823409@qq.com")
-                .receiver("87337334@qq.com")
+                .receiver(userInfo.getMail())
                 .cc("")
                 .paramList(para)
                 .templateId("userRegisterVerification")

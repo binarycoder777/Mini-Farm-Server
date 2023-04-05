@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @ApiOperation("根据用户id查询用户信息")
-    @GetMapping("/api/user/getInfo/{userId}")
+    @GetMapping("/getInfo/{userId}")
     Result<UserInfoRes> getUserInfoByUserId(@PathVariable("userId") Long userId) {
          UserInfoRes userInfoRes = userMange.queryUserInfo(userId);
          return Results.success(userInfoRes);
