@@ -6,14 +6,12 @@ import com.cqut.atao.farm.springboot.starter.web.Results;
 import com.cqut.atao.farm.user.domain.model.req.VxUserLoginReq;
 import com.cqut.atao.farm.user.domain.model.res.LoginRes;
 import com.cqut.atao.farm.user.application.service.UserMange;
+import com.cqut.atao.farm.user.domain.model.res.UserInfoRes;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -49,4 +47,10 @@ public class UserController {
         return null;
     }
 
+    @ApiOperation("根据用户id查询用户信息")
+    @GetMapping("/api/user/getInfo/{userId}")
+    Result<UserInfoRes> getUserInfoByUserId(@PathVariable("userId") Long userId) {
+         UserInfoRes userInfoRes = userMange.queryUserInfo(userId);
+         return Results.success(userInfoRes);
+    }
 }
