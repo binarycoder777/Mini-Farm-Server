@@ -50,7 +50,7 @@ public class ProductMangeImpI implements ProductMange {
 
     @Override
     public PageResponse<ProductProfileRes> searchProduct(SearchProductReq request) {
-        PageResponse<EsProduct> esProductPageResponse = productRepository.searchProductInfo(request,request.getKeyword());
+        PageResponse<EsProduct> esProductPageResponse = productRepository.searchProductInfo(request,request.getKeyword(),request.getSortPrice(),request.getSortSales());
         return esProductPageResponse.convert(e->BeanUtil.convert(e,ProductProfileRes.class));
     }
 
@@ -72,7 +72,7 @@ public class ProductMangeImpI implements ProductMange {
 
     @Override
     public PageResponse<ProductProfileRes> getProductByCategoryId(ProductCategoryReq req) {
-        PageResponse<ProductSpuVO> productPageResponse = productRepository.searchProductByCategoryId(req, req.getCategoryId());
+        PageResponse<ProductSpuVO> productPageResponse = productRepository.searchProductByCategoryId(req, req.getCategoryId(),req.getSortSales(),req.getSortPrice());
         return productPageResponse.convert(e->BeanUtil.convert(e,ProductProfileRes.class));
     }
 

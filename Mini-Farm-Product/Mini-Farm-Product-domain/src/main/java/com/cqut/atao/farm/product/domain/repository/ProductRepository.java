@@ -85,4 +85,8 @@ public interface ProductRepository {
      * @param esProduct {@link EsProduct}
      */
     void saveEsProduct(EsProduct esProduct);
+
+    PageResponse<ProductSpuVO> searchProductByCategoryId(PageRequest req, Long categoryId, Integer sortSales, Integer sortPrice);
+
+    PageResponse<EsProduct> searchProductInfo(PageRequest request, String keyword, Integer sortPrice, Integer sortSales);
 }
