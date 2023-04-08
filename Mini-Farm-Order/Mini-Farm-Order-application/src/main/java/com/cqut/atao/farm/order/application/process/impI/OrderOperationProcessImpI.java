@@ -116,4 +116,12 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         return orderService.getOrder(orderSn);
     }
 
+    /**
+     * 确认收货
+     * @param orderNo
+     */
+    public void confirmOrder(String orderNo) {
+        orderService.confirmOrder(orderNo);
+    }
+
 }

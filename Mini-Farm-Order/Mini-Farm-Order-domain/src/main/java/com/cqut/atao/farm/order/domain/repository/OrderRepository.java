@@ -69,4 +69,5 @@ public interface OrderRepository {
     Long queryMerchantId(String orderSn);
 
     Order queryOrderInfo(String orderSn);
+
 }

@@ -97,5 +97,15 @@ public class OrderController {
         return Results.success();
     }
 
+    @PutMapping("/confirm/{orderNo}")
+    @ApiOperation("用户确认收货")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
+    )
+    public Result<Void> confirmOrder(@PathVariable String orderNo) {
+        orderOperationProcessImpI.confirmOrder(orderNo);
+        return Results.success();
+    }
+
 
 }
