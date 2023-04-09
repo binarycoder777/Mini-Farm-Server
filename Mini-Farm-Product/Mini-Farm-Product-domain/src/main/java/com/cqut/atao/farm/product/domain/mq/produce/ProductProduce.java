@@ -3,6 +3,7 @@ package com.cqut.atao.farm.product.domain.mq.produce;
 import com.alibaba.fastjson.JSON;
 import com.cqut.atao.farm.product.domain.mq.event.ProductMessageSendEvent;
 import com.cqut.atao.farm.rocketmq.springboot.starter.constants.MessageRocketMQConstants;
+import com.cqut.atao.farm.rocketmq.springboot.starter.event.CommentOrderMessageSendEvent;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageConst;

@@ -147,4 +147,5 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
      */
     abstract protected String saveOrder(Order order);
 
+    public abstract void commentOrderStatus(String orderSn, Constants.OrderState waitComment);
 }

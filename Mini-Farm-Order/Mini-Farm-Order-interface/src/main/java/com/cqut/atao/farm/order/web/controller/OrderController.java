@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.web.controller;
 
 import com.cqut.atao.farm.order.application.process.impI.KillOrderOperationProcessImpI;
 import com.cqut.atao.farm.order.application.process.impI.OrderOperationProcessImpI;
+import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
@@ -107,5 +108,11 @@ public class OrderController {
         return Results.success();
     }
 
+    @GetMapping("/comment/status/{orderSn}")
+    @ApiOperation("评论订单")
+    public Result<Void> alterOrderStatusToComment(@PathVariable("orderSn") String orderSn) {
+        orderOperationProcessImpI.commentOrderStatus(orderSn, Constants.OrderState.WAIT_COMMENT);
+        return Results.success();
+    }
 
 }

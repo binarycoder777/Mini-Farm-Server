@@ -3,6 +3,7 @@ package com.cqut.atao.farm.product.web.controller;
 import com.cqut.atao.farm.product.application.res.ProductCategoryRes;
 import com.cqut.atao.farm.product.application.service.ProductCommentMange;
 import com.cqut.atao.farm.product.domain.mode.req.AddCommentReq;
+import com.cqut.atao.farm.product.domain.mode.req.CommentProductReq;
 import com.cqut.atao.farm.product.domain.mode.req.PageCommentReq;
 import com.cqut.atao.farm.product.domain.mode.res.CommentRes;
 import com.cqut.atao.farm.product.domain.mode.res.CommentStatisticsRes;
@@ -38,7 +39,7 @@ public class ProductCommentController {
 
     @ApiOperation(value = "新增商品评论")
     @PostMapping("/add")
-    public Result<Void> commentProduct(@RequestBody AddCommentReq req) {
+    public Result<Void> commentProduct(@RequestBody CommentProductReq req) {
         productCommentMange.doComment(req);
         return Results.success();
     }

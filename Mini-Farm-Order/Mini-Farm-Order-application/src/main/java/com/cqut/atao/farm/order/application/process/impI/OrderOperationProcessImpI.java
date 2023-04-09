@@ -10,6 +10,7 @@ import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.mq.produce.MessageProduce;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderItemInfo;
+import com.cqut.atao.farm.order.domain.stateflow.StateHandler;
 import com.cqut.atao.farm.rocketmq.springboot.starter.event.ReturnSpecialMessageSendEvent;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -30,6 +31,9 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
 
     @Resource
     private MessageProduce messageProduce;
+
+    @Resource
+    private StateHandler stateHandler;
 
     @Override
     protected String saveOrder(Order order) {
@@ -124,4 +128,8 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         orderService.confirmOrder(orderNo);
     }
 
+    @Override
+    public void commentOrderStatus(String orderSn, Constants.OrderState waitComment) {
+        stateHandler.commentProduct(orderSn,waitComment);
+    }
 }

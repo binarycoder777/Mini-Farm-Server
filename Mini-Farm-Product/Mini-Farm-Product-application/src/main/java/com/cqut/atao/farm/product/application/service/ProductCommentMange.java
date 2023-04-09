@@ -2,6 +2,7 @@ package com.cqut.atao.farm.product.application.service;
 
 
 import com.cqut.atao.farm.product.domain.mode.req.AddCommentReq;
+import com.cqut.atao.farm.product.domain.mode.req.CommentProductReq;
 import com.cqut.atao.farm.product.domain.mode.req.PageCommentReq;
 import com.cqut.atao.farm.product.domain.mode.res.CommentRes;
 import com.cqut.atao.farm.product.domain.mode.res.CommentStatisticsRes;
@@ -22,7 +23,7 @@ public interface ProductCommentMange {
      * 进行评论
      * @param req
      */
-    void doComment(AddCommentReq req);
+    void doComment(CommentProductReq req);
 
     /**
      * 分类统计

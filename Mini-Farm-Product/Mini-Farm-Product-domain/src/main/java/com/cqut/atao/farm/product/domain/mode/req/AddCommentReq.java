@@ -27,11 +27,6 @@ public class AddCommentReq {
     private Long id;
 
     /**
-     * 评论类型（好评、差评等）
-     */
-    private Integer type;
-
-    /**
      * 用户id
      */
     private Long userId;

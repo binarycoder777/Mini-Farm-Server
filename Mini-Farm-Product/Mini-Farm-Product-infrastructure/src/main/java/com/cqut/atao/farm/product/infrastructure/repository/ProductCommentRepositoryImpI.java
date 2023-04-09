@@ -55,7 +55,7 @@ public class ProductCommentRepositoryImpI implements ProductCommentRepository {
     public CommentStatisticsRes queryGoodCommentStatistics(Long productSpuId) {
         Long count = productCommentDAO.selectCount(Wrappers.lambdaQuery(ProductCommentPO.class)
                 .eq(ProductCommentPO::getProductId, productSpuId)
-                .eq(ProductCommentPO::getType, 1));
+                .gt(ProductCommentPO::getStar, 3));
         return CommentStatisticsRes.builder()
                 .name("好评")
                 .type("good")
@@ -66,7 +66,7 @@ public class ProductCommentRepositoryImpI implements ProductCommentRepository {
     public CommentStatisticsRes querySecondaryCommentStatistics(Long productSpuId) {
         Long count = productCommentDAO.selectCount(Wrappers.lambdaQuery(ProductCommentPO.class)
                 .eq(ProductCommentPO::getProductId, productSpuId)
-                .eq(ProductCommentPO::getType, 2));
+                .eq(ProductCommentPO::getStar, 3));
         return CommentStatisticsRes.builder()
                 .name("中评")
                 .type("all")
@@ -77,24 +77,34 @@ public class ProductCommentRepositoryImpI implements ProductCommentRepository {
     public CommentStatisticsRes queryPoorCommentStatistics(Long productSpuId) {
         Long count = productCommentDAO.selectCount(Wrappers.lambdaQuery(ProductCommentPO.class)
                 .eq(ProductCommentPO::getProductId, productSpuId)
-                .eq(ProductCommentPO::getType, 3));
-        return CommentStatisticsRes.builder().number(count).build();
+                .lt(ProductCommentPO::getStar, 3));
+        return CommentStatisticsRes.builder()
+                .name("差评")
+                .type("poor")
+                .number(count).build();
     }
 
     @Override
     public CommentStatisticsRes queryImgCommentStatistics(Long productSpuId) {
         Long count = productCommentDAO.selectCount(Wrappers.lambdaQuery(ProductCommentPO.class)
                 .eq(ProductCommentPO::getProductId, productSpuId)
-                .eq(ProductCommentPO::getType, 4));
-        return CommentStatisticsRes.builder().number(count).build();
+                .isNotNull(ProductCommentPO::getPics));
+        return CommentStatisticsRes.builder()
+                .number(count)
+                .name("带图")
+                .type("img")
+                .build();
     }
 
     @Override
     public CommentStatisticsRes queryVideoCommentStatistics(Long productSpuId) {
         Long count = productCommentDAO.selectCount(Wrappers.lambdaQuery(ProductCommentPO.class)
                 .eq(ProductCommentPO::getProductId, productSpuId)
-                .eq(ProductCommentPO::getType, 5));
-        return CommentStatisticsRes.builder().number(count).build();
+                .isNotNull(ProductCommentPO::getVideo));
+        return CommentStatisticsRes.builder().number(count)
+                .name("带视频")
+                .type("video")
+                .build();
     }
 
     @Override
