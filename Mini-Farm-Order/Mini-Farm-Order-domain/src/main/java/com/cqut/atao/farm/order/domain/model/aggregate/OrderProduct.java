@@ -31,7 +31,12 @@ public class OrderProduct {
     private String orderSn;
 
     /**
-     * 商品id
+     * 商品spuid
+     */
+    private Long productSpuId;
+
+    /**
+     * 商品skuid
      */
     private Long productSkuId;
 
