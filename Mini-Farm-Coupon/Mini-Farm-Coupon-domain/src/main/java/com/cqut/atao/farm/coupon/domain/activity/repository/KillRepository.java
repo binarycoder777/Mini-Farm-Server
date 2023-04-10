@@ -2,6 +2,9 @@ package com.cqut.atao.farm.coupon.domain.activity.repository;
 
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
+
+import java.util.List;
 
 /**
  * @author atao
@@ -25,5 +28,9 @@ public interface KillRepository {
      */
     void addKillActivity(AddKillProductReq req);
 
-
+    /**
+     * 查询秒杀活动场次
+     * @return
+     */
+    List<KillACtivityRes> queryList();
 }

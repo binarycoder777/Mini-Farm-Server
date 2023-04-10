@@ -1,7 +1,9 @@
 package com.cqut.atao.farm.coupon.domain.activity.kill.model.req;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -14,6 +16,8 @@ import java.math.BigDecimal;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AddKillProductReq {
     /**
      * 秒杀场次id
@@ -31,4 +35,8 @@ public class AddKillProductReq {
      * 秒杀数量
      */
     private Integer killNum;
+    /**
+     * 审批状态
+     */
+    private Integer status;
 }

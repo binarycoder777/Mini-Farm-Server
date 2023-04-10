@@ -1,8 +1,12 @@
 package com.cqut.atao.farm.coupon.infrastructure.repository;
 
 import cn.hutool.core.lang.Assert;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
 import com.cqut.atao.farm.coupon.domain.activity.repository.KillRepository;
 import com.cqut.atao.farm.coupon.infrastructure.dao.KillInSecondsMapper;
 import com.cqut.atao.farm.coupon.infrastructure.dao.SecondKillProductMapper;
@@ -13,6 +17,8 @@ import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceExcepti
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author atao
@@ -43,4 +49,13 @@ public class KillRepositoryImpI implements KillRepository {
         int i = secondKillProductMapper.insert(killProduct);
         Assert.isTrue(i>0,()->new ServiceException("保存秒杀商品失败"));
     }
+
+    @Override
+    public List<KillACtivityRes> queryList() {
+        LambdaQueryWrapper<KillsInSeconds> wrapper = Wrappers.lambdaQuery(KillsInSeconds.class)
+                .gt(KillsInSeconds::getStartTime, new Date());
+        List<KillsInSeconds> records = killInSecondsMapper.selectPage(new Page<>(0, 5), wrapper).getRecords();
+        return BeanUtil.convert(records,KillACtivityRes.class);
+    }
+
 }

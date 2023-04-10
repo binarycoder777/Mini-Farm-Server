@@ -1,8 +1,9 @@
-package con.cqut.atao.farm.coupon.web.controller;
+package com.cqut.atao.farm.coupon.web.controller;
 
 import com.cqut.atao.farm.coupon.domain.activity.kill.SecondKillActivity;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
 import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author atao
@@ -21,10 +23,11 @@ import javax.annotation.Resource;
  * @Description 活动控制
  * @createTime 2023年03月14日 13:55:00
  */
+
 @MiniLog
-@AllArgsConstructor
-@Api(tags = "平台活动")
 @RestController
+@AllArgsConstructor
+@Api(tags = "秒杀场次")
 @RequestMapping("/api/promotion/activity")
 public class KillActivityController {
 
@@ -38,6 +41,13 @@ public class KillActivityController {
         return Results.success();
     }
 
+    @GetMapping("/kill/list")
+    @ApiOperation(value = "查询秒杀场次")
+    public Result<List<KillACtivityRes>> listKillSeconds() {
+        List<KillACtivityRes> list =  secondKillActivity.queryKillActivity();
+        return Results.success(list);
+    }
+
     @PostMapping("/kill/product/add")
     @ApiOperation(value = "添加秒杀商品")
     public Result<Void> addKillProduct(@RequestBody AddKillProductReq req) {
@@ -45,10 +55,16 @@ public class KillActivityController {
         return Results.success();
     }
 
+    @PostMapping("/kill/product/{killId}")
+    @ApiOperation(value = "根据秒杀场次查询秒杀商品")
+    public Result<Void> getKillProduct(@PathVariable("killId") Long killId) {
+//        secondKillActivity.getKillProductByKillId(killId);
+        return Results.success();
+    }
+
     @PostMapping("/kill/product/buy")
     @ApiOperation(value = "抢购秒杀商品")
     public Result<Void> buyKillProduct(@RequestBody PlaceOrderReq req) {
-
         return Results.success();
     }
 

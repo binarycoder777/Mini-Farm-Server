@@ -43,4 +43,9 @@ public class SecondKillProduct extends BaseDO {
      */
     private Integer killNum;
 
+    /**
+     * 审批状态
+     */
+    private Integer status;
+
 }

@@ -1,4 +1,4 @@
-package con.cqut.atao.farm.coupon.web.controller;
+package com.cqut.atao.farm.coupon.web.controller;
 
 import com.cqut.atao.farm.coupon.application.CouponService;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
@@ -24,8 +24,8 @@ import java.util.List;
  * @createTime 2023年03月12日 13:47:00
  */
 @MiniLog
-@AllArgsConstructor
 @Api(tags = "优惠券")
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/promotion/coupon")
 public class CouponController {
