@@ -7,9 +7,11 @@ import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
+import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
 import com.cqut.atao.farm.order.domain.mq.produce.MessageProduce;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderItemInfo;
+import com.cqut.atao.farm.order.domain.repository.RefundProductRepository;
 import com.cqut.atao.farm.order.domain.stateflow.StateHandler;
 import com.cqut.atao.farm.rocketmq.springboot.starter.event.ReturnSpecialMessageSendEvent;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
@@ -34,6 +36,9 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
 
     @Resource
     private StateHandler stateHandler;
+
+    @Resource
+    private RefundProductRepository refundProductRepository;
 
     @Override
     protected String saveOrder(Order order) {
@@ -131,5 +136,20 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
     @Override
     public void commentOrderStatus(String orderSn, Constants.OrderState waitComment) {
         stateHandler.commentProduct(orderSn,waitComment);
+    }
+
+    @Override
+    public void deliveryOfgoods(String orderNo) {
+        stateHandler.sendProduct(orderNo,Constants.OrderState.WAIT_SEND);
+    }
+
+    @Override
+    public void returnProducts(ReturnProductReq req) {
+        // 订单状态转换
+        stateHandler.returnProduct(req.getOrderSn(),Constants.OrderState.WAIT_SIGNATURE);
+        // 图片转换
+        req.picToStr();
+        // 插入记录
+        refundProductRepository.addRefundProductRecord(req);
     }
 }

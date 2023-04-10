@@ -5,6 +5,7 @@ import com.cqut.atao.farm.order.application.filter.CheckParamterHandler;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
+import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
 import com.cqut.atao.farm.order.domain.remote.RemoteProductService;
 import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
@@ -147,5 +148,22 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
      */
     abstract protected String saveOrder(Order order);
 
+    /**
+     * 用户评论
+     * @param orderSn
+     * @param waitComment
+     */
     public abstract void commentOrderStatus(String orderSn, Constants.OrderState waitComment);
+
+    /**
+     * 商家发货
+     * @param orderNo
+     */
+    public abstract void deliveryOfgoods(String orderNo);
+
+    /**
+     * 用户退货
+     * @param req
+     */
+    public abstract void returnProducts(ReturnProductReq req);
 }
