@@ -1,11 +1,12 @@
-package com.cqut.atao.farm.coupon.domain.activity.kill;
+package com.cqut.atao.farm.product.domain.activity.kill;
 
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
-import com.cqut.atao.farm.coupon.domain.activity.repository.KillRepository;
-import com.cqut.atao.farm.coupon.domain.remote.RemoteOrderService;
-import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
+
+import com.cqut.atao.farm.product.domain.activity.kill.model.req.AddKillProductReq;
+import com.cqut.atao.farm.product.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.product.domain.activity.kill.model.res.KillACtivityRes;
+import com.cqut.atao.farm.product.domain.activity.repository.KillRepository;
+import com.cqut.atao.farm.product.domain.remote.RemoteOrderService;
+import com.cqut.atao.farm.product.domain.remote.model.req.PlaceOrderReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

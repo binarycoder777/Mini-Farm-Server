@@ -1,8 +1,9 @@
-package com.cqut.atao.farm.coupon.domain.activity.repository;
+package com.cqut.atao.farm.product.domain.activity.repository;
 
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
+
+import com.cqut.atao.farm.product.domain.activity.kill.model.req.AddKillProductReq;
+import com.cqut.atao.farm.product.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.product.domain.activity.kill.model.res.KillACtivityRes;
 
 import java.util.List;
 

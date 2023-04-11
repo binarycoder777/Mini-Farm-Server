@@ -1,5 +1,7 @@
-package com.cqut.atao.farm.coupon.domain.activity.kill.model.req;
+package com.cqut.atao.farm.product.infrastructure.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,15 +12,20 @@ import java.math.BigDecimal;
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName AddKillProductReq.java
- * @Description 添加秒杀商品请求
- * @createTime 2023年03月14日 21:13:00
+ * @ClassName SecondKillProduct.java
+ * @Description 参与秒杀的商品
+ * @createTime 2023年03月14日 15:26:00
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddKillProductReq {
+@Builder
+@TableName("second_kill_products")
+public class SecondKillProduct extends BaseDO {
+    /**
+     * id
+     */
+    private Long id;
     /**
      * 秒杀场次id
      */
@@ -35,8 +42,10 @@ public class AddKillProductReq {
      * 秒杀数量
      */
     private Integer killNum;
+
     /**
      * 审批状态
      */
     private Integer status;
+
 }

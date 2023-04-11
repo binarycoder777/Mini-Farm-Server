@@ -1,5 +1,7 @@
-package com.cqut.atao.farm.coupon.domain.activity.kill.model.res;
+package com.cqut.atao.farm.product.infrastructure.po;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,15 +12,17 @@ import java.util.Date;
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName KillACtivityRes.java
- * @Description 秒杀活动场次
- * @createTime 2023年04月10日 19:04:00
+ * @ClassName KillsInSeconds.java
+ * @Description 秒杀场次
+ * @createTime 2023年03月14日 15:22:00
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class KillACtivityRes {
+@Builder
+@TableName("kills_in_seconds")
+public class KillsInSeconds extends BaseDO {
+
     /**
      * id
      */

@@ -1,17 +1,17 @@
-package com.cqut.atao.farm.coupon.infrastructure.repository;
+package com.cqut.atao.farm.product.infrastructure.repository;
 
 import cn.hutool.core.lang.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
-import com.cqut.atao.farm.coupon.domain.activity.repository.KillRepository;
-import com.cqut.atao.farm.coupon.infrastructure.dao.KillInSecondsMapper;
-import com.cqut.atao.farm.coupon.infrastructure.dao.SecondKillProductMapper;
-import com.cqut.atao.farm.coupon.infrastructure.po.KillsInSeconds;
-import com.cqut.atao.farm.coupon.infrastructure.po.SecondKillProduct;
+import com.cqut.atao.farm.product.domain.activity.kill.model.req.AddKillProductReq;
+import com.cqut.atao.farm.product.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.product.domain.activity.kill.model.res.KillACtivityRes;
+import com.cqut.atao.farm.product.domain.activity.repository.KillRepository;
+import com.cqut.atao.farm.product.infrastructure.dao.KillInSecondsMapper;
+import com.cqut.atao.farm.product.infrastructure.dao.SecondKillProductMapper;
+import com.cqut.atao.farm.product.infrastructure.po.KillsInSeconds;
+import com.cqut.atao.farm.product.infrastructure.po.SecondKillProduct;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import org.springframework.stereotype.Component;

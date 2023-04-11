@@ -1,8 +1,7 @@
-package com.cqut.atao.farm.coupon.infrastructure.dao;
+package com.cqut.atao.farm.product.infrastructure.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cqut.atao.farm.coupon.infrastructure.po.KillsInSeconds;
-import com.cqut.atao.farm.coupon.infrastructure.po.SecondKillProduct;
+import com.cqut.atao.farm.product.infrastructure.po.SecondKillProduct;
 
 /**
  * @author atao
