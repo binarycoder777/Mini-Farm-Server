@@ -71,7 +71,8 @@ public class ProductCollectRepositoryImpI implements ProductCollectRepository {
         // 查询收藏的商品记录
         Page<ProductCollectionPO> page = new Page<>(req.getCurrent(),req.getSize());
         LambdaQueryWrapper<ProductCollectionPO> eq = Wrappers.lambdaQuery(ProductCollectionPO.class)
-                .eq(ProductCollectionPO::getUserId, req.getUserId());
+                .eq(ProductCollectionPO::getUserId, req.getUserId())
+                .eq(ProductCollectionPO::isStatus,1);
         Page<ProductCollectionPO> productCollectionPOPage = productCollectionDao.selectPage(page, eq);
         List<ProductCollectionPO> records = productCollectionPOPage.getRecords();
                 // 根据记录查询商品信息
