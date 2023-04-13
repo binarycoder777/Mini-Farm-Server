@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.coupon.domain.coupon.model.req;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +37,10 @@ public class CreateCouponReq {
     /**
      * 优惠券面额
      */
+    private Long couponTick;
+    /**
+     * 优惠券值
+     */
     private Long couponValue;
     /**
      * 优惠券数量
@@ -44,10 +49,12 @@ public class CreateCouponReq {
     /**
      * 发放时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date distributeTime;
-    /**
+    /**r
      * 有效期限
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date validityTime;
     /**
      * 是否可叠加

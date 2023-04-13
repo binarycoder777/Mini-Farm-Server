@@ -22,7 +22,7 @@ public class KillACtivityRes {
     /**
      * id
      */
-    private Long id;
+    private String id;
     /**
      * 开始时间
      */

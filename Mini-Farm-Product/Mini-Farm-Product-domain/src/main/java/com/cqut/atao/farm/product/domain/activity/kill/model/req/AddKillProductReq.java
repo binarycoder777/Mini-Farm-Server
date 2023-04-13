@@ -27,6 +27,11 @@ public class AddKillProductReq {
      * 秒杀商品id
      */
     private Long productId;
+
+    /**
+     * 秒杀商品skuid
+     */
+    private Long productSkuId;
     /**
      * 秒杀价格
      */

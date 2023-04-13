@@ -20,7 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@TableName("kills_in_seconds")
+@TableName("second_kill")
 public class KillsInSeconds extends BaseDO {
 
     /**

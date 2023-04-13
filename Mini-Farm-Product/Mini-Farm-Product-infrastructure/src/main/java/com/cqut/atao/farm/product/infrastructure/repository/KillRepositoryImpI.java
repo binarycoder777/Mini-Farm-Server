@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author atao
@@ -40,14 +41,14 @@ public class KillRepositoryImpI implements KillRepository {
     public void createKill(DeployActivityReq req) {
         KillsInSeconds killsInSeconds = BeanUtil.convert(req, KillsInSeconds.class);
         int i = killInSecondsMapper.insert(killsInSeconds);
-        Assert.isTrue(i>0,()->new ServiceException("保存秒杀场次失败"));
+        Assert.isTrue(i > 0, () -> new ServiceException("保存秒杀场次失败"));
     }
 
     @Override
     public void addKillActivity(AddKillProductReq req) {
         SecondKillProduct killProduct = BeanUtil.convert(req, SecondKillProduct.class);
         int i = secondKillProductMapper.insert(killProduct);
-        Assert.isTrue(i>0,()->new ServiceException("保存秒杀商品失败"));
+        Assert.isTrue(i > 0, () -> new ServiceException("保存秒杀商品失败"));
     }
 
     @Override
@@ -55,7 +56,24 @@ public class KillRepositoryImpI implements KillRepository {
         LambdaQueryWrapper<KillsInSeconds> wrapper = Wrappers.lambdaQuery(KillsInSeconds.class)
                 .gt(KillsInSeconds::getStartTime, new Date());
         List<KillsInSeconds> records = killInSecondsMapper.selectPage(new Page<>(0, 5), wrapper).getRecords();
-        return BeanUtil.convert(records,KillACtivityRes.class);
+        return BeanUtil.convert(records, KillACtivityRes.class);
     }
 
+    @Override
+    public void passProduct(Long id, Integer status) {
+        secondKillProductMapper.unpdateStatus(id, status);
+    }
+
+    @Override
+    public List<Long> queryKillProduct(Long killId) {
+        LambdaQueryWrapper<SecondKillProduct> eq = Wrappers.lambdaQuery(SecondKillProduct.class)
+                .eq(SecondKillProduct::getKillId, killId);
+        List<Long> collect = secondKillProductMapper
+                .selectList(eq)
+                .stream()
+                .map(e -> {
+                    return e.getProductId();
+                }).collect(Collectors.toList());
+        return collect;
+    }
 }

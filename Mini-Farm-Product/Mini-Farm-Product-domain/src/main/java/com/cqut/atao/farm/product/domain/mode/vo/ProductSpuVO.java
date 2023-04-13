@@ -18,17 +18,17 @@ public class ProductSpuVO {
     /**
      * id
      */
-    private Long id;
+    private String id;
 
     /**
      * 商品类型id
      */
-    private Long categoryId;
+    private String categoryId;
 
     /**
      * 商品品牌id
      */
-    private Long brandId;
+    private String brandId;
 
     /**
      * 商品名称

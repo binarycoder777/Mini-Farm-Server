@@ -233,4 +233,10 @@ public class ProductRepositoryImp implements ProductRepository {
     public void saveEsProduct(EsProduct esProduct) {
         esProductDAO.save(esProduct);
     }
+
+    @Override
+    public List<ProductSpuVO> queryProductList(List<Long> spuIdList) {
+        List<ProductSpuPO> spuPOS = productSpuDAO.selectBatchIds(spuIdList);
+        return BeanUtil.convert(spuPOS,ProductSpuVO.class);
+    }
 }

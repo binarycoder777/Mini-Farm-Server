@@ -34,4 +34,8 @@ public interface KillRepository {
      * @return
      */
     List<KillACtivityRes> queryList();
+
+    void passProduct(Long id, Integer i);
+
+    List<Long> queryKillProduct(Long killId);
 }

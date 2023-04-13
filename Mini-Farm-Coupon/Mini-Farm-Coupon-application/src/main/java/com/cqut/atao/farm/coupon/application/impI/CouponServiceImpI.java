@@ -9,6 +9,7 @@ import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ public class CouponServiceImpI implements CouponService {
 
     @Override
     public void takeCoupon(TakeCouponReq req) {
+        req.setTakeTime(new Date());
         distributeCoupon.takeCoupon(req);
     }
 
