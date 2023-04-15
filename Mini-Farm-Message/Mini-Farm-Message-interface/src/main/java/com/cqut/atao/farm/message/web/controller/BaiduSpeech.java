@@ -37,6 +37,7 @@ public class BaiduSpeech {
     @Value("${baidu.yuyin.secret.key}")
     public String SECRET_KEY;
 
+
     @ApiOperation("上传语音")
     @RequestMapping(value = "/uploadFile")
     public String uploadFile(@RequestParam("dev_id") int dev_id, @RequestParam("file") MultipartFile file) throws Exception {
