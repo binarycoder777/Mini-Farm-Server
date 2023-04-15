@@ -19,4 +19,6 @@ public interface SendMessageService {
      * @return MessageSendRes
      */
     MailSendMessageRes mailMessageSend(MailMessageSendReq mailMessageSendReq);
+
+
 }
