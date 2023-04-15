@@ -32,7 +32,7 @@ public class TakeCouponRecord extends BaseDO {
      */
     private Long userId;
     /**
-     * 优惠券id
+     * 优惠券sn
      */
     private String couponSn;
     /**

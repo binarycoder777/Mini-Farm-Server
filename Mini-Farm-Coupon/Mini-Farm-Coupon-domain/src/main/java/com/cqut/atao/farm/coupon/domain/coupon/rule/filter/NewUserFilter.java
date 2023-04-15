@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
  * @Description 新用户规则过滤
  * @createTime 2023年03月13日 23:12:00
  */
-@NoArgsConstructor
 @AllArgsConstructor
 @Component
 @Slf4j

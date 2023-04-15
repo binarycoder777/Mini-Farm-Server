@@ -35,7 +35,7 @@ public class Coupon extends BaseDO {
     /**
      * 优惠券面额
      */
-    private Long couponValue;
+    private Long couponTick;
     /**
      * 优惠券数量
      */
@@ -57,26 +57,26 @@ public class Coupon extends BaseDO {
      */
     private Integer couponStatus;
     /**
-     * 优惠券类型
+     * 优惠券类型（满减、折扣...）
      */
     private Integer couponType;
+
     /**
-     * 优惠券使用范围（0：全平台 1：指定商品(redis存储) 2：指定类型(redis存储)））
+     * 满多少能使用
      */
-    private Integer couponScope;
+    private Integer couponValue;
     /**
      * 优惠券分发类型（0：系统发放 1：人工发放 2：用户领取）
      */
     private Integer distributeType;
     /**
-     * 优惠券分发规则（0：无规则 1：有规则）
+     * 优惠券使用范围（0：全平台 1：指定商品(redis存储) 2：指定类型(redis存储)））
      */
-    private Integer distributeRule;
+    private Integer couponScope;
     /**
      * 优惠券分发对象（0：所有对象 1：筛选对象）
      */
     private Integer distributeObject;
-
     /**
      * 判断优惠券是否失效
      * @return boolean

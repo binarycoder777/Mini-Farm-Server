@@ -97,13 +97,13 @@ public class AddCommentReq {
         }
         pics = "";
         for (int i=0;i<base64Pics.size()-1;++i) {
-            pics = pics + base64Pics.get(i) + ";";
+            pics = pics + base64Pics.get(i) + "、";
         }
         pics = pics + base64Pics.get(base64Pics.size()-1);
     }
 
     public void convertToList() {
-        String[] split = pics.split(";");
+        String[] split = pics.split("、");
         if (split.length == 0) {
             return;
         }

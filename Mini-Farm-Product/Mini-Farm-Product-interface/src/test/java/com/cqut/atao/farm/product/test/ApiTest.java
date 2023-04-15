@@ -10,8 +10,10 @@ import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.req.UserFoot;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSkuVO;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
+import com.cqut.atao.farm.product.domain.repository.ProductFootRepository;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSkuDAO;
 import com.cqut.atao.farm.product.infrastructure.es.EsProductDAO;
 import com.cqut.atao.farm.product.infrastructure.dao.ProductSpuDAO;
@@ -68,6 +70,9 @@ public class ApiTest {
 
     @Resource
     private ProductMange productMange;
+
+    @Resource
+    private ProductFootRepository productFootRepository;
 
     @Test
     public void deleteProductIntoEs() {
@@ -276,6 +281,19 @@ public class ApiTest {
     }
 
 
+    @Test
+    public void testRedis() {
+        UserFoot userFootBuilder = UserFoot.builder()
+                .userId(1l)
+                .productId(140l).build();
+        productFootRepository.addUserFoot(userFootBuilder);
+    }
+
+    @Test
+    public void queryFromRedis() {
+        final List<ProductSpuVO> productSpuVOS = productFootRepository.queryUserFoot(1l);
+        log.info("{}",productSpuVOS);
+    }
 
 
 

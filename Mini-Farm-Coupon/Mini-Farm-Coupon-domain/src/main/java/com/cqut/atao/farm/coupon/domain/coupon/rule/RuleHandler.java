@@ -21,7 +21,6 @@ import java.util.List;
  */
 @Data
 @Component
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class RuleHandler extends RuleContent implements Rule{

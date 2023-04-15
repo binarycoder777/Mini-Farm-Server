@@ -32,6 +32,10 @@ public class CouponRes {
      */
     private Long couponValue;
     /**
+     * 优惠券面额
+     */
+    private Long couponTick;
+    /**
      * 优惠券数量
      */
     private Long couponNum;

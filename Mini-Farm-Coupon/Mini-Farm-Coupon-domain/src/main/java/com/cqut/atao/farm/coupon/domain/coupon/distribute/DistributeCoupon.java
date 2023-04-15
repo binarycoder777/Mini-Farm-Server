@@ -64,8 +64,11 @@ public class DistributeCoupon extends DistributeAbstract{
     public void takeCoupon(TakeCouponReq req) {
         // 查询优惠券信息
         CouponRes coupon = couponRepository.getCoupon(req.getCouponSn());
+        if (coupon.getRuleType() == null) {
+            couponRepository.takeCoupon(req);
+        }
         // 判断用户是否满足条件
-        if (ruleHandler.doFilter(req.getUserId(),coupon.getRuleType())) {
+        else if (ruleHandler.doFilter(req.getUserId(),coupon.getRuleType())) {
             couponRepository.takeCoupon(req);
         }
         // 发送短信通知

@@ -112,7 +112,10 @@ public class ProductCommentRepositoryImpI implements ProductCommentRepository {
         Long count = productCommentDAO.selectCount(Wrappers.lambdaQuery(ProductCommentPO.class)
                 .eq(ProductCommentPO::getProductId, productSpuId)
                 .eq(ProductCommentPO::getType, 6));
-        return CommentStatisticsRes.builder().number(count).build();
+        return CommentStatisticsRes.builder()
+                .name("追加")
+                .type("append")
+                .number(count).build();
     }
 
     @Override
@@ -120,11 +123,27 @@ public class ProductCommentRepositoryImpI implements ProductCommentRepository {
         Page<ProductCommentPO> page = new Page<>(req.getCurrent(), req.getSize());
         LambdaQueryWrapper<ProductCommentPO> eq = null;
         if (req.getType() == 0) {
-            Wrappers.lambdaQuery(ProductCommentPO.class)
+            eq = Wrappers.lambdaQuery(ProductCommentPO.class)
                     .eq(ProductCommentPO::getProductId, req.getProductSpuId());
-        } else {
-            Wrappers.lambdaQuery(ProductCommentPO.class)
-                    .eq(ProductCommentPO::getType, req.getType())
+        } else if (req.getType() == 1) {
+            eq = Wrappers.lambdaQuery(ProductCommentPO.class)
+                    .gt(ProductCommentPO::getStar, 3)
+                    .eq(ProductCommentPO::getProductId, req.getProductSpuId());
+        } else if (req.getType() == 2) {
+            eq = Wrappers.lambdaQuery(ProductCommentPO.class)
+                    .eq(ProductCommentPO::getStar, 3)
+                    .eq(ProductCommentPO::getProductId, req.getProductSpuId());
+        } else if (req.getType() == 3) {
+            eq = Wrappers.lambdaQuery(ProductCommentPO.class)
+                    .lt(ProductCommentPO::getStar, 3)
+                    .eq(ProductCommentPO::getProductId, req.getProductSpuId());
+        } else if (req.getType() == 4) {
+            eq = Wrappers.lambdaQuery(ProductCommentPO.class)
+                    .isNotNull(ProductCommentPO::getPics)
+                    .eq(ProductCommentPO::getProductId, req.getProductSpuId());
+        } else if (req.getType() == 5) {
+            eq = Wrappers.lambdaQuery(ProductCommentPO.class)
+                    .isNotNull(ProductCommentPO::getVideo)
                     .eq(ProductCommentPO::getProductId, req.getProductSpuId());
         }
         Page<ProductCommentPO> commentPOPage = productCommentDAO.selectPage(page, eq);

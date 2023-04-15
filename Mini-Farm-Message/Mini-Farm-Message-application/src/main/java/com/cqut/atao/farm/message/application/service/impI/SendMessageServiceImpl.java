@@ -46,5 +46,7 @@ public class SendMessageServiceImpl implements SendMessageService {
         messageSendProduce.mailMessageSend(BeanUtil.toBean(mailMessageSendAggregates, MailMessageSendEvent.class));
         return new MailSendMessageRes(messageSendId);
     }
+
+
 }
 

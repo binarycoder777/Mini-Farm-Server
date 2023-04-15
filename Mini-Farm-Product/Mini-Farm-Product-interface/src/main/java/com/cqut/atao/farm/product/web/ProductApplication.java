@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
@@ -18,6 +19,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
  */
 @EnableDiscoveryClient
 @EnableBinding({Source.class, MessageSink.class})
+@EnableFeignClients("com.cqut.atao.farm.product.domain.remote")
 @EnableElasticsearchRepositories(basePackages = "com.cqut.atao.farm.product.infrastructure.es")
 @SpringBootApplication(scanBasePackages = "com.cqut.atao.farm.product")
 @MapperScan("com.cqut.atao.farm.product.infrastructure.dao")

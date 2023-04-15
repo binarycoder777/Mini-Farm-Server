@@ -89,4 +89,6 @@ public interface ProductRepository {
     PageResponse<ProductSpuVO> searchProductByCategoryId(PageRequest req, Long categoryId, Integer sortSales, Integer sortPrice);
 
     PageResponse<EsProduct> searchProductInfo(PageRequest request, String keyword, Integer sortPrice, Integer sortSales);
+
+    List<ProductSpuVO> queryProductList(List<Long> spuIdList);
 }

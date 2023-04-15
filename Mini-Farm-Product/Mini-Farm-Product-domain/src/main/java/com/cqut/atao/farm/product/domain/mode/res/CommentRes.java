@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.product.domain.mode.res;
 
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -108,5 +109,18 @@ public class CommentRes {
      * 评论图片
      */
     private List<String> img;
+
+    public void convertToList() {
+        String[] split = pics.split("、");
+        if (split.length == 0) {
+            return;
+        }
+        if (img == null) {
+            img = Lists.newArrayList();
+        }
+        for (String s: split) {
+            img.add(s);
+        }
+    }
 
 }
