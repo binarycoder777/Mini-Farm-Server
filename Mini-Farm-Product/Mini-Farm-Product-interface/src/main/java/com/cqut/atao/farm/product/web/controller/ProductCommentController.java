@@ -44,6 +44,13 @@ public class ProductCommentController {
         return Results.success();
     }
 
+    @ApiOperation(value = "查询商品评论数")
+    @GetMapping("/statics/{productId}")
+    public Result<Long> staticsCommentProduct(@PathVariable("productId") Long productId) {
+        Long num = productCommentMange.countProductCommentNums(productId);
+        return Results.success(num);
+    }
+
     @ApiOperation(value = "评论类型分类及分类数统计")
     @GetMapping("/category/{productSpuId}")
     public Result<List<CommentStatisticsRes>> commentCategoryStatistics(@PathVariable("productSpuId")Long productSpuId) {

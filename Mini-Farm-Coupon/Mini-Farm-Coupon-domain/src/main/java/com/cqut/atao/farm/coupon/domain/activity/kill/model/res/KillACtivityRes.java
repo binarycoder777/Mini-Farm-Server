@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.product.domain.activity.kill.model.res;
+package com.cqut.atao.farm.coupon.domain.activity.kill.model.res;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

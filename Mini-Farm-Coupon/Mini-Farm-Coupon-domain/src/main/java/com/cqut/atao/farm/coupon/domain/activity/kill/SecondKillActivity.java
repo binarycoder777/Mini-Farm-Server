@@ -1,23 +1,19 @@
-package com.cqut.atao.farm.product.domain.activity.kill;
+package com.cqut.atao.farm.coupon.domain.activity.kill;
 
 
-import com.cqut.atao.farm.product.domain.activity.kill.model.req.AddKillProductReq;
-import com.cqut.atao.farm.product.domain.activity.kill.model.req.DeployActivityReq;
-import com.cqut.atao.farm.product.domain.activity.kill.model.req.PassProductReq;
-import com.cqut.atao.farm.product.domain.activity.kill.model.res.KillACtivityRes;
-import com.cqut.atao.farm.product.domain.activity.repository.KillRepository;
-import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
-import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
-import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
-import com.cqut.atao.farm.product.domain.remote.RemoteOrderService;
-import com.cqut.atao.farm.product.domain.remote.model.req.PlaceOrderReq;
-import com.cqut.atao.farm.product.domain.repository.ProductRepository;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.PassProductReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
+import com.cqut.atao.farm.coupon.domain.activity.repository.KillRepository;
+import com.cqut.atao.farm.coupon.domain.remote.RemoteOrderService;
+import com.cqut.atao.farm.coupon.domain.remote.RemoteProductService;
+import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
+import com.cqut.atao.farm.coupon.domain.remote.model.res.ProductSpuVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +34,8 @@ public class SecondKillActivity {
     private RemoteOrderService remoteOrderService;
 
     @Resource
-    private ProductRepository productRepository;
+    private RemoteProductService remoteProductService;
+
 
     public void deployActivity(DeployActivityReq req) {
         killRepository.createKill(req);
@@ -57,12 +54,12 @@ public class SecondKillActivity {
      * 购买秒杀商品
      * @param req
      */
-    public void buyKillProduct(PlaceOrderReq req) {
-
+    public String buyKillProduct(PlaceOrderReq req) {
         // 异步下单
         remoteOrderService.createKillOrder(req);
         // 延迟取消
         log.warn("延迟取消订单");
+        return "success";
     }
 
     /**
@@ -78,7 +75,6 @@ public class SecondKillActivity {
      * 审批秒杀商品
      * @param req
      */
-    @Transactional
     public void passKillProduct(PassProductReq req) {
         if (!req.isPass()) {
             // 发送消息通知
@@ -89,18 +85,6 @@ public class SecondKillActivity {
         }
         // 审批通过
         killRepository.passProduct(req.getId(),1);
-        // 锁定库存
-        log.warn("锁定商品库存:{}",req);
-        OrderItemInfo build = OrderItemInfo.builder()
-                .num(req.getNum())
-                .skuId(req.getProductSkuId())
-                .build();
-        List<OrderItemInfo> list = new ArrayList<>();
-        list.add(build);
-         OrderInfo build1 = OrderInfo.builder()
-                .orderItemInfos(list)
-                .build();
-        productRepository.lockProductStock(build1);
     }
 
     /**
@@ -110,8 +94,9 @@ public class SecondKillActivity {
      */
     public List<ProductSpuVO> pageQueryKillProduct(Long killId) {
         List<Long> spuIdList = killRepository.queryKillProduct(killId);
-        List<ProductSpuVO> res = productRepository.queryProductList(spuIdList);
+        List<ProductSpuVO> res = remoteProductService.getProductBySpuId(spuIdList).getData();
         return res;
     }
+
 
 }

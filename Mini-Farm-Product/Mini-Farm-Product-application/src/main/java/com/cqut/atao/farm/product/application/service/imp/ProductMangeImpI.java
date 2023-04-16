@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -88,5 +89,10 @@ public class ProductMangeImpI implements ProductMange {
                 .sendTime(new Date())
                 .build();
         productProduce.productMessageSend(build);
+    }
+
+    @Override
+    public List<ProductSpuVO> queryProducts(List<Long> spuIds) {
+        return productRepository.queryProductList(spuIds);
     }
 }

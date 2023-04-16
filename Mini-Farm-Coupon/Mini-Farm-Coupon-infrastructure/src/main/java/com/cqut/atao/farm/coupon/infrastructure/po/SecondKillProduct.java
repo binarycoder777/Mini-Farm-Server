@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.product.infrastructure.po;
+package com.cqut.atao.farm.coupon.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.BaseDO;

@@ -1,12 +1,13 @@
-package com.cqut.atao.farm.product.web.controller;
+package com.cqut.atao.farm.coupon.web.controller;
 
-import com.cqut.atao.farm.product.domain.activity.kill.SecondKillActivity;
-import com.cqut.atao.farm.product.domain.activity.kill.model.req.AddKillProductReq;
-import com.cqut.atao.farm.product.domain.activity.kill.model.req.DeployActivityReq;
-import com.cqut.atao.farm.product.domain.activity.kill.model.req.PassProductReq;
-import com.cqut.atao.farm.product.domain.activity.kill.model.res.KillACtivityRes;
-import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
-import com.cqut.atao.farm.product.domain.remote.model.req.PlaceOrderReq;
+
+import com.cqut.atao.farm.coupon.domain.activity.kill.SecondKillActivity;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.PassProductReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
+import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
+import com.cqut.atao.farm.coupon.domain.remote.model.res.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -73,8 +74,9 @@ public class KillActivityController {
 
     @PostMapping("/kill/product/buy")
     @ApiOperation(value = "抢购秒杀商品")
-    public Result<Void> buyKillProduct(@RequestBody PlaceOrderReq req) {
-        return Results.success();
+    public Result<String> buyKillProduct(@RequestBody PlaceOrderReq req) {
+        String killOrderSn = secondKillActivity.buyKillProduct(req);
+        return Results.success(killOrderSn);
     }
 
 

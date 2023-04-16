@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.product.domain.activity.kill.model.req;
+package com.cqut.atao.farm.coupon.domain.activity.kill.model.req;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
