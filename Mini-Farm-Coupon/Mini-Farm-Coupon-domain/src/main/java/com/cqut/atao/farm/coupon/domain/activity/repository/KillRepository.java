@@ -5,6 +5,8 @@ package com.cqut.atao.farm.coupon.domain.activity.repository;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillProductRes;
+import com.cqut.atao.farm.coupon.domain.remote.model.aggreate.OrderProduct;
 
 import java.util.List;
 
@@ -38,5 +40,7 @@ public interface KillRepository {
 
     void passProduct(Long id, Integer i);
 
-    List<Long> queryKillProduct(Long killId);
+    List<KillProductRes> queryKillProduct(Long killId);
+
+    boolean lockStock(Long id);
 }

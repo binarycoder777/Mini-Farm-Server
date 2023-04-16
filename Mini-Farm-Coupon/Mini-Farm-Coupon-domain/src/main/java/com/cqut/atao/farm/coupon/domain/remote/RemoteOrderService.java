@@ -20,16 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient("order")
 public interface RemoteOrderService {
 
-    @PostMapping("/kill/create")
+    @PostMapping("/api/order/kill/create")
     @ApiOperation("秒杀商品下单")
     Result<String> createKillOrder(@RequestBody PlaceOrderReq req);
-
-
-    @PostMapping("/kill/cancel/{orderSn}")
-    @ApiOperation("取消秒杀下单")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "orderSn", value = "订单号", required = true, example = "1593868838284611584")
-    )
-    Result<Void> cancelKillOrder(@PathVariable("orderSn") String orderNo);
 
 }

@@ -8,6 +8,7 @@ import com.cqut.atao.farm.product.application.res.ProductProfileRes;
 import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.req.BatchQueryReq;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -74,5 +75,5 @@ public interface ProductMange {
      */
     void updateProductInfo(Product req);
 
-    List<ProductSpuVO> queryProducts(List<Long> spuIds);
+    List<Product> queryProducts(List<BatchQueryReq> spuIds);
 }

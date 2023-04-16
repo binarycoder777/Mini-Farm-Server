@@ -4,8 +4,10 @@ package com.cqut.atao.farm.coupon.web.controller;
 import com.cqut.atao.farm.coupon.domain.activity.kill.SecondKillActivity;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.KillOrderReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.PassProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillProductRes;
 import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.coupon.domain.remote.model.res.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
@@ -67,14 +69,14 @@ public class KillActivityController {
 
     @GetMapping("/kill/product/{killId}")
     @ApiOperation(value = "根据秒杀场次查询秒杀商品")
-    public Result<List<ProductSpuVO>> getKillProduct(@PathVariable("killId") Long killId) {
-        List<ProductSpuVO> res = secondKillActivity.pageQueryKillProduct(killId);
+    public Result<List<KillProductRes>> getKillProduct(@PathVariable("killId") Long killId) {
+        List<KillProductRes> res = secondKillActivity.pageQueryKillProduct(killId);
         return Results.success(res);
     }
 
     @PostMapping("/kill/product/buy")
     @ApiOperation(value = "抢购秒杀商品")
-    public Result<String> buyKillProduct(@RequestBody PlaceOrderReq req) {
+    public Result<String> buyKillProduct(@RequestBody KillOrderReq req) {
         String killOrderSn = secondKillActivity.buyKillProduct(req);
         return Results.success(killOrderSn);
     }

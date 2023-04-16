@@ -1,5 +1,7 @@
 package com.cqut.atao.farm.coupon.domain.remote;
 
+import com.cqut.atao.farm.coupon.domain.remote.model.req.BatchQueryReq;
+import com.cqut.atao.farm.coupon.domain.remote.model.res.Product;
 import com.cqut.atao.farm.coupon.domain.remote.model.res.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,6 +27,6 @@ public interface RemoteProductService {
 
     @PostMapping("/api/product/bach/query/spu/")
     @ApiOperation(value = "根据 spuId 查询商品SPU")
-    public Result<List<ProductSpuVO>> getProductBySpuId(@RequestBody List<Long> spuIds);
+    public Result<List<Product>> getProductBySpuId(@RequestBody List<BatchQueryReq> spuIds);
 
 }

@@ -9,6 +9,7 @@ import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.req.BatchQueryReq;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
@@ -52,9 +53,9 @@ public class ProductController {
     }
 
     @PostMapping("/bach/query/spu/")
-    @ApiOperation(value = "根据 spuId 查询商品SPU")
-    public Result<List<ProductSpuVO>> getProductBySpuId(@RequestBody List<Long> spuIds) {
-        List<ProductSpuVO> list = productMange.queryProducts(spuIds);
+    @ApiOperation(value = "根据 spuId和skuid 查询商品")
+    public Result<List<Product>> getProductBySpuId(@RequestBody List<BatchQueryReq> reqs) {
+        List<Product> list = productMange.queryProducts(reqs);
         return Results.success(list);
     }
 

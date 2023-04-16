@@ -8,13 +8,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillProductRes;
 import com.cqut.atao.farm.coupon.domain.activity.repository.KillRepository;
+import com.cqut.atao.farm.coupon.domain.remote.model.aggreate.OrderProduct;
 import com.cqut.atao.farm.coupon.infrastructure.dao.KillInSecondsMapper;
 import com.cqut.atao.farm.coupon.infrastructure.dao.SecondKillProductMapper;
 import com.cqut.atao.farm.coupon.infrastructure.po.KillsInSeconds;
 import com.cqut.atao.farm.coupon.infrastructure.po.SecondKillProduct;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -29,6 +32,7 @@ import java.util.stream.Collectors;
  * @Description 秒杀仓储实现层
  * @createTime 2023年03月14日 15:35:00
  */
+@Slf4j
 @Component
 public class KillRepositoryImpI implements KillRepository {
 
@@ -66,16 +70,28 @@ public class KillRepositoryImpI implements KillRepository {
     }
 
     @Override
-    public List<Long> queryKillProduct(Long killId) {
+    public List<KillProductRes> queryKillProduct(Long killId) {
         LambdaQueryWrapper<SecondKillProduct> eq = Wrappers.lambdaQuery(SecondKillProduct.class)
                 .eq(SecondKillProduct::getKillId, killId)
                 .eq(SecondKillProduct::getStatus,1);
-        List<Long> collect = secondKillProductMapper
+        List<KillProductRes> collect = secondKillProductMapper
                 .selectList(eq)
                 .stream()
                 .map(e -> {
-                    return e.getProductId();
+                    KillProductRes build = KillProductRes.builder()
+                            .killProductId(e.getId()+"")
+                            .productId(e.getProductId())
+                            .productSkuId(e.getProductSkuId())
+                            .price(e.getKillPrice())
+                            .build();
+                    return build;
                 }).collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public boolean lockStock(Long id) {
+        int res = secondKillProductMapper.lockStock(id);
+        return res > 0;
     }
 }

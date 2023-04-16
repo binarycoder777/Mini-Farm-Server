@@ -10,6 +10,7 @@ import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.req.BatchQueryReq;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.product.domain.mq.event.ProductMessageSendEvent;
 import com.cqut.atao.farm.product.domain.mq.produce.ProductProduce;
@@ -92,7 +93,7 @@ public class ProductMangeImpI implements ProductMange {
     }
 
     @Override
-    public List<ProductSpuVO> queryProducts(List<Long> spuIds) {
+    public List<Product> queryProducts(List<BatchQueryReq> spuIds) {
         return productRepository.queryProductList(spuIds);
     }
 }

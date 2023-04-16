@@ -18,4 +18,6 @@ public interface SecondKillProductMapper extends BaseMapper<SecondKillProduct> {
     @Update("update second_kill_products set status=#{status} where id=#{id}")
     int unpdateStatus(@Param("id") Long id,@Param("status") Integer status);
 
+    @Update("update second_kill_products set kill_num=(kill_num-1) where id=#{id} and kill_num > 0")
+    int lockStock(@Param("id") Long id);
 }
