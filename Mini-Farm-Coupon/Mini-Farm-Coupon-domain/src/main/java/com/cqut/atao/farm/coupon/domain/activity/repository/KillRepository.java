@@ -4,7 +4,9 @@ package com.cqut.atao.farm.coupon.domain.activity.repository;
 
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.addKillNoticeReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillNoticeRecord;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillProductRes;
 import com.cqut.atao.farm.coupon.domain.remote.model.aggreate.OrderProduct;
 
@@ -43,4 +45,8 @@ public interface KillRepository {
     List<KillProductRes> queryKillProduct(Long killId);
 
     boolean lockStock(Long id);
+
+    void noticeKill(addKillNoticeReq req);
+
+    List<KillNoticeRecord> queryNotice();
 }

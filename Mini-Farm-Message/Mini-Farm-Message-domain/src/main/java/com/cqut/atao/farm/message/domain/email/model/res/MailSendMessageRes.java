@@ -10,8 +10,6 @@ import lombok.Data;
  * @Description 消息发送返回实体
  * @createTime 2023年01月11日 17:00:00
  */
-
-
 @Data
 @AllArgsConstructor
 public class MailSendMessageRes {

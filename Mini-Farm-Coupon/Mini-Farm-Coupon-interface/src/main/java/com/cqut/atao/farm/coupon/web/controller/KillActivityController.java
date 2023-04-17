@@ -2,14 +2,9 @@ package com.cqut.atao.farm.coupon.web.controller;
 
 
 import com.cqut.atao.farm.coupon.domain.activity.kill.SecondKillActivity;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.KillOrderReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.PassProductReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.*;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillProductRes;
-import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
-import com.cqut.atao.farm.coupon.domain.remote.model.res.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -79,6 +74,13 @@ public class KillActivityController {
     public Result<String> buyKillProduct(@RequestBody KillOrderReq req) {
         String killOrderSn = secondKillActivity.buyKillProduct(req);
         return Results.success(killOrderSn);
+    }
+
+    @PostMapping("/kill/product/notice")
+    @ApiOperation(value = "提醒我抢购")
+    public Result<Void> noticeBuyKillProduct(@RequestBody addKillNoticeReq req) {
+        secondKillActivity.addKillNotice(req);
+        return Results.success();
     }
 
 

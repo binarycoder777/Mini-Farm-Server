@@ -1,10 +1,7 @@
 package com.cqut.atao.farm.coupon.domain.activity.kill;
 
 
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.KillOrderReq;
-import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.PassProductReq;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.*;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillProductRes;
 import com.cqut.atao.farm.coupon.domain.activity.repository.KillRepository;
@@ -126,4 +123,7 @@ public class SecondKillActivity {
     }
 
 
+    public void addKillNotice(addKillNoticeReq req) {
+        killRepository.noticeKill(req);
+    }
 }
