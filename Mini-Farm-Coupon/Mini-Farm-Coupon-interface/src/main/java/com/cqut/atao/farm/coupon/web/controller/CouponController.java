@@ -1,10 +1,12 @@
 package com.cqut.atao.farm.coupon.web.controller;
 
 import com.cqut.atao.farm.coupon.application.CouponService;
+import com.cqut.atao.farm.coupon.domain.coupon.model.aggreate.CouponListReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
+import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponChooseRes;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -59,6 +61,13 @@ public class CouponController {
     public Result<List<CouponRes>> getCoupon(@PathVariable("userId") Long userId) {
         List<CouponRes> couponList = couponService.getCouponList(userId);
         return Results.success(couponList);
+    }
+
+    @PostMapping("/choose")
+    @ApiOperation(value = "可供订单选择的优惠券")
+    public Result<CouponChooseRes> getCoupon(@RequestBody CouponListReq req) {
+        CouponChooseRes chooseCoupon = couponService.chooseCoupon(req);
+        return Results.success(chooseCoupon);
     }
 
 }

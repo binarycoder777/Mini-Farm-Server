@@ -1,8 +1,10 @@
 package com.cqut.atao.farm.coupon.application;
 
+import com.cqut.atao.farm.coupon.domain.coupon.model.aggreate.CouponListReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponChooseRes;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
@@ -42,6 +44,12 @@ public interface CouponService {
      */
     void useCoupon(UseCouponReq req);
 
+    /**
+     * 优惠选择
+     * @param req
+     * @return
+     */
+    CouponChooseRes chooseCoupon(CouponListReq req);
 }
 
 

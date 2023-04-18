@@ -2,9 +2,12 @@ package com.cqut.atao.farm.coupon.application.impI;
 
 import com.cqut.atao.farm.coupon.application.CouponService;
 import com.cqut.atao.farm.coupon.domain.coupon.distribute.Distribute;
+import com.cqut.atao.farm.coupon.domain.coupon.handler.CouponHandler;
+import com.cqut.atao.farm.coupon.domain.coupon.model.aggreate.CouponListReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
+import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponChooseRes;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,9 @@ public class CouponServiceImpI implements CouponService {
 
     @Resource
     private Distribute distributeCoupon;
+
+    @Resource
+    private CouponHandler couponHandler;
 
     @Override
     public void generateCoupon(CreateCouponReq req) {
@@ -45,4 +51,10 @@ public class CouponServiceImpI implements CouponService {
     public void useCoupon(UseCouponReq req) {
         distributeCoupon.useCoupon(req);
     }
+
+    @Override
+    public CouponChooseRes chooseCoupon(CouponListReq req) {
+        return couponHandler.doCoupon(req);
+    }
+
 }
