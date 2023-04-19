@@ -2,7 +2,10 @@ package com.cqut.atao.farm.message.application.service.impI;
 
 import com.cqut.atao.farm.message.application.service.IndustryInformationRepositoryMange;
 import com.cqut.atao.farm.message.domain.email.model.req.AddIndustryInformationReq;
+import com.cqut.atao.farm.message.domain.email.model.req.ClickReq;
+import com.cqut.atao.farm.message.domain.email.model.req.CommentReq;
 import com.cqut.atao.farm.message.domain.email.model.req.InformationListReq;
+import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationDetail;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationRes;
 import com.cqut.atao.farm.message.domain.email.repository.IndustryInformationRepository;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -31,5 +34,20 @@ public class IndustryInformationRepositoryMangeImpI implements IndustryInformati
     @Override
     public void addIndustryInformation(AddIndustryInformationReq req) {
         industryInformationRepository.insertIndustryInformation(req);
+    }
+
+    @Override
+    public IndustryInformationDetail getIndustryInformation(Long id) {
+        return industryInformationRepository.queryIndustryInformationDetail(id);
+    }
+
+    @Override
+    public void click(ClickReq req) {
+        industryInformationRepository.click(req);
+    }
+
+    @Override
+    public void comment(CommentReq req) {
+        industryInformationRepository.comment(req);
     }
 }

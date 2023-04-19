@@ -57,4 +57,8 @@ public class CouponServiceImpI implements CouponService {
         return couponHandler.doCoupon(req);
     }
 
+    @Override
+    public CouponRes getCouponBySn(String couponSn) {
+        return distributeCoupon.queryCoupon(couponSn);
+    }
 }

@@ -2,6 +2,7 @@ package com.cqut.atao.farm.coupon.infrastructure.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cqut.atao.farm.coupon.infrastructure.po.Coupon;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
 /**
@@ -19,6 +20,6 @@ public interface CouponMapper extends BaseMapper<Coupon> {
      * @return
      */
     @Update("update coupon_info set coupon_status=#{couponStatus} where coupon_sn=#{couponSn}")
-    int updateCouponStatus(String couponSn,Integer couponStatus);
+    int updateCouponStatus(@Param("couponSn") String couponSn,@Param("couponStatus") Integer couponStatus);
 
 }

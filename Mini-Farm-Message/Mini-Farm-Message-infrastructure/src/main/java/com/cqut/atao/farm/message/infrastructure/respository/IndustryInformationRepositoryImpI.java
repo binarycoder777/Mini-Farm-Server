@@ -3,11 +3,17 @@ package com.cqut.atao.farm.message.infrastructure.respository;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqut.atao.farm.message.domain.email.model.req.AddIndustryInformationReq;
+import com.cqut.atao.farm.message.domain.email.model.req.ClickReq;
+import com.cqut.atao.farm.message.domain.email.model.req.CommentReq;
 import com.cqut.atao.farm.message.domain.email.model.req.InformationListReq;
+import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationDetail;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationRes;
 import com.cqut.atao.farm.message.domain.email.repository.IndustryInformationRepository;
+import com.cqut.atao.farm.message.infrastructure.dao.CommentDAO;
 import com.cqut.atao.farm.message.infrastructure.dao.IndustryInformationDAO;
+import com.cqut.atao.farm.message.infrastructure.po.Comment;
 import com.cqut.atao.farm.message.infrastructure.po.IndustryInformation;
+import com.cqut.atao.farm.message.infrastructure.util.RedisUtil;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.util.PageUtil;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -28,6 +34,12 @@ public class IndustryInformationRepositoryImpI implements IndustryInformationRep
     @Resource
     private IndustryInformationDAO industryInformationDAO;
 
+    @Resource
+    private CommentDAO commentDAO;
+
+    @Resource
+    private RedisUtil redisUtil;
+
     @Override
     public PageResponse<IndustryInformationRes> queryIndustryInformation(InformationListReq req) {
         Page<IndustryInformation> page = new Page<>(req.getCurrent(),req.getSize());
@@ -40,5 +52,21 @@ public class IndustryInformationRepositoryImpI implements IndustryInformationRep
     @Override
     public void insertIndustryInformation(AddIndustryInformationReq req) {
         industryInformationDAO.insert(BeanUtil.convert(req,IndustryInformation.class));
+    }
+
+    @Override
+    public IndustryInformationDetail queryIndustryInformationDetail(Long id) {
+        IndustryInformation industryInformation = industryInformationDAO.selectById(id);
+        return BeanUtil.convert(industryInformation,IndustryInformationDetail.class);
+    }
+
+    @Override
+    public void click(ClickReq req) {
+        redisUtil.incr("INDUSTRY_INFORMATION_CLICK:"+req.getTargetId(),1);
+    }
+
+    @Override
+    public void comment(CommentReq req) {
+        commentDAO.insert(BeanUtil.convert(req, Comment.class));
     }
 }

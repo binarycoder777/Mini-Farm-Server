@@ -84,4 +84,9 @@ public class DistributeCoupon extends DistributeAbstract{
     public void useCoupon(UseCouponReq req) {
         couponRepository.useCoupon(req);
     }
+
+    @Override
+    public CouponRes queryCoupon(String couponSn) {
+        return couponRepository.getCoupon(couponSn);
+    }
 }

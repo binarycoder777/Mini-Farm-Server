@@ -1,7 +1,10 @@
 package com.cqut.atao.farm.message.application.service;
 
 import com.cqut.atao.farm.message.domain.email.model.req.AddIndustryInformationReq;
+import com.cqut.atao.farm.message.domain.email.model.req.ClickReq;
+import com.cqut.atao.farm.message.domain.email.model.req.CommentReq;
 import com.cqut.atao.farm.message.domain.email.model.req.InformationListReq;
+import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationDetail;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationRes;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
@@ -15,5 +18,11 @@ import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 public interface IndustryInformationRepositoryMange {
     PageResponse<IndustryInformationRes> getIndustryInformation(InformationListReq req);
 
+    IndustryInformationDetail getIndustryInformation(Long id);
+
     void addIndustryInformation(AddIndustryInformationReq req);
+
+    void click(ClickReq req);
+
+    void comment(CommentReq req);
 }

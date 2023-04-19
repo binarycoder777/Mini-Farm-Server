@@ -87,11 +87,11 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         remoteProductService.unlockProductStock(orderInfoReq);
         // MQ异步返还用户的优惠信息
         Order order = orderService.getOrderByOrderId(parentOrderId);
-        if (order.getCouponId() != null || order.getSpecialActivityId() != null) {
+        if (order.getOrderSn() != null || order.getSpecialActivityId() != null) {
             ReturnSpecialMessageSendEvent returnSpecialMessageSendEvent = ReturnSpecialMessageSendEvent.builder()
                     .messageSendId(UUID.randomUUID().toString())
                     .acitivityId(order.getSpecialActivityId())
-                    .couponId(order.getCouponId())
+                    .couponId(order.getCouponSn())
                     .build();
             messageProduce.returnSpecialMessageSend(returnSpecialMessageSendEvent);
         }

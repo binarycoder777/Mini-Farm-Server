@@ -1,11 +1,9 @@
-package com.cqut.atao.farm.coupon.domain.coupon.model.req;
+package com.cqut.atao.farm.order.domain.remote.model.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 /**
  * @author atao

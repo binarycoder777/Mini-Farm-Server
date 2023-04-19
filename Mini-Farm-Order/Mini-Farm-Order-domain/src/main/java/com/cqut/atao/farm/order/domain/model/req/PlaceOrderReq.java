@@ -46,8 +46,14 @@ public class PlaceOrderReq {
     /**
      * 优惠卷id
      */
-    @ApiModelProperty("优惠卷id")
-    private Long couponId;
+    @ApiModelProperty("优惠卷Sn")
+    private String couponSn;
+
+    /**
+     * 优惠卷id
+     */
+    @ApiModelProperty("优惠卷金额")
+    private BigDecimal couponTick;
 
     /**
      * 满减活动id

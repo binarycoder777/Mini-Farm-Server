@@ -70,4 +70,11 @@ public class CouponController {
         return Results.success(chooseCoupon);
     }
 
+    @GetMapping("/coupon/{couponSn}")
+    @ApiOperation(value = "根据编号查询优惠券")
+    public Result<CouponRes> getCoupon(@PathVariable("couponSn") String couponSn) {
+        CouponRes res = couponService.getCouponBySn(couponSn);
+        return Results.success(res);
+    }
+
 }

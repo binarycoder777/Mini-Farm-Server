@@ -50,6 +50,8 @@ public interface CouponService {
      * @return
      */
     CouponChooseRes chooseCoupon(CouponListReq req);
+
+    CouponRes getCouponBySn(String couponSn);
 }
 
 
