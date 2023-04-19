@@ -61,4 +61,9 @@ public class CouponServiceImpI implements CouponService {
     public CouponRes getCouponBySn(String couponSn) {
         return distributeCoupon.queryCoupon(couponSn);
     }
+
+    @Override
+    public List<CouponRes> getInvalidCouponList(Long userId) {
+        return distributeCoupon.queryInvalidCouponList(userId);
+    }
 }

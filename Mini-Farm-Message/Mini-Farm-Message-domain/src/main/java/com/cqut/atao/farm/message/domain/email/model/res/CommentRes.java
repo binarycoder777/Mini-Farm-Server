@@ -48,6 +48,9 @@ public class CommentRes {
      */
     private Data createTime;
 
+    /**
+     * 回复数量
+     */
     private Integer replyCount;
 
     /**

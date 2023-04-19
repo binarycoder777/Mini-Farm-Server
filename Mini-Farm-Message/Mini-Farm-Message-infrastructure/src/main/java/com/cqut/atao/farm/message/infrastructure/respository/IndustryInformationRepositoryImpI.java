@@ -2,10 +2,8 @@ package com.cqut.atao.farm.message.infrastructure.respository;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cqut.atao.farm.message.domain.email.model.req.AddIndustryInformationReq;
-import com.cqut.atao.farm.message.domain.email.model.req.ClickReq;
-import com.cqut.atao.farm.message.domain.email.model.req.CommentReq;
-import com.cqut.atao.farm.message.domain.email.model.req.InformationListReq;
+import com.cqut.atao.farm.message.domain.email.model.req.*;
+import com.cqut.atao.farm.message.domain.email.model.res.CommentRes;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationDetail;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationRes;
 import com.cqut.atao.farm.message.domain.email.repository.IndustryInformationRepository;
@@ -68,5 +66,11 @@ public class IndustryInformationRepositoryImpI implements IndustryInformationRep
     @Override
     public void comment(CommentReq req) {
         commentDAO.insert(BeanUtil.convert(req, Comment.class));
+    }
+
+    @Override
+    public PageResponse<CommentRes> queryCommentList(PageCommentReq req) {
+
+        return null;
     }
 }

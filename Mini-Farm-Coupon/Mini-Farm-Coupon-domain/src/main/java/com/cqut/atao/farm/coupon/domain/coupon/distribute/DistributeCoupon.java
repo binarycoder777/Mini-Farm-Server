@@ -89,4 +89,9 @@ public class DistributeCoupon extends DistributeAbstract{
     public CouponRes queryCoupon(String couponSn) {
         return couponRepository.getCoupon(couponSn);
     }
+
+    @Override
+    public List<CouponRes> queryInvalidCouponList(Long userId) {
+        return couponRepository.queryInvalidCouponList(userId);
+    }
 }

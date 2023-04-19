@@ -42,4 +42,6 @@ public interface Distribute {
     void useCoupon(UseCouponReq req);
 
     CouponRes queryCoupon(String couponSn);
+
+    List<CouponRes> queryInvalidCouponList(Long userId);
 }

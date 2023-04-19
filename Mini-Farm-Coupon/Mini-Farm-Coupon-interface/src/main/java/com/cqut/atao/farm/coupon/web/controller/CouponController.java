@@ -57,9 +57,16 @@ public class CouponController {
     }
 
     @GetMapping("/get/{userId}")
-    @ApiOperation(value = "查看自身的优惠券")
+    @ApiOperation(value = "查看自身的优惠券(有效)")
     public Result<List<CouponRes>> getCoupon(@PathVariable("userId") Long userId) {
         List<CouponRes> couponList = couponService.getCouponList(userId);
+        return Results.success(couponList);
+    }
+
+    @GetMapping("/get/invalid/{userId}")
+    @ApiOperation(value = "查看自身的优惠券(无效)")
+    public Result<List<CouponRes>> getInvalidCoupon(@PathVariable("userId") Long userId) {
+        List<CouponRes> couponList = couponService.getInvalidCouponList(userId);
         return Results.success(couponList);
     }
 

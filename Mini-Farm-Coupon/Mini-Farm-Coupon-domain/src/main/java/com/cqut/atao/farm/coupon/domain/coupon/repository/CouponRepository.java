@@ -47,4 +47,6 @@ public interface CouponRepository {
      * @param req {@link UseCouponReq}
      */
     void useCoupon(UseCouponReq req);
+
+    List<CouponRes> queryInvalidCouponList(Long userId);
 }

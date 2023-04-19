@@ -98,4 +98,23 @@ public class CouponRepositoryImpI implements CouponRepository {
         return true;
     }
 
+
+    @Override
+    public List<CouponRes> queryInvalidCouponList(Long userId) {
+        List<String> couponSns = takeCouponMapper.selectList(Wrappers.lambdaQuery(TakeCouponRecord.class)
+                .eq(TakeCouponRecord::getUserId, userId)).stream()
+                .map(e -> {
+                    return e.getCouponSn();
+                }).collect(Collectors.toList());
+        List<Coupon> couponList = Lists.newArrayList();
+        for (String e : couponSns) {
+            Coupon coupon = couponMapper.selectOne(Wrappers.lambdaQuery(Coupon.class).eq(Coupon::getCouponSn, e));
+            if (judgeConponValid(coupon)) {
+                continue;
+            }
+            couponList.add(coupon);
+        }
+        return BeanUtil.convert(couponList, CouponRes.class);
+    }
+
 }
