@@ -38,4 +38,11 @@ public interface ProductCommentMange {
      * @return
      */
     PageResponse<CommentRes> pageQueryComment(PageCommentReq req);
+
+    /**
+     * 统计商品评论数
+     * @param productId
+     * @return
+     */
+    Long countProductCommentNums(Long productId);
 }

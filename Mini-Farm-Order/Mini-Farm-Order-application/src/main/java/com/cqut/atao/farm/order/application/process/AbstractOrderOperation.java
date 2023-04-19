@@ -7,10 +7,13 @@ import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
+import com.cqut.atao.farm.order.domain.remote.RemoteCouponService;
 import com.cqut.atao.farm.order.domain.remote.RemoteProductService;
 import com.cqut.atao.farm.order.domain.remote.model.req.DeleteCartItemReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderItemInfo;
+import com.cqut.atao.farm.order.domain.remote.model.req.UseCouponReq;
+import com.cqut.atao.farm.order.domain.remote.model.res.CouponRes;
 import com.cqut.atao.farm.order.domain.service.OrderService;
 import com.cqut.atao.farm.order.domain.split.OrderSplitHandler;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
@@ -31,7 +34,7 @@ import java.util.stream.Collectors;
  * @createTime 2023年02月18日 09:54:00
  */
 @Slf4j
-public abstract class AbstractOrderOperation implements OrderOperationProcess{
+public abstract class AbstractOrderOperation implements OrderOperationProcess {
 
     @Resource
     protected OrderService orderService;
@@ -48,20 +51,25 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
     @Resource
     protected OrderSplitHandler orderSplitHandler;
 
+    @Resource
+    private RemoteCouponService remoteCouponService;
+
     @Override
     public String createOrder(PlaceOrderReq req) {
         // 参数校验
         checkParamterHandler.doCheck(req);
         // 风险核验
-        Assert.isTrue(this.checkRisk(req) , ()->new ServiceException("订单风险异常"));
+        Assert.isTrue(this.checkRisk(req), () -> new ServiceException("订单风险异常"));
         // 获取参与结算商品进行订单构建
         Order order = this.buildOrder(req);
         // 获取营销中心优惠信息
         this.getSpecialOffers(order);
         // 核算金额
-        Assert.isTrue(order.caculatePayAmount(), ()->new ServiceException("金额核验出错"));
+        Assert.isTrue(order.caculatePayAmount(), () -> new ServiceException("金额核验出错"));
         // 订单生成(涉及到订单拆分)
         String orderNo = this.saveOrder(order);
+        // 消费优惠券之类的优惠信息
+        this.consumeSpecial(order);
         // 清空购物车已选中商品列表
         this.deleteCartItem(order);
         // 发送消给延迟队列(取消未支付的订单)
@@ -70,6 +78,17 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
 
     @Override
     public abstract void cancelOrder(String orderId);
+
+
+    public void consumeSpecial(Order order) {
+        log.info("扣减优惠信息");
+        // 扣减消费券
+        remoteCouponService.consumeCoupon(UseCouponReq.builder()
+                .couponSn(order.getCouponSn())
+                .orderSn(order.getOrderSn())
+                .userId(order.getUserId())
+                .build());
+    }
 
     public boolean isParentOrder(String orderSn) {
         log.info("判断是否是父订单");
@@ -84,6 +103,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
 
     /**
      * 构建父订单（注入订单编号）
+     *
      * @param req {@link PlaceOrderReq}
      * @return {@link Order}
      */
@@ -109,6 +129,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
 
     /**
      * 锁定订单商品库存
+     *
      * @param order {@link Order}
      * @return boolean
      */
@@ -122,34 +143,37 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
                     .build();
         }).collect(Collectors.toList());
         // 构造请求
-         OrderInfoReq req = OrderInfoReq.builder()
+        OrderInfoReq req = OrderInfoReq.builder()
                 .orderNo(order.getOrderSn())
                 .orderItemInfos(orderItemInfo)
                 .build();
-         log.warn("{}",req);
+        log.warn("{}", req);
         return Result.SUCCESS_CODE.equals(remoteProductService.lockProductStock(req).getCode());
     }
 
     /**
      * 清空购物车中的商品（下单中的商品）
+     *
      * @param order
      */
     private void deleteCartItem(Order order) {
         DeleteCartItemReq deleteCartItemReq = DeleteCartItemReq.builder()
                 .userId(order.getUserId())
-                .skuIds(order.getOrderProducts().stream().map(e->e.getProductSkuId()).collect(Collectors.toList()))
+                .skuIds(order.getOrderProducts().stream().map(e -> e.getProductSkuId()).collect(Collectors.toList()))
                 .build();
         remoteCartService.deleteCartProduct(deleteCartItemReq);
     }
 
     /**
      * 保存订单
+     *
      * @param order {@link Order}
      */
     abstract protected String saveOrder(Order order);
 
     /**
      * 用户评论
+     *
      * @param orderSn
      * @param waitComment
      */
@@ -157,12 +181,14 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess{
 
     /**
      * 商家发货
+     *
      * @param orderNo
      */
     public abstract void deliveryOfgoods(String orderNo);
 
     /**
      * 用户退货
+     *
      * @param req
      */
     public abstract void returnProducts(ReturnProductReq req);

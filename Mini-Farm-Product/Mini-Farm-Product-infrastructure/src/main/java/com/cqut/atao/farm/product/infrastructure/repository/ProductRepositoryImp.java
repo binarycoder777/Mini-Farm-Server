@@ -8,6 +8,7 @@ import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderItemInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.req.BatchQueryReq;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductBrandVO;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSkuVO;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
@@ -23,6 +24,7 @@ import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
+import com.google.common.collect.Lists;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
@@ -41,6 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -235,8 +238,19 @@ public class ProductRepositoryImp implements ProductRepository {
     }
 
     @Override
-    public List<ProductSpuVO> queryProductList(List<Long> spuIdList) {
-        List<ProductSpuPO> spuPOS = productSpuDAO.selectBatchIds(spuIdList);
-        return BeanUtil.convert(spuPOS,ProductSpuVO.class);
+    public List<Product> queryProductList(List<BatchQueryReq> spuIdList) {
+        ArrayList<Product> res = Lists.newArrayList();
+        for (BatchQueryReq req: spuIdList) {
+            ProductSpuPO productSpuPO = productSpuDAO.selectById(req.getProductId());
+            ProductSkuPO productSkuPO = productSkuDAO.selectById(req.getProductSkuId());
+            ArrayList<ProductSkuVO> list = Lists.newArrayList();
+            list.add(BeanUtil.convert(productSkuPO,ProductSkuVO.class));
+            Product build = Product.builder()
+                    .productSpu(BeanUtil.convert(productSpuPO, ProductSpuVO.class))
+                    .productSkus(list)
+                    .build();
+            res.add(build);
+        }
+        return res;
     }
 }

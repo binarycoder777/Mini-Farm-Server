@@ -3,6 +3,7 @@ package com.cqut.atao.farm.product.domain.repository;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.req.BatchQueryReq;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -90,5 +91,5 @@ public interface ProductRepository {
 
     PageResponse<EsProduct> searchProductInfo(PageRequest request, String keyword, Integer sortPrice, Integer sortSales);
 
-    List<ProductSpuVO> queryProductList(List<Long> spuIdList);
+    List<Product> queryProductList(List<BatchQueryReq> spuIdList);
 }

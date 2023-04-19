@@ -29,9 +29,9 @@ public class ReturnSpecialMessageSendEvent {
     private Long acitivityId;
 
     /**
-     * 优惠卷id
+     * 优惠卷Sn
      */
-    private Long couponId;
+    private String couponId;
 
     /**
      * 状态 0：成功 1：失败

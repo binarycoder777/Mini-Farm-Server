@@ -11,6 +11,7 @@ import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -82,9 +83,17 @@ public class ProductCommentMangeImpI implements ProductCommentMange {
             // todo 调用用户服务获取用户名和头像
         });
         // 图片转换
-        response.getRecords().forEach(e->{
+        for(CommentRes e: response.getRecords()) {
+            if (StringUtils.isEmpty(e.getPics())) {
+                continue;
+            }
             e.convertToList();
-        });
+        }
         return response;
+    }
+
+    @Override
+    public Long countProductCommentNums(Long productId) {
+        return productCommentRepository.count(productId);
     }
 }

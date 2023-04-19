@@ -35,10 +35,7 @@ public class CouponRes {
      * 优惠券面额
      */
     private Long couponTick;
-    /**
-     * 优惠券数量
-     */
-    private Long couponNum;
+
     /**
      * 发放时间
      */

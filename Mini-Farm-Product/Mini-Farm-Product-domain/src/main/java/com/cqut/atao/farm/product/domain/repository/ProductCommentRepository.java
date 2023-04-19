@@ -31,4 +31,6 @@ public interface ProductCommentRepository {
     CommentStatisticsRes queryAppendCommentStatistics(Long productSpuId);
 
     PageResponse<CommentRes> pageQueryComment(PageCommentReq req);
+
+    Long count(Long productId);
 }

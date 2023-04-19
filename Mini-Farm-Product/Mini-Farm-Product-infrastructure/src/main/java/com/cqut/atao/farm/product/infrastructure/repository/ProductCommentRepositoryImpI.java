@@ -149,4 +149,10 @@ public class ProductCommentRepositoryImpI implements ProductCommentRepository {
         Page<ProductCommentPO> commentPOPage = productCommentDAO.selectPage(page, eq);
         return PageUtil.convert(commentPOPage, CommentRes.class);
     }
+
+    @Override
+    public Long count(Long productId) {
+        return productCommentDAO.selectCount(Wrappers.lambdaQuery(ProductCommentPO.class)
+                .eq(ProductCommentPO::getProductId,productId));
+    }
 }

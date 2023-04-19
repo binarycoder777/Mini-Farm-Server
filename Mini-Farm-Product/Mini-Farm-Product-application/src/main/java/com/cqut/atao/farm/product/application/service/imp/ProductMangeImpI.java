@@ -10,6 +10,7 @@ import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.EsProduct;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.req.BatchQueryReq;
 import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.product.domain.mq.event.ProductMessageSendEvent;
 import com.cqut.atao.farm.product.domain.mq.produce.ProductProduce;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -88,5 +90,10 @@ public class ProductMangeImpI implements ProductMange {
                 .sendTime(new Date())
                 .build();
         productProduce.productMessageSend(build);
+    }
+
+    @Override
+    public List<Product> queryProducts(List<BatchQueryReq> spuIds) {
+        return productRepository.queryProductList(spuIds);
     }
 }

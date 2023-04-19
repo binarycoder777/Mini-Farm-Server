@@ -27,4 +27,9 @@ public class UseCouponReq {
      * 优惠券编号
      */
     private String couponSn;
+    /**
+     * 订单号
+     */
+    private String orderSn;
+
 }
