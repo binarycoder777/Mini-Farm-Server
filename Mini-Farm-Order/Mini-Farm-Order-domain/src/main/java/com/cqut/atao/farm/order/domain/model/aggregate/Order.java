@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.order.domain.model.aggregate;
 
+import com.cqut.atao.farm.order.domain.remote.model.res.CouponRes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,9 +47,14 @@ public class Order {
     private String orderSn;
 
     /**
-     * 优惠卷id
+     * 优惠卷Sn
      */
-    private Long couponId;
+    private String couponSn;
+
+    /**
+     * 优惠券优惠金额
+     */
+    private BigDecimal couponTick;
 
     /**
      * 满减活动id
@@ -145,6 +151,8 @@ public class Order {
                 .orderProducts(orderProducts)
                 .address(address)
                 .freightAmount(freightAmount)
+                .couponSn(couponSn)
+                .couponTick(couponTick)
                 .orderSn(sn)
                 .payAmount(payAmount)
                 .payTime(payTime)

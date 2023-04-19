@@ -28,17 +28,17 @@ public abstract class DistributeAbstract implements Distribute {
         // 筛选优惠券适用对象
         if (Constant.DISTRBUT_OBJECT.SCREENING.getCode().equals(req.getDistributeObject())) {
             // 保存关系
-            this.saveCouponObject(req.getId(),req.getUserIdList());
+            this.saveCouponObject(req.getCouponSn(),req.getUserIdList());
         }
         // 筛选优惠券适用的指定商品
         if (Constant.COUPON_SCOPE.SPECIAL_PRODUCT.getCode().equals(req.getCouponScope())) {
             // 保存关系
-            this.saveCouponProduct(req.getId(), req.getProductIdList());
+            this.saveCouponProduct(req.getCouponSn(), req.getProductIdList());
         }
         // 筛选优惠券适用的指定类别商品
         if (Constant.COUPON_SCOPE.SPECIAL_TYPE.getCode().equals(req.getCouponScope())) {
             // 保存关系
-            this.saveCouponProduct(req.getId(), req.getProductTypeIdList());
+            this.saveCouponProductType(req.getCouponSn(), req.getProductTypeIdList());
         }
         // 手动发放优惠券
         if (Constant.DISTRBUT_TYPE.ADMIN.getCode().equals(req.getDistributeType())) {
@@ -68,28 +68,28 @@ public abstract class DistributeAbstract implements Distribute {
 
     /**
      * 保存优惠券适用商品范围关系（按商品）
-     * @param couponId 优惠券id
+     * @param couponSn 优惠券id
      * @param productTypeId 商品种类id列表
      */
-    public void saveCouponProductType(Long couponId, List<Long> productTypeId) {
+    public void saveCouponProductType(String couponSn, List<Long> productTypeId) {
         log.info("保存优惠券适用商品范围关系");
     }
 
     /**
      * 保存优惠券适用商品范围关系（按种类）
-     * @param couponId 优惠券id
+     * @param couponSn 优惠券id
      * @param productId 商品id列表
      */
-    public void saveCouponProduct(Long couponId, List<Long> productId) {
+    public void saveCouponProduct(String couponSn, List<Long> productId) {
         log.info("保存优惠券适用商品范围关系（按种类）");
     }
 
     /**
      * 保存优惠券适用对象关系
-     * @param couponId 优惠券id
+     * @param couponSn 优惠券id
      * @param userId 用户id列表
      */
-    public void saveCouponObject(Long couponId, List<Long> userId) {
+    public void saveCouponObject(String couponSn, List<Long> userId) {
         log.info("保存优惠券适用对象关系");
     }
 

@@ -39,5 +39,4 @@ public class MessageSendController {
         MailSendMessageRes result = messageSendService.mailMessageSend(req);
         return Results.success(result);
     }
-
 }

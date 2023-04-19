@@ -8,6 +8,7 @@ import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.order.domain.service.OrderService;
+import com.cqut.atao.farm.order.domain.split.OrderSplitHandler;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,9 @@ public class KillOrderOperationProcessImpI implements OrderOperationProcess {
     @Resource
     private CheckParamterHandler checkParamterHandler;
 
+    @Resource
+    protected OrderSplitHandler orderSplitHandler;
+
     @Override
     public String createOrder(PlaceOrderReq req) {
         // 参数校验
@@ -48,7 +52,15 @@ public class KillOrderOperationProcessImpI implements OrderOperationProcess {
     }
 
     private String saveOrder(Order order) {
-        orderService.createOrder(order);
+        // 保存父订单
+        orderService.createParentOrder(order);
+        // 父订单拆分（父订单含汇总信息，子订单包含详细信息）
+        List<Order> orders = orderSplitHandler.splitOrder(order);
+        for (Order subOrder : orders) {
+            // 保存子订单
+            orderService.createOrder(subOrder);
+        }
+        // 返回父订单号
         return order.getOrderSn();
     }
 

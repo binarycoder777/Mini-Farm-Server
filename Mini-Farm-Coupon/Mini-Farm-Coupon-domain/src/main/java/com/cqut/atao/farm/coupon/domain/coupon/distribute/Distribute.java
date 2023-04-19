@@ -40,4 +40,6 @@ public interface Distribute {
      * @param req {@link UseCouponReq}
      */
     void useCoupon(UseCouponReq req);
+
+    CouponRes queryCoupon(String couponSn);
 }

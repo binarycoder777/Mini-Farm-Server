@@ -63,7 +63,7 @@ public class EsProduct {
     /**
      * 商品价格
      */
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Keyword, fielddata=true)
     private BigDecimal price;
 
     /**
@@ -93,7 +93,7 @@ public class EsProduct {
     /**
      * 销量
      */
-    @Field(type = FieldType.Integer)
+    @Field(type = FieldType.Keyword, fielddata=true)
     private Integer sales;
 
     /**

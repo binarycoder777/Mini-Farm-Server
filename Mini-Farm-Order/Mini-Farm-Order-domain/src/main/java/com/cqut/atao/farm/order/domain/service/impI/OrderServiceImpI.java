@@ -74,4 +74,9 @@ public class OrderServiceImpI implements OrderService {
     public Order getOrder(String orderSn) {
         return orderRepository.queryOrderInfo(orderSn);
     }
+
+    @Override
+    public void confirmOrder(String orderNo) {
+        eventPublisher.publishEvent(new ConfirmOrderEvent(orderNo));
+    }
 }

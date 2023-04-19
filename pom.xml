@@ -17,6 +17,7 @@
         <module>Mini-Farm-Coupon</module>
         <module>Mini-Farm-Message</module>
         <module>Mini-Farm-Common</module>
+        <module>Mini-Farm-Recommond</module>
     </modules>
 
     <description>
@@ -61,11 +62,20 @@
         <jjwt.version>0.9.1</jjwt.version>
         <okhttp3.version>4.9.3</okhttp3.version>
         <javafaker.version>1.0.2</javafaker.version>
+        <xxl-job-version>2.3.0</xxl-job-version>
         <!-- 工具类 End -->
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

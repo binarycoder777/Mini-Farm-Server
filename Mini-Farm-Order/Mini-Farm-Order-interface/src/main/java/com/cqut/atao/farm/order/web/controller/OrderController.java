@@ -2,9 +2,11 @@ package com.cqut.atao.farm.order.web.controller;
 
 import com.cqut.atao.farm.order.application.process.impI.KillOrderOperationProcessImpI;
 import com.cqut.atao.farm.order.application.process.impI.OrderOperationProcessImpI;
+import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
+import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -94,6 +96,41 @@ public class OrderController {
     )
     public Result<Void> remindDelivery(@PathVariable String orderNo) {
         orderOperationProcessImpI.remindOrder(orderNo);
+        return Results.success();
+    }
+
+    @PutMapping("/merchant/send/{orderNo}")
+    @ApiOperation("商家订单发货")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
+    )
+    public Result<Void> sendOrder(@PathVariable String orderNo) {
+        orderOperationProcessImpI.deliveryOfgoods(orderNo);
+        return Results.success();
+    }
+
+
+    @PutMapping("/return/products")
+    @ApiOperation("用户订单退货")
+    public Result<Void> returnOfgoods(@RequestBody ReturnProductReq req) {
+        orderOperationProcessImpI.returnProducts(req);
+        return Results.success();
+    }
+
+    @PutMapping("/confirm/{orderNo}")
+    @ApiOperation("用户确认收货")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
+    )
+    public Result<Void> confirmOrder(@PathVariable String orderNo) {
+        orderOperationProcessImpI.confirmOrder(orderNo);
+        return Results.success();
+    }
+
+    @GetMapping("/comment/status/{orderSn}")
+    @ApiOperation("评论订单")
+    public Result<Void> alterOrderStatusToComment(@PathVariable("orderSn") String orderSn) {
+        orderOperationProcessImpI.commentOrderStatus(orderSn, Constants.OrderState.WAIT_COMMENT);
         return Results.success();
     }
 

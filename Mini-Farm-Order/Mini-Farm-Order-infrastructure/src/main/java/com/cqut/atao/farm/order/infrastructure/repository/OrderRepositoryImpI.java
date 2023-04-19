@@ -107,7 +107,7 @@ public class OrderRepositoryImpI implements OrderRepository {
         // 查询父订单
         OrderPO parentOrder = orderDAO.parentOrder(orderSn);
         // 查询父订单的子订单
-        List<OrderPO> subOrders = orderDAO.subOrderList(parentOrder.getId());
+        List<OrderPO> subOrders = orderDAO.subOrderList(parentOrder.getParentId());
         List<OrderItemPO> orderProductList = Lists.newArrayList();
         // 查询子订单对应的商品详情
         subOrders.forEach(e -> {

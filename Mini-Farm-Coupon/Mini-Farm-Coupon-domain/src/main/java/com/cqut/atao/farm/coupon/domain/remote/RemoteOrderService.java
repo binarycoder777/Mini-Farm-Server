@@ -17,18 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Description 远程订单服务
  * @createTime 2023年03月13日 21:29:00
  */
-@FeignClient
+@FeignClient("order")
 public interface RemoteOrderService {
 
-    @PostMapping("/kill/create")
+    @PostMapping("/api/order/kill/create")
     @ApiOperation("秒杀商品下单")
     Result<String> createKillOrder(@RequestBody PlaceOrderReq req);
 
-
-    @PostMapping("/kill/cancel/{orderNo}")
-    @ApiOperation("取消秒杀下单")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
-    )
-    Result<Void> cancelKillOrder(@PathVariable String orderNo);
 }

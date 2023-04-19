@@ -9,6 +9,8 @@ import com.cqut.atao.farm.product.application.res.ProductRes;
 import com.cqut.atao.farm.product.application.service.ProductMange;
 import com.cqut.atao.farm.product.domain.mode.aggregate.OrderInfo;
 import com.cqut.atao.farm.product.domain.mode.aggregate.Product;
+import com.cqut.atao.farm.product.domain.mode.req.BatchQueryReq;
+import com.cqut.atao.farm.product.domain.mode.vo.ProductSpuVO;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -21,6 +23,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author atao
@@ -47,6 +50,13 @@ public class ProductController {
     public Result<ProductRes> getProductBySpuId(@PathVariable("spuId") String spuId) {
         ProductRes result = productMange.getProductBySpuId(Long.parseLong(spuId));
         return Results.success(result);
+    }
+
+    @PostMapping("/bach/query/spu/")
+    @ApiOperation(value = "根据 spuId和skuid 查询商品")
+    public Result<List<Product>> getProductBySpuId(@RequestBody List<BatchQueryReq> reqs) {
+        List<Product> list = productMange.queryProducts(reqs);
+        return Results.success(list);
     }
 
     @GetMapping("/spu/category")

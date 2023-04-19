@@ -49,7 +49,8 @@ public class CouponRepositoryImpI implements CouponRepository {
 
     @Override
     public CouponRes getCoupon(String couponSn) {
-        Coupon coupon = couponMapper.selectOne(Wrappers.lambdaQuery(Coupon.class).eq(Coupon::getCouponSn,couponSn));
+        Coupon coupon = couponMapper.selectOne(Wrappers.lambdaQuery(Coupon.class)
+                .eq(Coupon::getCouponSn, couponSn));
         return BeanUtil.convert(coupon, CouponRes.class);
     }
 
@@ -57,6 +58,7 @@ public class CouponRepositoryImpI implements CouponRepository {
     public void takeCoupon(TakeCouponReq req) {
         log.warn("扣减优惠券库存!!!");
         TakeCouponRecord record = BeanUtil.convert(req, TakeCouponRecord.class);
+        record.setUseStatus(0);
         int res = takeCouponMapper.insert(record);
         Assert.isTrue(res > 0, () -> new ServiceException("优惠券领取记录保存失败"));
     }
@@ -64,37 +66,33 @@ public class CouponRepositoryImpI implements CouponRepository {
     @Override
     public List<CouponRes> getCouponList(Long userId) {
         List<String> couponSns = takeCouponMapper.selectList(Wrappers.lambdaQuery(TakeCouponRecord.class)
-                .eq(TakeCouponRecord::getUserId, userId)).stream()
+                .eq(TakeCouponRecord::getUserId, userId)
+                .eq(TakeCouponRecord::getUseStatus, 0)).stream()
                 .map(e -> {
                     return e.getCouponSn();
                 }).collect(Collectors.toList());
         List<Coupon> couponList = Lists.newArrayList();
-        for (String e: couponSns) {
+        for (String e : couponSns) {
             Coupon coupon = couponMapper.selectOne(Wrappers.lambdaQuery(Coupon.class).eq(Coupon::getCouponSn, e));
             if (!judgeConponValid(coupon)) {
                 continue;
             }
             couponList.add(coupon);
         }
-        return BeanUtil.convert(couponList,CouponRes.class);
+        return BeanUtil.convert(couponList, CouponRes.class);
     }
 
     @Override
     public void useCoupon(UseCouponReq req) {
-        Coupon coupon = couponMapper.selectOne(Wrappers.lambdaQuery(Coupon.class).eq(Coupon::getCouponSn, req.getCouponSn()));
-        if (!judgeConponValid(coupon)) {
-            return;
-        }
-        takeCouponMapper.delete(Wrappers.lambdaQuery(TakeCouponRecord.class)
-        .eq(TakeCouponRecord::getUserId,req.getUserId())
-        .eq(TakeCouponRecord::getCouponSn,req.getCouponSn()));
+        // 消费优惠券
+        takeCouponMapper.useCoupon(req);
     }
 
 
     public boolean judgeConponValid(Coupon coupon) {
         if (!coupon.isValidaty()) {
             couponMapper.updateCouponStatus(coupon.getCouponSn(), Constant.COUPON_STATUS.INVALID.getCode());
-            log.info("优惠券已失效:{}",coupon);
+            log.info("优惠券已失效:{}", coupon);
             return false;
         }
         return true;

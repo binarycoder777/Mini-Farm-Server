@@ -42,6 +42,11 @@ public class OrderItemPO extends BaseDO {
     private Long productSkuId;
 
     /**
+     * 商品spuid
+     */
+    private Long productSpuId;
+
+    /**
      * 商品图
      */
     private String productPic;

@@ -32,12 +32,20 @@ public class TakeCouponRecord extends BaseDO {
      */
     private Long userId;
     /**
-     * 优惠券id
+     * 优惠券sn
      */
     private String couponSn;
     /**
      * 领取时间
      */
     private Date takeTime;
+    /**
+     * 订单号
+     */
+    private String orderSn;
+    /**
+     * 使用状态[0->未使用；1->已使用；2->已过期]
+     */
+    private Integer useStatus;
 
 }

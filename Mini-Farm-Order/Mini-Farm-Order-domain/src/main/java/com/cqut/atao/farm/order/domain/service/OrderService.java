@@ -81,4 +81,10 @@ public interface OrderService {
      * @return
      */
     Order getOrder(String orderSn);
+
+    /**
+     * 确认收货
+     * @param orderNo
+     */
+    void confirmOrder(String orderNo);
 }

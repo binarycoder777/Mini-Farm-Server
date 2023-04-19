@@ -32,6 +32,18 @@ public interface MessageSink {
     @Input(MessageSink.PAY_MESSAGE)
     SubscribableChannel paySend();
 
+
+    String COMMENT_ORDER_MESSAGE = "comment-order-send";
+
+    /**
+     * 支付消息发送
+     *
+     * @return {@link SubscribableChannel}
+     */
+    @Input(MessageSink.COMMENT_ORDER_MESSAGE)
+    SubscribableChannel commentOrderSend();
+
+
     String RETURN_SPECIAL_MESSAGE = "return-specail-message";
 
     /**

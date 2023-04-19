@@ -17,4 +17,10 @@ public class SearchProductReq extends PageRequest {
     @ApiModelProperty("关键字")
     private String keyword;
 
+    @ApiModelProperty("按销量排序 0：降序 1升序")
+    private Integer sortSales;
+
+    @ApiModelProperty("按价格排序 0：降序 1升序")
+    private Integer sortPrice;
+
 }

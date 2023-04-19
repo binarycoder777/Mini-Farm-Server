@@ -35,6 +35,10 @@ public class SecondKillProduct extends BaseDO {
      */
     private Long productId;
     /**
+     * 秒杀商品skuid
+     */
+    private Long productSkuId;
+    /**
      * 秒杀价格
      */
     private BigDecimal killPrice;
@@ -42,5 +46,10 @@ public class SecondKillProduct extends BaseDO {
      * 秒杀数量
      */
     private Integer killNum;
+
+    /**
+     * 审批状态
+     */
+    private Integer status;
 
 }
