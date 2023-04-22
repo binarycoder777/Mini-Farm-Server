@@ -15,10 +15,10 @@ public class PageRequest {
     /**
      * 当前页
      */
-    private Long current;
+    protected Long current;
 
     /**
      * 每页显示条数
      */
-    private Long size;
+    protected Long size;
 }

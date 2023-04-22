@@ -46,25 +46,6 @@ public class Order {
      */
     private String orderSn;
 
-    /**
-     * 优惠卷Sn
-     */
-    private String couponSn;
-
-    /**
-     * 优惠券优惠金额
-     */
-    private BigDecimal couponTick;
-
-    /**
-     * 满减活动id
-     */
-    private Long specialActivityId;
-
-    /**
-     * 优惠总金额
-     */
-    private BigDecimal specialTotalAmount;
 
     /**
      * 运费金额
@@ -112,19 +93,103 @@ public class Order {
     private String remark;
 
     /**
-     * 收货人信息
+     * 收货人
      */
-    private Address address;
+    private String cneeName;
 
     /**
-     * 物流信息
+     * 收货人电话
      */
-    private DeliveryInfo deliveryInfo;
+    private String cneePhone;
+
+    /**
+     * 收货人邮编
+     */
+    private String cneePostCode;
+
+    /**
+     * 收货人所在省
+     */
+    private String cneeProvinc;
+
+    /**
+     * 收货人所在市
+     */
+    private String cneeCity;
+
+    /**
+     * 收货人所在区
+     */
+    private String cneeRegion;
+
+    /**
+     * 收货人详细地址
+     */
+    private String cneeDetailAddress;
+
+    /**
+     * 收货时间
+     */
+    private Date receiveTime;
+
+    /**
+     * 自动确认天数
+     */
+    private Integer autoConfirmDay;
+
+    /**
+     * 物流公司
+     */
+    private String deliveryCompany;
+
+    /**
+     * 物流单号
+     */
+    private String deliverySn;
+
+    /**
+     * 发货时间
+     */
+    private Date deliveryTime;
+
+    /**
+     * 收货状态 0：未接收 1：已接收
+     */
+    private Integer confirmFlag;
 
     /**
      * 订单商品集合
      */
     private List<OrderProduct> orderProducts;
+
+    /**
+     * 优惠卷Sn
+     */
+    private String couponSn;
+
+    /**
+     * 优惠券抵扣金额 | 分摊优惠
+     */
+    private BigDecimal couponAmount;
+
+    /**
+     * 促销活动编码
+     */
+    private Long promotionSn;
+    /**
+     * 促销金额 | 分摊优惠
+     */
+    private BigDecimal promotionAmount;
+
+    /**
+     * 使用积分
+     */
+    private Integer useIntegration;
+
+    /**
+     * 积分抵扣金额
+     */
+    private BigDecimal integrationAmount;
 
 
     // 暂未加入优惠卷和满减等规则
@@ -149,10 +214,13 @@ public class Order {
         return Order.builder()
                 .parentId(parentId)
                 .orderProducts(orderProducts)
-                .address(address)
                 .freightAmount(freightAmount)
                 .couponSn(couponSn)
-                .couponTick(couponTick)
+                .couponAmount(couponAmount)
+                .promotionSn(promotionSn)
+                .useIntegration(useIntegration)
+                .integrationAmount(integrationAmount)
+                .promotionAmount(promotionAmount)
                 .orderSn(sn)
                 .payAmount(payAmount)
                 .payTime(payTime)
@@ -163,6 +231,13 @@ public class Order {
                 .type(type)
                 .totalAmount(totalAmount)
                 .userId(userId)
+                .cneeCity(cneeCity)
+                .cneeName(cneeName)
+                .cneeRegion(cneeRegion)
+                .cneeDetailAddress(cneeDetailAddress)
+                .cneePhone(cneePhone)
+                .cneePostCode(cneePostCode)
+                .cneeProvinc(cneeProvinc)
                 .build();
     }
 

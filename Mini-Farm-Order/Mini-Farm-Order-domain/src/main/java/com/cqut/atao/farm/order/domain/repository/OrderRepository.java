@@ -70,4 +70,5 @@ public interface OrderRepository {
 
     Order queryOrderInfo(String orderSn);
 
+    PageResponse<Order> queryOrderPageInfoAdmin(OrderPageReq req);
 }

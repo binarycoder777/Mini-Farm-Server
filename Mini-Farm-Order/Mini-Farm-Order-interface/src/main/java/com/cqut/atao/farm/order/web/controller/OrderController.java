@@ -55,6 +55,13 @@ public class OrderController {
         return Results.success(orderPageResponse);
     }
 
+    @PostMapping("/page/admin")
+    @ApiOperation("订单分页查询(admin)")
+    public Result<PageResponse<Order>> orderList(@RequestBody OrderPageReq req) {
+        PageResponse<Order> orderPageResponse = orderOperationProcessImpI.pageQueryOrderAdmin(req);
+        return Results.success(orderPageResponse);
+    }
+
     @PostMapping("/create")
     @ApiOperation("商品下单")
     public Result<String> createOrder(@RequestBody PlaceOrderReq req) {

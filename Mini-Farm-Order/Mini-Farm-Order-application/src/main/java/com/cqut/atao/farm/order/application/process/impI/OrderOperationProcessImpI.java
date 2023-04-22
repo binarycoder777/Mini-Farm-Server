@@ -87,10 +87,9 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         remoteProductService.unlockProductStock(orderInfoReq);
         // MQ异步返还用户的优惠信息
         Order order = orderService.getOrderByOrderId(parentOrderId);
-        if (order.getOrderSn() != null || order.getSpecialActivityId() != null) {
+        if (order.getOrderSn() != null ) {
             ReturnSpecialMessageSendEvent returnSpecialMessageSendEvent = ReturnSpecialMessageSendEvent.builder()
                     .messageSendId(UUID.randomUUID().toString())
-                    .acitivityId(order.getSpecialActivityId())
                     .couponId(order.getCouponSn())
                     .build();
             messageProduce.returnSpecialMessageSend(returnSpecialMessageSendEvent);
@@ -151,5 +150,10 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         req.picToStr();
         // 插入记录
         refundProductRepository.addRefundProductRecord(req);
+    }
+
+    @Override
+    public PageResponse<Order> pageQueryOrderAdmin(OrderPageReq req) {
+        return orderService.queryOrderPageInfoAdmin(req);
     }
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Assert;
 import com.cqut.atao.farm.order.application.filter.CheckParamterHandler;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
@@ -18,6 +19,7 @@ import com.cqut.atao.farm.order.domain.service.OrderService;
 import com.cqut.atao.farm.order.domain.split.OrderSplitHandler;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import lombok.extern.slf4j.Slf4j;
@@ -82,6 +84,9 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
 
     public void consumeSpecial(Order order) {
         log.info("扣减优惠信息");
+        if (order.getCouponSn() == null || order.getCouponSn().equals("0")) {
+            return;
+        }
         // 扣减消费券
         remoteCouponService.consumeCoupon(UseCouponReq.builder()
                 .couponSn(order.getCouponSn())
@@ -192,4 +197,6 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
      * @param req
      */
     public abstract void returnProducts(ReturnProductReq req);
+
+    public abstract PageResponse<Order> pageQueryOrderAdmin(OrderPageReq req);
 }

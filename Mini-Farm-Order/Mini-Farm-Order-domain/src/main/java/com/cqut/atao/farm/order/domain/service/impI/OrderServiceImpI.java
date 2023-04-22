@@ -79,4 +79,9 @@ public class OrderServiceImpI implements OrderService {
     public void confirmOrder(String orderNo) {
         eventPublisher.publishEvent(new ConfirmOrderEvent(orderNo));
     }
+
+    @Override
+    public PageResponse<Order> queryOrderPageInfoAdmin(OrderPageReq req) {
+        return orderRepository.queryOrderPageInfoAdmin(req);
+    }
 }

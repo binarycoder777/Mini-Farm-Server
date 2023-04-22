@@ -18,6 +18,7 @@
         <module>Mini-Farm-Message</module>
         <module>Mini-Farm-Common</module>
         <module>Mini-Farm-Recommond</module>
+        <module>Mini-Farm-Gateway</module>
     </modules>
 
     <description>

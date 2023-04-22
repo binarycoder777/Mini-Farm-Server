@@ -155,4 +155,33 @@ public class OrderPO extends BaseDO {
     @TableField(exist = false)
     private List<OrderItemPO> orderProducts;
 
+    /**
+     * 优惠券编码
+     */
+    private Long couponSn;
+
+    /**
+     * 优惠券抵扣金额 | 分摊优惠
+     */
+    private BigDecimal couponAmount;
+
+    /**
+     * 促销活动编码
+     */
+    private Long promotionSn;
+    /**
+     * 促销金额 | 分摊优惠
+     */
+    private BigDecimal promotionAmount;
+
+    /**
+     * 使用积分
+     */
+    private Integer useIntegration;
+
+    /**
+     * 积分抵扣金额
+     */
+    private BigDecimal integrationAmount;
+
 }

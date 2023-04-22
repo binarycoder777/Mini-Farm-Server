@@ -20,30 +20,57 @@ import java.util.List;
  */
 public interface OrderDAO extends BaseMapper<OrderPO> {
 
-    @Update("update order_info set status=#{nextOrderState} where order_sn=#{orderId} and status=#{currentOrderState}")
-    int alterOrderState(@Param("orderId") String orderId,@Param("currentOrderState") Integer currentOrderState,@Param("nextOrderState") Integer nextOrderState);
+    @Update("<script>" +
+            "update order_info set status=#{nextOrderState}" +
+            "<if test = 'nextOrderState = 2'>,pay_time=now() </if>" +
+            "where order_sn=#{orderId} and status=#{currentOrderState}" +
+            "</script>")
+    int alterOrderState(@Param("orderId") String orderId, @Param("currentOrderState") Integer currentOrderState, @Param("nextOrderState") Integer nextOrderState);
 
-    @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id = id limit #{current},#{size}")
+
+    @Select(
+            "<script>" +
+                    "select * from order_info where " +
+                    "<if test='userId != null'> user_id = #{userId} and </if>" +
+                    "status =#{orderStatus} and parent_id = id limit #{current},#{size}" +
+                    "</script>"
+    )
     List<OrderPO> pageParentOrder(OrderPageReq req);
 
 
     @Select("select * from order_info where order_sn = #{orderSn} and parent_id = id")
     OrderPO parentOrder(String orderSn);
 
-    @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id != id limit #{current},#{size}")
+    @Select("<script>" +
+            "select * from order_info where" +
+            " <if test='userId != null'> user_id = #{userId} and </if>" +
+            " status =#{orderStatus} and parent_id != id limit #{current},#{size}" +
+            "</script>")
     List<OrderPO> pageSubOrder(OrderPageReq req);
 
-    @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id != id and parent_id=#{parentId}")
-    List<OrderPO> listSubOrder(@Param("userId") Long userId,@Param("parentId") String parentId,@Param("orderStatus") Integer orderStatus);
+    @Select("<script>" +
+            "select * from order_info where " +
+            "<if test='userId != null'> user_id = #{userId} and </if>" +
+            "status =#{orderStatus} and parent_id != id and parent_id=#{parentId}" +
+            "</script>")
+    List<OrderPO> listSubOrder(@Param("userId") Long userId, @Param("parentId") String parentId, @Param("orderStatus") Integer orderStatus);
 
     @Select("select * from order_info where  parent_id != id and parent_id=#{parentId}")
     List<OrderPO> subOrderList(@Param("parentId") String parentId);
 
 
-    @Select("select count(*) from order_info where status =#{orderStatus} and parent_id != id")
+    @Select("<script>" +
+            "select count(*) from order_info where " +
+            "<if test='userId != null'> user_id = #{userId} and </if>" +
+            "status =#{orderStatus} and parent_id != id" +
+            "</script>")
     int countSubOrder(Integer orderStatus);
 
-    @Select("select count(*) from order_info where status =#{orderStatus} and parent_id = id")
+    @Select("<script>" +
+            "select count(*) from order_info where" +
+            "<if test='userId != null'> user_id = #{userId} and </if>" +
+            " status =#{orderStatus} and parent_id = id" +
+            "</script>")
     int countParentOrder(Integer orderStatus);
 
 }

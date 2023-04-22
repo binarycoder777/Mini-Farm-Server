@@ -106,17 +106,32 @@ public class OrderRepositoryImpI implements OrderRepository {
     public Order queryOrderInfo(String orderSn) {
         // 查询父订单
         OrderPO parentOrder = orderDAO.parentOrder(orderSn);
-        // 查询父订单的子订单
-        List<OrderPO> subOrders = orderDAO.subOrderList(parentOrder.getParentId());
-        List<OrderItemPO> orderProductList = Lists.newArrayList();
-        // 查询子订单对应的商品详情
-        subOrders.forEach(e -> {
+        if (parentOrder != null) {
+            // 查询父订单的子订单
+            List<OrderPO> subOrders = orderDAO.subOrderList(parentOrder.getParentId());
+            List<OrderItemPO> orderProductList = Lists.newArrayList();
+            // 查询子订单对应的商品详情
+            subOrders.forEach(e -> {
+                List<OrderItemPO> orderItemPOS = orderItemDAO.selectList(Wrappers.lambdaQuery(OrderItemPO.class)
+                        .eq(OrderItemPO::getOrderSn, e.getOrderSn()));
+                orderProductList.addAll(orderItemPOS);
+            });
+            parentOrder.setOrderProducts(orderProductList);
+            return BeanUtil.convert(parentOrder,Order.class);
+        } else  {
+            // 是子订单
+            OrderPO orderPO = orderDAO.selectOne(Wrappers.lambdaQuery(OrderPO.class).eq(OrderPO::getOrderSn, orderSn));
             List<OrderItemPO> orderItemPOS = orderItemDAO.selectList(Wrappers.lambdaQuery(OrderItemPO.class)
-                    .eq(OrderItemPO::getOrderSn, e.getOrderSn()));
-            orderProductList.addAll(orderItemPOS);
-        });
-        parentOrder.setOrderProducts(orderProductList);
-        return BeanUtil.convert(parentOrder,Order.class);
+                    .eq(OrderItemPO::getOrderSn, orderPO.getOrderSn()));
+            orderPO.setOrderProducts(orderItemPOS);
+            return BeanUtil.convert(orderPO,Order.class);
+        }
     }
 
+    @Override
+    public PageResponse<Order> queryOrderPageInfoAdmin(OrderPageReq req) {
+        PageResponse<Order> response = orderStatusContent.maps.get(Constants.FrontOrderState.getStateByCode(req.getFrontOrderStatus()))
+                .queryOrderPageInfo(req);
+        return response;
+    }
 }

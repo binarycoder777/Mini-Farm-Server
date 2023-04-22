@@ -87,4 +87,6 @@ public interface OrderService {
      * @param orderNo
      */
     void confirmOrder(String orderNo);
+
+    PageResponse<Order> queryOrderPageInfoAdmin(OrderPageReq req);
 }
