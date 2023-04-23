@@ -8,6 +8,7 @@ import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
+import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderDAO;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderItemDAO;
@@ -20,6 +21,7 @@ import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -134,4 +136,12 @@ public class OrderRepositoryImpI implements OrderRepository {
                 .queryOrderPageInfo(req);
         return response;
     }
+
+    @Override
+    public void orderDelivery(SendProductReq req) {
+        req.setStatus(Constants.OrderState.getCodeByConstans(Constants.OrderState.WAIT_SIGNATURE));
+        orderDAO.update(BeanUtil.convert(req,OrderPO.class),
+                Wrappers.lambdaUpdate(OrderPO.class).eq(OrderPO::getOrderSn,req.getOrderSn()));
+    }
+
 }

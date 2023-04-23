@@ -7,6 +7,7 @@ import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
+import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
 import com.cqut.atao.farm.order.domain.remote.RemoteCouponService;
 import com.cqut.atao.farm.order.domain.remote.RemoteProductService;
@@ -187,9 +188,9 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
     /**
      * 商家发货
      *
-     * @param orderNo
+     * @param req
      */
-    public abstract void deliveryOfgoods(String orderNo);
+    public abstract void deliveryOfgoods(SendProductReq req);
 
     /**
      * 用户退货

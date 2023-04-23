@@ -7,6 +7,7 @@ import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
+import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -106,13 +107,10 @@ public class OrderController {
         return Results.success();
     }
 
-    @PutMapping("/merchant/send/{orderNo}")
+    @PutMapping("/merchant/send/")
     @ApiOperation("商家订单发货")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "orderNo", value = "订单号", required = true, example = "1593868838284611584")
-    )
-    public Result<Void> sendOrder(@PathVariable String orderNo) {
-        orderOperationProcessImpI.deliveryOfgoods(orderNo);
+    public Result<Void> sendOrder(@RequestBody SendProductReq req) {
+        orderOperationProcessImpI.deliveryOfgoods(req);
         return Results.success();
     }
 

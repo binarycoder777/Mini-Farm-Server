@@ -3,6 +3,7 @@ package com.cqut.atao.farm.order.domain.service;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
+import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
 import java.util.List;
@@ -89,4 +90,6 @@ public interface OrderService {
     void confirmOrder(String orderNo);
 
     PageResponse<Order> queryOrderPageInfoAdmin(OrderPageReq req);
+
+    void orderDelivery(SendProductReq req);
 }

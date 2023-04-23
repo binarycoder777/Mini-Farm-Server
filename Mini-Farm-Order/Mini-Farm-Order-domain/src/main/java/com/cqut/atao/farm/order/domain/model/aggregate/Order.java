@@ -191,6 +191,8 @@ public class Order {
      */
     private BigDecimal integrationAmount;
 
+    private Date createTime;
+
 
     // 暂未加入优惠卷和满减等规则
     public boolean caculatePayAmount() {

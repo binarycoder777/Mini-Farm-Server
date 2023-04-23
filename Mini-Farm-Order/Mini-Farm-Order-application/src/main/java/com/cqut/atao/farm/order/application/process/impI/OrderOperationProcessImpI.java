@@ -8,6 +8,7 @@ import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
+import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.order.domain.mq.produce.MessageProduce;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderItemInfo;
@@ -138,8 +139,8 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
     }
 
     @Override
-    public void deliveryOfgoods(String orderNo) {
-        stateHandler.sendProduct(orderNo,Constants.OrderState.WAIT_SEND);
+    public void deliveryOfgoods(SendProductReq req) {
+        orderService.orderDelivery(req);
     }
 
     @Override

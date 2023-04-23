@@ -22,8 +22,8 @@ public interface OrderDAO extends BaseMapper<OrderPO> {
 
     @Update("<script>" +
             "update order_info set status=#{nextOrderState}" +
-            "<if test = 'nextOrderState = 2'>,pay_time=now() </if>" +
-            "where order_sn=#{orderId} and status=#{currentOrderState}" +
+            "<if test = 'nextOrderState eq 2'> ,pay_time=now() </if>" +
+            "where order_sn=#{orderId}" +
             "</script>")
     int alterOrderState(@Param("orderId") String orderId, @Param("currentOrderState") Integer currentOrderState, @Param("nextOrderState") Integer nextOrderState);
 
