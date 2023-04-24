@@ -4,10 +4,7 @@ import com.cqut.atao.farm.order.application.process.impI.KillOrderOperationProce
 import com.cqut.atao.farm.order.application.process.impI.OrderOperationProcessImpI;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
-import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
-import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
-import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
-import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
+import com.cqut.atao.farm.order.domain.model.req.*;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
@@ -17,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -115,13 +113,6 @@ public class OrderController {
     }
 
 
-    @PutMapping("/return/products")
-    @ApiOperation("用户订单退货")
-    public Result<Void> returnOfgoods(@RequestBody ReturnProductReq req) {
-        orderOperationProcessImpI.returnProducts(req);
-        return Results.success();
-    }
-
     @PutMapping("/confirm/{orderNo}")
     @ApiOperation("用户确认收货")
     @ApiImplicitParams(
@@ -139,5 +130,11 @@ public class OrderController {
         return Results.success();
     }
 
+    @PutMapping("/address/")
+    @ApiOperation("修改订单收货地址")
+    public Result<Void> alterOrderAddress(@RequestBody AlterAddressReq req) {
+        orderOperationProcessImpI.alterOrderAddress(req);
+        return Results.success();
+    }
 
 }

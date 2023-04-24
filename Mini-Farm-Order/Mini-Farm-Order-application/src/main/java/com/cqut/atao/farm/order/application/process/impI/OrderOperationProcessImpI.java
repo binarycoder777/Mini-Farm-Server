@@ -5,10 +5,7 @@ import com.cqut.atao.farm.order.application.process.AbstractOrderOperation;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
-import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
-import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
-import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
-import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
+import com.cqut.atao.farm.order.domain.model.req.*;
 import com.cqut.atao.farm.order.domain.mq.produce.MessageProduce;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderItemInfo;
@@ -156,5 +153,10 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
     @Override
     public PageResponse<Order> pageQueryOrderAdmin(OrderPageReq req) {
         return orderService.queryOrderPageInfoAdmin(req);
+    }
+
+    @Override
+    public void alterOrderAddress(AlterAddressReq req) {
+        orderService.updateOrderAddress(req);
     }
 }

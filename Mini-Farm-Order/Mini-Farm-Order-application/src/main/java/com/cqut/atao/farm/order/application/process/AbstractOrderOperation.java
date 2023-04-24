@@ -4,10 +4,7 @@ import cn.hutool.core.lang.Assert;
 import com.cqut.atao.farm.order.application.filter.CheckParamterHandler;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
-import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
-import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
-import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
-import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
+import com.cqut.atao.farm.order.domain.model.req.*;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
 import com.cqut.atao.farm.order.domain.remote.RemoteCouponService;
 import com.cqut.atao.farm.order.domain.remote.RemoteProductService;
@@ -200,4 +197,6 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
     public abstract void returnProducts(ReturnProductReq req);
 
     public abstract PageResponse<Order> pageQueryOrderAdmin(OrderPageReq req);
+
+    public abstract void alterOrderAddress(AlterAddressReq req);
 }

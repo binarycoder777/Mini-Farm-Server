@@ -18,6 +18,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AlterAddressReq {
 
+    /**
+     * 订单号
+     */
+    private String orderSn;
 
+    /**
+     * 收货人
+     */
+    private String cneeName;
+
+    /**
+     * 收货人电话
+     */
+    private String cneePhone;
+
+
+    /**
+     * 收货人所在区
+     */
+    private String cneeRegion;
+
+    /**
+     * 收货人详细地址
+     */
+    private String cneeDetailAddress;
 
 }

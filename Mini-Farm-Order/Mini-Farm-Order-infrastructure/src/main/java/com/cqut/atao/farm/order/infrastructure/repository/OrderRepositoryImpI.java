@@ -7,6 +7,7 @@ import com.cqut.atao.farm.mybatisplus.springboot.starter.util.PageUtil;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
+import com.cqut.atao.farm.order.domain.model.req.AlterAddressReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
@@ -144,4 +145,9 @@ public class OrderRepositoryImpI implements OrderRepository {
                 Wrappers.lambdaUpdate(OrderPO.class).eq(OrderPO::getOrderSn,req.getOrderSn()));
     }
 
+    @Override
+    public void updateOrder(AlterAddressReq req) {
+        orderDAO.update(BeanUtil.convert(req,OrderPO.class),
+                Wrappers.lambdaUpdate(OrderPO.class).eq(OrderPO::getOrderSn,req.getOrderSn()));
+    }
 }

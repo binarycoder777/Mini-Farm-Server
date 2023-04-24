@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.domain.service.impI;
 
 
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.AlterAddressReq;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
@@ -89,5 +90,10 @@ public class OrderServiceImpI implements OrderService {
     @Override
     public void orderDelivery(SendProductReq req) {
         orderRepository.orderDelivery(req);
+    }
+
+    @Override
+    public void updateOrderAddress(AlterAddressReq req) {
+        eventPublisher.publishEvent(new UpdateAddressEvent(req));
     }
 }

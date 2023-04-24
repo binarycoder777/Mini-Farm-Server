@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.domain.repository;
 
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.AlterAddressReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -74,4 +75,6 @@ public interface OrderRepository {
     PageResponse<Order> queryOrderPageInfoAdmin(OrderPageReq req);
 
     void orderDelivery(SendProductReq req);
+
+    void updateOrder(AlterAddressReq req);
 }
