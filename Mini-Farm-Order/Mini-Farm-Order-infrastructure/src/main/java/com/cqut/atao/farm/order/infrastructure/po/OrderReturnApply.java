@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.order.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.util.Date;
  * @createTime 2023年04月23日 13:57:00
  */
 @Data
+@Builder
 @TableName("order_return_apply")
 public class OrderReturnApply {
 
@@ -46,6 +48,11 @@ public class OrderReturnApply {
      * 退款金额
      */
     private BigDecimal returnAmount;
+
+    /**
+     * 确认退款金额
+     */
+    private BigDecimal confirmReturnAmount;
 
     /**
      * 退款状态

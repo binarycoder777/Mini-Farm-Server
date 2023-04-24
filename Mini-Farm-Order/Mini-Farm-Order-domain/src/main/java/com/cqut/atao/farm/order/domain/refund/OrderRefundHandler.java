@@ -3,7 +3,8 @@ package com.cqut.atao.farm.order.domain.refund;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyDetails;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyRes;
-import com.cqut.atao.farm.order.domain.refund.model.ReturnOrderApplyReq;
+import com.cqut.atao.farm.order.domain.refund.model.req.ConfirmReturnOrderReq;
+import com.cqut.atao.farm.order.domain.refund.model.req.ReturnOrderApplyReq;
 import com.cqut.atao.farm.order.domain.refund.repository.OrderRefundRepository;
 import com.cqut.atao.farm.order.domain.stateflow.StateHandler;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
@@ -52,5 +53,13 @@ public class OrderRefundHandler {
         OrderReturnApplyDetails res = orderRefundRepository.orderRefundDetail(id);
 
         return res;
+    }
+
+    public void returnProductsConfirm(ConfirmReturnOrderReq req) {
+        orderRefundRepository.orderRefundConfirm(req);
+    }
+
+    public void returnProductsRefuse(Long id) {
+        orderRefundRepository.returnProductsRefuse(id);
     }
 }

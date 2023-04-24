@@ -2,7 +2,8 @@ package com.cqut.atao.farm.order.domain.refund.repository;
 
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyDetails;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyRes;
-import com.cqut.atao.farm.order.domain.refund.model.ReturnOrderApplyReq;
+import com.cqut.atao.farm.order.domain.refund.model.req.ConfirmReturnOrderReq;
+import com.cqut.atao.farm.order.domain.refund.model.req.ReturnOrderApplyReq;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
@@ -20,4 +21,8 @@ public interface OrderRefundRepository {
     PageResponse<OrderReturnApplyRes> pageSelectReturnApply(PageRequest request);
 
     OrderReturnApplyDetails orderRefundDetail(Long id);
+
+    void orderRefundConfirm(ConfirmReturnOrderReq req);
+
+    void returnProductsRefuse(Long id);
 }

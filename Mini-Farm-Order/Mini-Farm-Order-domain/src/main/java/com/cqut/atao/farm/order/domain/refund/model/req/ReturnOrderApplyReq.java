@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.order.domain.refund.model;
+package com.cqut.atao.farm.order.domain.refund.model.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -6,7 +6,8 @@ import com.cqut.atao.farm.mybatisplus.springboot.starter.util.PageUtil;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyDetails;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyRes;
-import com.cqut.atao.farm.order.domain.refund.model.ReturnOrderApplyReq;
+import com.cqut.atao.farm.order.domain.refund.model.req.ConfirmReturnOrderReq;
+import com.cqut.atao.farm.order.domain.refund.model.req.ReturnOrderApplyReq;
 import com.cqut.atao.farm.order.domain.refund.repository.OrderRefundRepository;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderItemDAO;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderReturnApplyDAO;
@@ -46,7 +47,7 @@ public class OrderRefundRepositoryImpI implements OrderRefundRepository {
     public PageResponse<OrderReturnApplyRes> pageSelectReturnApply(PageRequest request) {
         Page page = new Page(request.getCurrent(),request.getSize());
         Page selectPage = orderReturnApplyDAO.selectPage(page, null);
-        return PageUtil.convert(selectPage,OrderReturnApply.class);
+        return PageUtil.convert(selectPage,OrderReturnApplyRes.class);
     }
 
     @Override
@@ -55,5 +56,26 @@ public class OrderRefundRepositoryImpI implements OrderRefundRepository {
         List<OrderItemPO> orderItemPOS = orderItemDAO.selectList(Wrappers.lambdaQuery(OrderItemPO.class).eq(OrderItemPO::getOrderSn, convert.getOrderSn()));
         convert.setOrderProductList(BeanUtil.convert(orderItemPOS, OrderProduct.class));
         return convert;
+    }
+
+    @Override
+    public void orderRefundConfirm(ConfirmReturnOrderReq req) {
+        OrderReturnApply build = OrderReturnApply.builder()
+                .id(req.getId())
+                .deliverySn(req.getDeliverySn())
+                .wareAddressId(req.getWareAddressId())
+                .confirmReturnAmount(req.getConfirmReturnAmount())
+                .status(1)
+                .build();
+        orderReturnApplyDAO.updateById(build);
+    }
+
+    @Override
+    public void returnProductsRefuse(Long id) {
+        OrderReturnApply build = OrderReturnApply.builder()
+                .id(id)
+                .status(4)
+                .build();
+        orderReturnApplyDAO.updateById(build);
     }
 }

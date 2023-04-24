@@ -72,23 +72,9 @@ public class OrderReturnApplyRes {
     private String deliverySn;
 
     /**
-     * 处理备注
+     * 退货仓库地址
      */
-    private String handleNote;
+    private Integer wareAddressId;
 
-    /**
-     * 处理人
-     */
-    private String handleMan;
-
-    /**
-     * 签收人
-     */
-    private String receiveMan;
-
-    /**
-     * 签收时间
-     */
-    private Date receiveTime;
 
 }

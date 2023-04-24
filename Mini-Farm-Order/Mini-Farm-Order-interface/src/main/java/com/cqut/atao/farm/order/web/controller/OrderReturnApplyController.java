@@ -1,10 +1,10 @@
 package com.cqut.atao.farm.order.web.controller;
 
-import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
 import com.cqut.atao.farm.order.domain.refund.OrderRefundHandler;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyDetails;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyRes;
-import com.cqut.atao.farm.order.domain.refund.model.ReturnOrderApplyReq;
+import com.cqut.atao.farm.order.domain.refund.model.req.ConfirmReturnOrderReq;
+import com.cqut.atao.farm.order.domain.refund.model.req.ReturnOrderApplyReq;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
@@ -53,6 +53,20 @@ public class OrderReturnApplyController {
     public Result<OrderReturnApplyDetails> returnOfgoodsList(@PathVariable("id") Long id) {
         OrderReturnApplyDetails res = orderRefundHandler.returnProductsDetail(id);
         return Results.success(res);
+    }
+
+    @PutMapping("/confirm")
+    @ApiOperation("确认退货")
+    public Result<Void> returnOfgoodsConfirm(@RequestBody ConfirmReturnOrderReq req) {
+        orderRefundHandler.returnProductsConfirm(req);
+        return Results.success();
+    }
+
+    @PutMapping("/refuse/{id}")
+    @ApiOperation("拒绝退货")
+    public Result<Void> returnOfgoodsRefuse(@PathVariable("id")Long id) {
+        orderRefundHandler.returnProductsRefuse(id);
+        return Results.success();
     }
 
 }

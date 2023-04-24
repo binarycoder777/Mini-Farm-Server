@@ -54,6 +54,11 @@ public class OrderReturnApplyDetails {
     private BigDecimal returnAmount;
 
     /**
+     * 确认退款金额
+     */
+    private BigDecimal confirmReturnAmount;
+
+    /**
      * 退款状态
      */
     private Integer status;
@@ -74,24 +79,9 @@ public class OrderReturnApplyDetails {
     private String deliverySn;
 
     /**
-     * 处理备注
+     * 退货仓库地址
      */
-    private String handleNote;
-
-    /**
-     * 处理人
-     */
-    private String handleMan;
-
-    /**
-     * 签收人
-     */
-    private String receiveMan;
-
-    /**
-     * 签收时间
-     */
-    private Date receiveTime;
+    private Integer wareAddressId;
 
     /**
      * 订单对应商品
