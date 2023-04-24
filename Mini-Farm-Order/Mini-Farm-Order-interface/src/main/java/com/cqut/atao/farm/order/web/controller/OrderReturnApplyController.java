@@ -1,5 +1,8 @@
 package com.cqut.atao.farm.order.web.controller;
 
+import com.cqut.atao.farm.order.domain.operate.OrderOperateHandler;
+import com.cqut.atao.farm.order.domain.operate.model.OperateReq;
+import com.cqut.atao.farm.order.domain.operate.model.OperateRes;
 import com.cqut.atao.farm.order.domain.refund.OrderRefundHandler;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyDetails;
 import com.cqut.atao.farm.order.domain.refund.model.OrderReturnApplyRes;
@@ -16,6 +19,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author atao
@@ -33,6 +37,9 @@ public class OrderReturnApplyController {
 
     @Resource
     private OrderRefundHandler orderRefundHandler;
+
+    @Resource
+    private OrderOperateHandler orderOperateHandler;
 
     @PostMapping("/products")
     @ApiOperation("用户订单退货")
@@ -67,6 +74,20 @@ public class OrderReturnApplyController {
     public Result<Void> returnOfgoodsRefuse(@PathVariable("id")Long id) {
         orderRefundHandler.returnProductsRefuse(id);
         return Results.success();
+    }
+
+    @PostMapping("/operate/")
+    @ApiOperation("记录订单操作")
+    public Result<Void> operateOrder(@RequestBody OperateReq req) {
+        orderOperateHandler.operateOrder(req);
+        return Results.success();
+    }
+
+    @GetMapping("/operate/list/{orderSn}")
+    @ApiOperation("订单操作列表")
+    public Result<List<OperateRes>> operateList(@PathVariable("orderSn")String orderSn) {
+        List<OperateRes> list = orderOperateHandler.operateList(orderSn);
+        return Results.success(list);
     }
 
 }
