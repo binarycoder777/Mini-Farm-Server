@@ -1,5 +1,6 @@
 package com.cqut.atao.farm.order.infrastructure.repository;
 
+import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.util.PageUtil;
@@ -40,7 +41,7 @@ public class OrderRefundRepositoryImpI implements OrderRefundRepository {
 
     @Override
     public void addOrderReturnApply(ReturnOrderApplyReq req) {
-        orderReturnApplyDAO.insert(BeanUtil.convert(req, OrderReturnApply.class));
+        orderReturnApplyDAO.insert(OrderReturnApply.generate(req));
     }
 
     @Override
@@ -77,5 +78,22 @@ public class OrderRefundRepositoryImpI implements OrderRefundRepository {
                 .status(4)
                 .build();
         orderReturnApplyDAO.updateById(build);
+    }
+
+    @Override
+    public void returnOfgoodsRecive(Long id) {
+        OrderReturnApply build = OrderReturnApply.builder()
+                .id(id)
+                .status(2)
+                .build();
+        orderReturnApplyDAO.updateById(build);
+    }
+
+    @Override
+    public void returnOfgoodsReciveRefundMoney(String orderSn) {
+        OrderReturnApply build = OrderReturnApply.builder()
+                .status(3)
+                .build();
+        orderReturnApplyDAO.update(build,Wrappers.lambdaUpdate(OrderReturnApply.class).eq(OrderReturnApply::getOrderSn,orderSn));
     }
 }

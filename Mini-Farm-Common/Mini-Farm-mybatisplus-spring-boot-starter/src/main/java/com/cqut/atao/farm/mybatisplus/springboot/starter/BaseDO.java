@@ -2,6 +2,10 @@ package com.cqut.atao.farm.mybatisplus.springboot.starter;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -12,6 +16,10 @@ import java.util.Date;
  * @Description 数据持久层基础属性
  * @createTime 2023年01月10日 18:16:00
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BaseDO {
 
     /**

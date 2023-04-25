@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.order.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.cqut.atao.farm.order.domain.refund.model.req.ReturnOrderApplyReq;
 import lombok.Builder;
 import lombok.Data;
 
@@ -78,5 +79,17 @@ public class OrderReturnApply {
      * 退货仓库地址
      */
     private Integer wareAddressId;
+
+    public static OrderReturnApply generate(ReturnOrderApplyReq returnOrderApplyReq){
+        return OrderReturnApply.builder()
+                .status(returnOrderApplyReq.getStatus())
+                .applyTime(returnOrderApplyReq.getApplyTime())
+                .descPics(returnOrderApplyReq.getDescPics())
+                .reason(returnOrderApplyReq.getReason())
+                .orderSn(returnOrderApplyReq.getOrderSn())
+                .returnAmount(returnOrderApplyReq.getReturnAmount())
+                .userId(returnOrderApplyReq.getUserId())
+                .build();
+    }
 
 }

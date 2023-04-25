@@ -1,17 +1,21 @@
 package com.cqut.atao.farm.order.domain.remote.model.res;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author atao
  * @version 1.0.0
  * @ClassName UserInfoRes.java
  * @Description 用户信息
- * @createTime 2023年04月04日 15:45:00
+ * @createTime 2023年04月05日 16:22:00
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserInfoRes {
 
     /**
@@ -45,5 +49,3 @@ public class UserInfoRes {
     private String mail;
 
 }
-
-

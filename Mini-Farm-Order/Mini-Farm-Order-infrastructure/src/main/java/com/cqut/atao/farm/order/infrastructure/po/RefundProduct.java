@@ -11,7 +11,6 @@ import lombok.Data;
  * @Description 退货
  * @createTime 2023年04月10日 14:36:00
  */
-@Data
 @TableName("order_refund_product")
 public class RefundProduct extends BaseDO {
 

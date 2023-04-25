@@ -13,7 +13,7 @@ import java.util.List;
  * @author atao
  * @version 1.0.0
  * @ClassName ReturnOrderApplyReq.java
- * @Description 退还订单申请请求
+ * @Description 退款订单申请请求
  * @createTime 2023年04月23日 14:37:00
  */
 @Data
@@ -57,13 +57,5 @@ public class ReturnOrderApplyReq {
      */
     private String descPics;
 
-    private List<String> pics;
-
-    public void picToStr() {
-        descPics = "";
-        pics.forEach(e->{
-            descPics = descPics + e + "、";
-        });
-    }
 
 }

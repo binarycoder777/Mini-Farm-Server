@@ -53,4 +53,11 @@ public class UserController {
          UserInfoRes userInfoRes = userMange.queryUserInfo(userId);
          return Results.success(userInfoRes);
     }
+
+    @ApiOperation("根据用户id查询用户信息")
+    @PostMapping("/authorzation")
+    Result<UserInfoRes> getUserInfoByAuthorzation(@RequestBody String authorzation) {
+        UserInfoRes userInfoRes = userMange.queryUserInfoByAuthorzation(authorzation);
+        return Results.success(userInfoRes);
+    }
 }

@@ -76,6 +76,20 @@ public class OrderReturnApplyController {
         return Results.success();
     }
 
+    @PutMapping("/recive/{id}")
+    @ApiOperation("确认收货(退货)")
+    public Result<Void> returnOfgoodsRecive(@PathVariable("id")Long id) {
+        orderRefundHandler.returnOfgoodsRecive(id);
+        return Results.success();
+    }
+
+    @PutMapping("/money/{orderSn}")
+    @ApiOperation("确认退款(退货)")
+    public Result<Void> refundMoney(@PathVariable("orderSn")String orderSn) {
+        orderRefundHandler.returnOfgoodsRefundMoney(orderSn);
+        return Results.success();
+    }
+
     @PostMapping("/operate/")
     @ApiOperation("记录订单操作")
     public Result<Void> operateOrder(@RequestBody OperateReq req) {
