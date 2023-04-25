@@ -1,8 +1,11 @@
 package com.cqut.atao.farm.order.domain.operate.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 /**
  * @author atao
@@ -12,6 +15,7 @@ import lombok.NoArgsConstructor;
  * @createTime 2023年04月24日 14:46:00
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class OperateReq {
@@ -34,7 +38,7 @@ public class OperateReq {
     /**
      * 操作时间
      */
-    private Data createTime;
+    private Date createTime;
 
     /**
      * 事件类型

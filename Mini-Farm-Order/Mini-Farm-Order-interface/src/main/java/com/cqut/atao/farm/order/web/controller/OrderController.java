@@ -2,6 +2,7 @@ package com.cqut.atao.farm.order.web.controller;
 
 import com.cqut.atao.farm.order.application.process.impI.KillOrderOperationProcessImpI;
 import com.cqut.atao.farm.order.application.process.impI.OrderOperationProcessImpI;
+import com.cqut.atao.farm.order.application.record.OperateHandler;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.*;
@@ -32,6 +33,9 @@ import javax.annotation.Resource;
 @Api(tags = "商品订单")
 @RequestMapping("/api/order")
 public class OrderController {
+
+    @Resource
+    private OperateHandler operateHandler;
 
     @Resource
     private OrderOperationProcessImpI orderOperationProcessImpI;
@@ -65,6 +69,8 @@ public class OrderController {
     @ApiOperation("商品下单")
     public Result<String> createOrder(@RequestBody PlaceOrderReq req) {
         String orderNo = orderOperationProcessImpI.createOrder(req);
+
+        operateHandler.doOperate(orderNo,0,"用户商品下单");
         return Results.success(orderNo);
     }
 
@@ -75,6 +81,8 @@ public class OrderController {
     )
     public Result<Void> createOrder(@PathVariable(value = "parentOrderId") String parentOrderId) {
         orderOperationProcessImpI.cancelOrder(parentOrderId);
+
+        operateHandler.doOperate(parentOrderId,-1,"取消订单");
         return Results.success();
     }
 
@@ -82,6 +90,8 @@ public class OrderController {
     @ApiOperation("秒杀商品下单")
     public Result<String> createKillOrder(@RequestBody PlaceOrderReq req) {
         String orderNo = killOrderOperationProcessImpI.createOrder(req);
+
+        operateHandler.doOperate(orderNo,0,"秒杀下单");
         return Results.success(orderNo);
     }
 
@@ -92,6 +102,8 @@ public class OrderController {
     )
     public Result<Void> cancelKillOrder(@PathVariable String orderNo) {
         killOrderOperationProcessImpI.cancelOrder(orderNo);
+
+        operateHandler.doOperate(orderNo,-1,"取消下单");
         return Results.success();
     }
 
@@ -120,6 +132,8 @@ public class OrderController {
     )
     public Result<Void> confirmOrder(@PathVariable String orderNo) {
         orderOperationProcessImpI.confirmOrder(orderNo);
+
+        operateHandler.doOperate(orderNo,3,"用户确认收货");
         return Results.success();
     }
 
