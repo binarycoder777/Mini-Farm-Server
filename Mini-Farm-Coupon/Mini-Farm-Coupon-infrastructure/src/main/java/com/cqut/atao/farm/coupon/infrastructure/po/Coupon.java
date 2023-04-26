@@ -16,7 +16,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @TableName("coupon_info")
 public class Coupon extends BaseDO {
 

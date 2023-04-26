@@ -158,7 +158,7 @@ public class OrderPO extends BaseDO {
     /**
      * 优惠券编码
      */
-    private Long couponSn;
+    private String couponSn;
 
     /**
      * 优惠券抵扣金额 | 分摊优惠
@@ -168,7 +168,7 @@ public class OrderPO extends BaseDO {
     /**
      * 促销活动编码
      */
-    private Long promotionSn;
+    private String promotionSn;
     /**
      * 促销金额 | 分摊优惠
      */

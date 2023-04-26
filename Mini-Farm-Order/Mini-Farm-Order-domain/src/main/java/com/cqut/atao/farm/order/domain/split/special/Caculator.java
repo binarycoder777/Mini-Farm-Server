@@ -41,7 +41,7 @@ public class Caculator implements SpecialSplit {
             BigDecimal totalAmount = orderProduct.getProductPrice().multiply(BigDecimal.valueOf(orderProduct.getProductQuantity()));
             skuTotalAmount = skuTotalAmount.add(totalAmount);
             // 单品优惠
-            BigDecimal multiply = totalAmount.divide(order.getTotalAmount()).multiply(promitionTotal);
+            BigDecimal multiply = totalAmount.divide(order.getTotalAmount(),3, BigDecimal.ROUND_HALF_UP).multiply(promitionTotal);
             promitionTotalAmount = promitionTotalAmount.add(multiply);
         }
         // 注入总金额和实付金额

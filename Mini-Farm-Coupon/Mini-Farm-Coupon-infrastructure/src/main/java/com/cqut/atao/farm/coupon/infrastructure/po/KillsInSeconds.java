@@ -19,7 +19,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @TableName("second_kill")
 public class KillsInSeconds extends BaseDO {
 
