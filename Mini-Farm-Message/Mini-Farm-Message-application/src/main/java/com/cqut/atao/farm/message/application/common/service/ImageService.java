@@ -37,7 +37,7 @@ public class ImageService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return path;
+        return "https://" + path;
     }
 
 }

@@ -94,4 +94,9 @@ public class DistributeCoupon extends DistributeAbstract{
     public List<CouponRes> queryInvalidCouponList(Long userId) {
         return couponRepository.queryInvalidCouponList(userId);
     }
+
+    @Override
+    public void updateCoupon(CreateCouponReq req) {
+        couponRepository.updateCoupon(req);
+    }
 }

@@ -54,6 +54,8 @@ public interface CouponService {
     CouponRes getCouponBySn(String couponSn);
 
     List<CouponRes> getInvalidCouponList(Long userId);
+
+    void updateCoupon(CreateCouponReq req);
 }
 
 

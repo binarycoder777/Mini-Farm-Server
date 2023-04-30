@@ -18,4 +18,5 @@ public interface ProductCategoryMange {
      * @return
      */
     List<ProductCategoryRes> listAllProductCategory();
+
 }

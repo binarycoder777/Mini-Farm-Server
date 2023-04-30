@@ -4,6 +4,9 @@ import com.cqut.atao.farm.coupon.domain.coupon.model.req.CreateCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.TakeCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.req.UseCouponReq;
 import com.cqut.atao.farm.coupon.domain.coupon.model.res.CouponRes;
+import com.cqut.atao.farm.coupon.domain.coupon.model.res.TakeCouponRecordRes;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageRequest;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
 import java.util.List;
 
@@ -49,4 +52,16 @@ public interface CouponRepository {
     void useCoupon(UseCouponReq req);
 
     List<CouponRes> queryInvalidCouponList(Long userId);
+
+    PageResponse<CouponRes> couponList(PageRequest req, String name, Integer type);
+
+    CouponRes couponDetail(Long id);
+
+    PageResponse<TakeCouponRecordRes> couponHistory(PageRequest req,String couponSn);
+
+    Long couponUseNum(String couponSn);
+
+    void updateCoupon(CreateCouponReq req);
+
+    void couponDelete(String id);
 }

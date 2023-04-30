@@ -44,4 +44,6 @@ public interface Distribute {
     CouponRes queryCoupon(String couponSn);
 
     List<CouponRes> queryInvalidCouponList(Long userId);
+
+    void updateCoupon(CreateCouponReq req);
 }
