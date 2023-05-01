@@ -45,6 +45,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
@@ -179,6 +180,7 @@ public class ProductRepositoryImp implements ProductRepository {
                 .withPageable(pageable)
                 .build();
         // 进行查询
+        log.error("{}=>{}",pageable.getPageNumber(),pageable.getPageSize());
         SearchHits<EsProduct> search = elasticsearchRestTemplate.search(query, EsProduct.class);
         List<EsProduct> collect = search.get()
                 .map(SearchHit::getContent).collect(Collectors.toList());
@@ -234,6 +236,7 @@ public class ProductRepositoryImp implements ProductRepository {
 
     @Override
     public void saveEsProduct(EsProduct esProduct) {
+        esProductDAO.deleteById(esProduct.getId()+"");
         esProductDAO.save(esProduct);
     }
 
@@ -252,5 +255,38 @@ public class ProductRepositoryImp implements ProductRepository {
             res.add(build);
         }
         return res;
+    }
+
+    @Transactional
+    @Override
+    public ProductSpuVO addProductInfo(Product req) {
+        // spu
+        ProductSpuVO productSpu = req.getProductSpu();
+        ProductSpuPO spuPO = BeanUtil.convert(productSpu, ProductSpuPO.class);
+        String uuid = UUID.randomUUID().toString();
+        spuPO.setProductSn(uuid);
+        productSpuDAO.insert(spuPO);
+
+        ProductSpuPO productSpuPO = productSpuDAO.selectOne(Wrappers.lambdaQuery(ProductSpuPO.class).eq(ProductSpuPO::getProductSn, uuid));
+        // sku
+        List<ProductSkuVO> productSkus = req.getProductSkus();
+        List<ProductSkuPO> productSkuPOS = BeanUtil.convert(productSkus, ProductSkuPO.class);
+        productSkuPOS.forEach(skuPO -> {
+            skuPO.setProductId(productSpuPO.getId());
+            productSkuDAO.insert(skuPO);
+        });
+        return BeanUtil.convert(productSpuPO,ProductSpuVO.class);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProductInfo(Long id) {
+        productSpuDAO.deleteById(id);
+        productSkuDAO.delete(Wrappers.lambdaQuery(ProductSkuPO.class).eq(ProductSkuPO::getProductId,id));
+    }
+
+    @Override
+    public void deleteEsProduct(Long id) {
+        esProductDAO.deleteById(id+"");
     }
 }

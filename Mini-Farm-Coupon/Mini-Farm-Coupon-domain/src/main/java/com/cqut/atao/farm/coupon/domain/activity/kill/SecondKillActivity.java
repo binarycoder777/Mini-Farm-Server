@@ -11,6 +11,7 @@ import com.cqut.atao.farm.coupon.domain.remote.model.req.BatchQueryReq;
 import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.coupon.domain.remote.model.res.Product;
 import com.cqut.atao.farm.coupon.domain.remote.model.res.ProductSpuVO;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -125,5 +126,21 @@ public class SecondKillActivity {
 
     public void addKillNotice(addKillNoticeReq req) {
         killRepository.noticeKill(req);
+    }
+
+    public PageResponse<KillACtivityRes> activityPage(ActivityPageReq req) {
+        return killRepository.activityPage(req);
+    }
+
+    public void activityStatus(Long id) {
+        killRepository.activityStatus(id);
+    }
+
+    public void updateActivity(DeployActivityReq req) {
+        killRepository.activityUpdate(req);
+    }
+
+    public void activityDelete(Long id) {
+        killRepository.activityDelete(id);
     }
 }

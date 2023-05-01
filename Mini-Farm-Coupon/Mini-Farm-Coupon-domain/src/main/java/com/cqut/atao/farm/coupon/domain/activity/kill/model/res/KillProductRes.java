@@ -27,6 +27,10 @@ public class KillProductRes {
 
     private BigDecimal price;
 
+    private Integer killNum;
+
+    private Integer status;
+
     private Long productId;
 
     private Long productSkuId;

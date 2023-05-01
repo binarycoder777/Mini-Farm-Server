@@ -35,4 +35,9 @@ public class KillsInSeconds extends BaseDO {
      */
     private Date endTime;
 
+    /**
+     * 活动状态
+     */
+    private Integer status;
+
 }

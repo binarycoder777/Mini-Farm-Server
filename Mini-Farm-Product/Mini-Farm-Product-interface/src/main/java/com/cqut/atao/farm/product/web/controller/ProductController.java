@@ -81,6 +81,20 @@ public class ProductController {
         return Results.success();
     }
 
+    @PutMapping("/add")
+    @ApiOperation(value = "新增商品信息")
+    public Result<Void> addProduct(@RequestBody Product req) {
+        productMange.addProductInfo(req);
+        return Results.success();
+    }
+
+    @PutMapping("/delete/{id}")
+    @ApiOperation(value = "新增商品信息")
+    public Result<Void> deleteProduct(@PathVariable("id")Long id) {
+        productMange.deleteProductInfo(id);
+        return Results.success();
+    }
+
 
     @GetMapping("/recommand/{userId}")
     @ApiOperation(value = "根据用户喜好进行商品推荐")

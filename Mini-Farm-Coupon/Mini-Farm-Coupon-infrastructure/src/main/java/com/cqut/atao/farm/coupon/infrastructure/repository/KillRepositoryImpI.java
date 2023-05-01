@@ -1,9 +1,12 @@
 package com.cqut.atao.farm.coupon.infrastructure.repository;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.ActivityPageReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.AddKillProductReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.DeployActivityReq;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.addKillNoticeReq;
@@ -17,8 +20,10 @@ import com.cqut.atao.farm.coupon.infrastructure.dao.SecondKillProductMapper;
 import com.cqut.atao.farm.coupon.infrastructure.po.KillNotice;
 import com.cqut.atao.farm.coupon.infrastructure.po.KillsInSeconds;
 import com.cqut.atao.farm.coupon.infrastructure.po.SecondKillProduct;
+import com.cqut.atao.farm.mybatisplus.springboot.starter.util.PageUtil;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -89,6 +94,8 @@ public class KillRepositoryImpI implements KillRepository {
                             .productId(e.getProductId())
                             .productSkuId(e.getProductSkuId())
                             .price(e.getKillPrice())
+                            .killNum(e.getKillNum())
+                            .status(e.getStatus())
                             .build();
                     return build;
                 }).collect(Collectors.toList());
@@ -112,4 +119,29 @@ public class KillRepositoryImpI implements KillRepository {
         return BeanUtil.convert(killNotices,KillNoticeRecord.class);
     }
 
+    @Override
+    public PageResponse<KillACtivityRes> activityPage(ActivityPageReq req) {
+        Page<KillsInSeconds> page = new Page<>(req.getCurrent(),req.getSize());
+        LambdaQueryWrapper<KillsInSeconds> killsInSecondsLambdaQueryWrapper = Wrappers.lambdaQuery(KillsInSeconds.class);
+        if (ObjectUtils.isNotEmpty(req.getId())) {
+            killsInSecondsLambdaQueryWrapper = killsInSecondsLambdaQueryWrapper.like(KillsInSeconds::getId,req.getId());
+        }
+        Page<KillsInSeconds> page1 = killInSecondsMapper.selectPage(page, killsInSecondsLambdaQueryWrapper);
+        return PageUtil.convert(page1,KillACtivityRes.class);
+    }
+
+    @Override
+    public void activityStatus(Long id) {
+        killInSecondsMapper.activityStatus(id);
+    }
+
+    @Override
+    public void activityUpdate(DeployActivityReq req) {
+        killInSecondsMapper.updateById(BeanUtil.convert(req,KillsInSeconds.class));
+    }
+
+    @Override
+    public void activityDelete(Long id) {
+        killInSecondsMapper.deleteById(id);
+    }
 }

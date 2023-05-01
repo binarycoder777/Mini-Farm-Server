@@ -13,14 +13,12 @@ import java.math.BigDecimal;
  */
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
 public class ProductSkuVO {
 
     /**
      * id
      */
-    @NonNull
     private Long id;
 
     /**
