@@ -1,6 +1,7 @@
 package com.cqut.atao.farm.order.infrastructure.repository;
 
 import cn.hutool.core.lang.Assert;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cqut.atao.farm.mybatisplus.springboot.starter.util.PageUtil;
@@ -10,6 +11,7 @@ import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import com.cqut.atao.farm.order.domain.model.req.AlterAddressReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
+import com.cqut.atao.farm.order.domain.model.res.OrderSalesVolume;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderDAO;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderItemDAO;
@@ -25,8 +27,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * @author atao
@@ -149,5 +151,24 @@ public class OrderRepositoryImpI implements OrderRepository {
     public void updateOrder(AlterAddressReq req) {
         orderDAO.update(BeanUtil.convert(req,OrderPO.class),
                 Wrappers.lambdaUpdate(OrderPO.class).eq(OrderPO::getOrderSn,req.getOrderSn()));
+    }
+
+    @Override
+    public OrderSalesVolume orderSalesVolumeStatistics(Date current) {
+        // 当前时间+1天
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(current);
+        calendar.add(Calendar.DATE, 1);
+        Date end = calendar.getTime();
+        // 数量
+        int num = orderDAO.countOrderSales(current,end);
+        // 金额
+        BigDecimal sum = orderDAO.sumOrderSales(current,end);
+        // 结果
+        return OrderSalesVolume.builder()
+                .amount(sum)
+                .nums(num)
+                .date(current)
+                .build();
     }
 }

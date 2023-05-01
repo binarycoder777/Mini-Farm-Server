@@ -59,4 +59,8 @@ public interface KillRepository {
     void activityUpdate(DeployActivityReq req);
 
     void activityDelete(Long id);
+
+    void updateKillProduct(AddKillProductReq req);
+
+    List<KillProductRes> queryKillProductAdmin(Long killId);
 }

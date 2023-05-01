@@ -63,6 +63,20 @@ public class KillActivityController {
         return Results.success();
     }
 
+    @PutMapping("/kill/product/update/")
+    @ApiOperation(value = "修改秒杀商品")
+    public Result<Void> updateKillProduct(@RequestBody AddKillProductReq req) {
+        secondKillActivity.updateKillProduct(req);
+        return Results.success();
+    }
+
+    @GetMapping("/kill/product/admin/{killId}")
+    @ApiOperation(value = "根据秒杀场次查询秒杀商品")
+    public Result<List<KillProductRes>> getKillProductAdmin(@PathVariable("killId") Long killId) {
+        List<KillProductRes> res = secondKillActivity.pageQueryKillProductAdmin(killId);
+        return Results.success(res);
+    }
+
     @GetMapping("/kill/product/{killId}")
     @ApiOperation(value = "根据秒杀场次查询秒杀商品")
     public Result<List<KillProductRes>> getKillProduct(@PathVariable("killId") Long killId) {

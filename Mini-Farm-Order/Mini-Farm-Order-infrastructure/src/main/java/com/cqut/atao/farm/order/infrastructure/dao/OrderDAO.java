@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,4 +75,9 @@ public interface OrderDAO extends BaseMapper<OrderPO> {
             "</script>")
     int countParentOrder(Integer orderStatus);
 
+    @Select("select count(*) from order_info where parent_id = id and create_time between #{current} and #{end}")
+    int countOrderSales(@Param("current") Date current,@Param("end") Date end);
+
+    @Select("select sum(pay_amount) from order_info where parent_id = id and create_time between #{current} and #{end}")
+    BigDecimal sumOrderSales(@Param("current") Date current,@Param("end") Date end);
 }

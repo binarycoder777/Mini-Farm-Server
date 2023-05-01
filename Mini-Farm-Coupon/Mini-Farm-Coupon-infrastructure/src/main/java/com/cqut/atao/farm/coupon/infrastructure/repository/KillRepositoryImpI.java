@@ -144,4 +144,31 @@ public class KillRepositoryImpI implements KillRepository {
     public void activityDelete(Long id) {
         killInSecondsMapper.deleteById(id);
     }
+
+    @Override
+    public void updateKillProduct(AddKillProductReq req) {
+        secondKillProductMapper.updateById(BeanUtil.convert(req,SecondKillProduct.class));
+    }
+
+    @Override
+    public List<KillProductRes> queryKillProductAdmin(Long killId) {
+        LambdaQueryWrapper<SecondKillProduct> eq = Wrappers.lambdaQuery(SecondKillProduct.class)
+                .eq(SecondKillProduct::getKillId, killId);
+        List<KillProductRes> collect = secondKillProductMapper
+                .selectList(eq)
+                .stream()
+                .map(e -> {
+                    KillProductRes build = KillProductRes.builder()
+                            .id(e.getId()+"")
+                            .killProductId(e.getId()+"")
+                            .productId(e.getProductId())
+                            .productSkuId(e.getProductSkuId())
+                            .price(e.getKillPrice())
+                            .killNum(e.getKillNum())
+                            .status(e.getStatus())
+                            .build();
+                    return build;
+                }).collect(Collectors.toList());
+        return collect;
+    }
 }
