@@ -12,9 +12,11 @@ import com.cqut.atao.farm.order.domain.model.req.AlterAddressReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.order.domain.model.res.OrderSalesVolume;
+import com.cqut.atao.farm.order.domain.model.res.PendingTransactions;
 import com.cqut.atao.farm.order.domain.repository.OrderRepository;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderDAO;
 import com.cqut.atao.farm.order.infrastructure.dao.OrderItemDAO;
+import com.cqut.atao.farm.order.infrastructure.dao.OrderReturnApplyDAO;
 import com.cqut.atao.farm.order.infrastructure.po.OrderItemPO;
 import com.cqut.atao.farm.order.infrastructure.po.OrderPO;
 import com.cqut.atao.farm.order.infrastructure.repository.status.OrderStatusContent;
@@ -49,6 +51,9 @@ public class OrderRepositoryImpI implements OrderRepository {
 
     @Resource
     private OrderStatusContent orderStatusContent;
+
+    @Resource
+    private OrderReturnApplyDAO orderReturnApplyDAO;
 
     @Override
     public void saveOrder(Order order) {
@@ -166,9 +171,35 @@ public class OrderRepositoryImpI implements OrderRepository {
         BigDecimal sum = orderDAO.sumOrderSales(current,end);
         // 结果
         return OrderSalesVolume.builder()
-                .amount(sum)
-                .nums(num)
+                .orderAmount(sum)
+                .orderCount(num)
                 .date(current)
+                .build();
+    }
+
+    @Override
+    public PendingTransactions pendingTransactions() {
+        return PendingTransactions.builder()
+                .sendProduct(orderDAO.waitSigneOrder())
+                .waitConfirmRecive(orderReturnApplyDAO.waitConfirmRefundOrder())
+                .waitPay(orderDAO.waitPayOrder())
+                .waitRefundMoney(orderReturnApplyDAO.waitConfirmRefundOrder())
+                .waitReturnProduct(orderReturnApplyDAO.waitConfirmReturnOrder())
+                .waitSendProduct(orderDAO.waitSendOrder())
+                .build();
+    }
+
+    @Override
+    public OrderSalesVolume sales(Date one, Date date) {
+        // 数量
+        int num = orderDAO.countOrderSales(one,date);
+        // 金额
+        BigDecimal sum = orderDAO.sumOrderSales(one,date);
+        // 结果
+        return OrderSalesVolume.builder()
+                .orderAmount(sum)
+                .orderCount(num)
+                .date(one)
                 .build();
     }
 }

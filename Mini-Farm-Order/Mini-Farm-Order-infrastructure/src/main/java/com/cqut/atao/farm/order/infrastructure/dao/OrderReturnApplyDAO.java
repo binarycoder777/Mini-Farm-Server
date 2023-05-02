@@ -3,6 +3,7 @@ package com.cqut.atao.farm.order.infrastructure.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cqut.atao.farm.order.infrastructure.po.OrderReturnApply;
 import com.cqut.atao.farm.order.infrastructure.po.RefundProduct;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * @author atao
@@ -13,4 +14,12 @@ import com.cqut.atao.farm.order.infrastructure.po.RefundProduct;
  */
 public interface OrderReturnApplyDAO extends BaseMapper<OrderReturnApply> {
 
+    @Select("select count(*) from order_return_apply where status=0")
+    int waitReturnOrder();
+
+    @Select("select count(*) from order_return_apply where status=1")
+    int waitConfirmReturnOrder();
+
+    @Select("select count(*) from order_return_apply where status=2")
+    int waitConfirmRefundOrder();
 }

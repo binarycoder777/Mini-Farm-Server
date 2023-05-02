@@ -6,6 +6,7 @@ import com.cqut.atao.farm.order.domain.model.req.AlterAddressReq;
 import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.domain.model.req.SendProductReq;
 import com.cqut.atao.farm.order.domain.model.res.OrderSalesVolume;
+import com.cqut.atao.farm.order.domain.model.res.PendingTransactions;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 
 import java.util.Date;
@@ -81,4 +82,8 @@ public interface OrderRepository {
     void updateOrder(AlterAddressReq req);
 
     OrderSalesVolume orderSalesVolumeStatistics(Date current);
+
+    PendingTransactions pendingTransactions();
+
+    OrderSalesVolume sales(Date one, Date date);
 }

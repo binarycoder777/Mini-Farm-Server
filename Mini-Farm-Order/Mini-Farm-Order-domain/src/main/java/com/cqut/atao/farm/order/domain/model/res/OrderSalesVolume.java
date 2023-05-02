@@ -29,11 +29,11 @@ public class OrderSalesVolume {
     /**
      * 订单量
      */
-    private Integer nums;
+    private Integer orderCount;
 
     /**
      * 订单总金额
      */
-    private BigDecimal amount;
+    private BigDecimal orderAmount;
 
 }

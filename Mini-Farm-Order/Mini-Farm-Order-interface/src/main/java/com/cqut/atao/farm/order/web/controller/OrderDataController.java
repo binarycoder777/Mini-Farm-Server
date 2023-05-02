@@ -4,6 +4,7 @@ import com.cqut.atao.farm.order.application.statistics.DataStatistics;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.req.TimeQuantum;
 import com.cqut.atao.farm.order.domain.model.res.OrderSalesVolume;
+import com.cqut.atao.farm.order.domain.model.res.PendingTransactions;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -34,10 +35,26 @@ public class OrderDataController {
 
     @PostMapping("/sales/")
     @ApiOperation("销量|金额|日期")
-    public Result<List<OrderSalesVolume>> orderDetail(@RequestBody TimeQuantum timeQuantum) {
+    public Result<List<OrderSalesVolume>> sales(@RequestBody TimeQuantum timeQuantum) {
         List<OrderSalesVolume> list = dataStatistics.orderSalesVolumeStatistics(timeQuantum.getStart(), timeQuantum.getEnd());
         return Results.success(list);
     }
+
+    @PostMapping("/wait/transaction")
+    @ApiOperation("待处理事务")
+    public Result<PendingTransactions> pendingTransactions() {
+        PendingTransactions pendingTransactions = dataStatistics.pendingTransactions();
+        return Results.success(pendingTransactions);
+    }
+
+    @PostMapping("/today")
+    @ApiOperation("今日销量")
+    public Result<List<OrderSalesVolume>> today() {
+        List<OrderSalesVolume> res = dataStatistics.today();
+        return Results.success(res);
+    }
+
+
 
 
 }

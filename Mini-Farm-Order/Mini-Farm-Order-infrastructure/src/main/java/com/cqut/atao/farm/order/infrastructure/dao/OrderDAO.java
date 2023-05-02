@@ -80,4 +80,15 @@ public interface OrderDAO extends BaseMapper<OrderPO> {
 
     @Select("select sum(pay_amount) from order_info where parent_id = id and create_time between #{current} and #{end}")
     BigDecimal sumOrderSales(@Param("current") Date current,@Param("end") Date end);
+
+    @Select("select count(*) from order_info where parent_id = id and status = 1")
+    int waitPayOrder();
+
+    @Select("select count(*) from order_info where parent_id != id and status = 2")
+    int waitSendOrder();
+
+    @Select("select count(*) from order_info where parent_id != id and status = 3")
+    int waitSigneOrder();
+
+
 }
