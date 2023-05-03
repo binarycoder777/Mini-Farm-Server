@@ -142,7 +142,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
         List<OrderItemInfo> orderItemInfo = order.getOrderProducts().stream().map(e -> {
             return OrderItemInfo.builder()
                     .num(e.getProductQuantity())
-                    .skuId(e.getProductSkuId())
+                    .skuId(Long.valueOf(e.getProductSkuId()))
                     .build();
         }).collect(Collectors.toList());
         // 构造请求
@@ -162,7 +162,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
     private void deleteCartItem(Order order) {
         DeleteCartItemReq deleteCartItemReq = DeleteCartItemReq.builder()
                 .userId(order.getUserId())
-                .skuIds(order.getOrderProducts().stream().map(e -> e.getProductSkuId()).collect(Collectors.toList()))
+                .skuIds(order.getOrderProducts().stream().map(e -> Long.valueOf(e.getProductSkuId())).collect(Collectors.toList()))
                 .build();
         remoteCartService.deleteCartProduct(deleteCartItemReq);
     }

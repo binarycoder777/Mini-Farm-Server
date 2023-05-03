@@ -73,7 +73,7 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
             List<OrderProduct> orderProducts = e.getOrderProducts();
             orderProducts.forEach(p -> {
                 OrderItemInfo orderItemInfo = OrderItemInfo.builder()
-                        .skuId(p.getProductSkuId())
+                        .skuId(Long.valueOf(p.getProductSkuId()))
                         .num(p.getProductQuantity())
                         .build();
                 list.add(orderItemInfo);
