@@ -55,7 +55,6 @@ public class OrderRefundHandler {
 
     public OrderReturnApplyDetails returnProductsDetail(Long id) {
         OrderReturnApplyDetails res = orderRefundRepository.orderRefundDetail(id);
-
         return res;
     }
 
@@ -76,5 +75,10 @@ public class OrderRefundHandler {
 //        remotePayService.notifyRefundMoney(orderSn);
         // 扭转退货申请单状态为已完成
         orderRefundRepository.returnOfgoodsReciveRefundMoney(orderSn);
+    }
+
+    public OrderReturnApplyDetails returnProductsDetailByOrderSn(String orderSn) {
+        OrderReturnApplyDetails res = orderRefundRepository.orderRefundDetailByOrderSn(orderSn);
+        return res;
     }
 }

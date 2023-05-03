@@ -3,6 +3,7 @@ package com.cqut.atao.farm.order.domain.split.special;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -28,9 +29,16 @@ public class Caculator implements SpecialSplit {
     public Order cacualte(Order order) {
         log.info("{}",order);
         // 优惠总金额
-        BigDecimal promitionTotal = order.getCouponAmount()
-                .add(order.getPromotionAmount())
-                .add(order.getIntegrationAmount());
+        BigDecimal promitionTotal = new BigDecimal("0");
+        if (ObjectUtils.isNotEmpty(order.getCouponAmount())) {
+            promitionTotal = promitionTotal.add(order.getCouponAmount());
+        }
+        if (ObjectUtils.isNotEmpty(order.getPromotionAmount())) {
+            promitionTotal = promitionTotal.add(order.getPromotionAmount());
+        }
+        if (ObjectUtils.isNotEmpty(order.getIntegrationAmount())) {
+            promitionTotal = promitionTotal.add(order.getIntegrationAmount());
+        }
         // 子订单优惠金额
         BigDecimal promitionTotalAmount = new BigDecimal("0");
         // 子订总的金额

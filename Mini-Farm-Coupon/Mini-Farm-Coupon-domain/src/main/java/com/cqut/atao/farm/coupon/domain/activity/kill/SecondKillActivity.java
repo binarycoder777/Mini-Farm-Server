@@ -115,8 +115,8 @@ public class SecondKillActivity {
         ArrayList<BatchQueryReq> productLists = Lists.newArrayList();
         for (int i = 0; i < spuIdList.size(); ++i) {
             BatchQueryReq build = BatchQueryReq.builder()
-                    .productId(spuIdList.get(i).getProductId())
-                    .productSkuId(spuIdList.get(i).getProductSkuId())
+                    .productId(Long.valueOf(spuIdList.get(i).getProductId()))
+                    .productSkuId(Long.valueOf(spuIdList.get(i).getProductSkuId()))
                     .build();
             productLists.add(build);
         }
@@ -160,8 +160,8 @@ public class SecondKillActivity {
         ArrayList<BatchQueryReq> productLists = Lists.newArrayList();
         for (int i = 0; i < spuIdList.size(); ++i) {
             BatchQueryReq build = BatchQueryReq.builder()
-                    .productId(spuIdList.get(i).getProductId())
-                    .productSkuId(spuIdList.get(i).getProductSkuId())
+                    .productId(Long.valueOf(spuIdList.get(i).getProductId()))
+                    .productSkuId(Long.valueOf(spuIdList.get(i).getProductSkuId()))
                     .build();
             productLists.add(build);
         }

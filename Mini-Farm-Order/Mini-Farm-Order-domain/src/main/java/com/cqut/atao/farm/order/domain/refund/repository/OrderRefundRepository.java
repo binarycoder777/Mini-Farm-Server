@@ -29,4 +29,6 @@ public interface OrderRefundRepository {
     void returnOfgoodsRecive(Long id);
 
     void returnOfgoodsReciveRefundMoney(String orderSn);
+
+    OrderReturnApplyDetails orderRefundDetailByOrderSn(String orderSn);
 }

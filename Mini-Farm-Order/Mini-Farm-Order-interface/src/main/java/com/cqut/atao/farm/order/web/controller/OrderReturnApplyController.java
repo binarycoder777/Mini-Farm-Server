@@ -56,9 +56,16 @@ public class OrderReturnApplyController {
     }
 
     @GetMapping("/detail/{id}")
-    @ApiOperation("订单退货详情")
+    @ApiOperation("订单退货详情（通过id查询）")
     public Result<OrderReturnApplyDetails> returnOfgoodsList(@PathVariable("id") Long id) {
         OrderReturnApplyDetails res = orderRefundHandler.returnProductsDetail(id);
+        return Results.success(res);
+    }
+
+    @GetMapping("/detail/by/{orderSn}")
+    @ApiOperation("订单退货详情(通过订单号查询)")
+    public Result<OrderReturnApplyDetails> returnOfgoodsListByOrderSn(@PathVariable("orderSn") String orderSn) {
+        OrderReturnApplyDetails res = orderRefundHandler.returnProductsDetailByOrderSn(orderSn);
         return Results.success(res);
     }
 

@@ -36,9 +36,9 @@ public class KillProductRes {
 
     private Integer status;
 
-    private Long productId;
+    private String productId;
 
-    private Long productSkuId;
+    private String productSkuId;
 
     private Product product;
 

@@ -46,9 +46,9 @@ public class OrderRefundRepositoryImpI implements OrderRefundRepository {
 
     @Override
     public PageResponse<OrderReturnApplyRes> pageSelectReturnApply(PageRequest request) {
-        Page page = new Page(request.getCurrent(),request.getSize());
+        Page page = new Page(request.getCurrent(), request.getSize());
         Page selectPage = orderReturnApplyDAO.selectPage(page, null);
-        return PageUtil.convert(selectPage,OrderReturnApplyRes.class);
+        return PageUtil.convert(selectPage, OrderReturnApplyRes.class);
     }
 
     @Override
@@ -94,6 +94,14 @@ public class OrderRefundRepositoryImpI implements OrderRefundRepository {
         OrderReturnApply build = OrderReturnApply.builder()
                 .status(3)
                 .build();
-        orderReturnApplyDAO.update(build,Wrappers.lambdaUpdate(OrderReturnApply.class).eq(OrderReturnApply::getOrderSn,orderSn));
+        orderReturnApplyDAO.update(build, Wrappers.lambdaUpdate(OrderReturnApply.class).eq(OrderReturnApply::getOrderSn, orderSn));
+    }
+
+    @Override
+    public OrderReturnApplyDetails orderRefundDetailByOrderSn(String orderSn) {
+        OrderReturnApplyDetails convert = BeanUtil.convert(orderReturnApplyDAO.selectOne(Wrappers.lambdaQuery(OrderReturnApply.class).eq(OrderReturnApply::getOrderSn, orderSn)), OrderReturnApplyDetails.class);
+        List<OrderItemPO> orderItemPOS = orderItemDAO.selectList(Wrappers.lambdaQuery(OrderItemPO.class).eq(OrderItemPO::getOrderSn, convert.getOrderSn()));
+        convert.setOrderProductList(BeanUtil.convert(orderItemPOS, OrderProduct.class));
+        return convert;
     }
 }
