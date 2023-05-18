@@ -1,6 +1,9 @@
 package com.cqut.atao.farm.product.domain.repository;
 
 import com.cqut.atao.farm.product.domain.mode.aggregate.ProductCategory;
+import com.cqut.atao.farm.product.domain.mode.vo.ProductCategoryVO;
+
+import java.util.List;
 
 /**
  * @author atao
@@ -18,4 +21,13 @@ public interface ProductCategoryRepository {
      */
     ProductCategory listAllProductCategory();
 
+    void addProductCategory(ProductCategoryVO productCategory);
+
+    void delProductCategory(Long id);
+
+    void updateProductCategory(ProductCategoryVO productCategory);
+
+    List<ProductCategoryVO> ProductCategorylist();
+
+    ProductCategoryVO productCategoryDetail(Long id);
 }

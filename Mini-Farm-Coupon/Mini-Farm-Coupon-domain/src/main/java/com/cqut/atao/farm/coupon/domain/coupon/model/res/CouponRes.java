@@ -37,6 +37,11 @@ public class CouponRes {
     private Long couponTick;
 
     /**
+     * 优惠券数量
+     */
+    private Long couponNum;
+
+    /**
      * 发放时间
      */
     private Date distributeTime;
@@ -84,5 +89,15 @@ public class CouponRes {
      * 优惠券分发的筛选用户的id列表
      */
     private List<Long> userIdList;
+
+    /**
+     * 优惠券状态
+     */
+    private Integer couponStatus;
+
+    /**
+     * 已使用
+     */
+    private Long useNum;
 
 }

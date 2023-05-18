@@ -32,4 +32,6 @@ public class KillACtivityRes {
      */
     private Date endTime;
 
+    private Integer status;
+
 }

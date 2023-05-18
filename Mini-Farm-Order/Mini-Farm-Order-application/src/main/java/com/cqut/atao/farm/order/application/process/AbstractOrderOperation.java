@@ -4,8 +4,7 @@ import cn.hutool.core.lang.Assert;
 import com.cqut.atao.farm.order.application.filter.CheckParamterHandler;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
-import com.cqut.atao.farm.order.domain.model.req.PlaceOrderReq;
-import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
+import com.cqut.atao.farm.order.domain.model.req.*;
 import com.cqut.atao.farm.order.domain.remote.RemoteCartService;
 import com.cqut.atao.farm.order.domain.remote.RemoteCouponService;
 import com.cqut.atao.farm.order.domain.remote.RemoteProductService;
@@ -18,6 +17,7 @@ import com.cqut.atao.farm.order.domain.service.OrderService;
 import com.cqut.atao.farm.order.domain.split.OrderSplitHandler;
 import com.cqut.atao.farm.springboot.starter.common.toolkit.BeanUtil;
 import com.cqut.atao.farm.springboot.starter.convention.exception.ServiceException;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import lombok.extern.slf4j.Slf4j;
@@ -82,6 +82,9 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
 
     public void consumeSpecial(Order order) {
         log.info("扣减优惠信息");
+        if (order.getCouponSn() == null || order.getCouponSn().equals("0")) {
+            return;
+        }
         // 扣减消费券
         remoteCouponService.consumeCoupon(UseCouponReq.builder()
                 .couponSn(order.getCouponSn())
@@ -139,7 +142,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
         List<OrderItemInfo> orderItemInfo = order.getOrderProducts().stream().map(e -> {
             return OrderItemInfo.builder()
                     .num(e.getProductQuantity())
-                    .skuId(e.getProductSkuId())
+                    .skuId(Long.valueOf(e.getProductSkuId()))
                     .build();
         }).collect(Collectors.toList());
         // 构造请求
@@ -159,7 +162,7 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
     private void deleteCartItem(Order order) {
         DeleteCartItemReq deleteCartItemReq = DeleteCartItemReq.builder()
                 .userId(order.getUserId())
-                .skuIds(order.getOrderProducts().stream().map(e -> e.getProductSkuId()).collect(Collectors.toList()))
+                .skuIds(order.getOrderProducts().stream().map(e -> Long.valueOf(e.getProductSkuId())).collect(Collectors.toList()))
                 .build();
         remoteCartService.deleteCartProduct(deleteCartItemReq);
     }
@@ -182,9 +185,9 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
     /**
      * 商家发货
      *
-     * @param orderNo
+     * @param req
      */
-    public abstract void deliveryOfgoods(String orderNo);
+    public abstract void deliveryOfgoods(SendProductReq req);
 
     /**
      * 用户退货
@@ -192,4 +195,8 @@ public abstract class AbstractOrderOperation implements OrderOperationProcess {
      * @param req
      */
     public abstract void returnProducts(ReturnProductReq req);
+
+    public abstract PageResponse<Order> pageQueryOrderAdmin(OrderPageReq req);
+
+    public abstract void alterOrderAddress(AlterAddressReq req);
 }

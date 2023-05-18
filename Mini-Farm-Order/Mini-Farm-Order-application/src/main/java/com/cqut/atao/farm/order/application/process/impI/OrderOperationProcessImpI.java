@@ -5,9 +5,7 @@ import com.cqut.atao.farm.order.application.process.AbstractOrderOperation;
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
-import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
-import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
-import com.cqut.atao.farm.order.domain.model.req.ReturnProductReq;
+import com.cqut.atao.farm.order.domain.model.req.*;
 import com.cqut.atao.farm.order.domain.mq.produce.MessageProduce;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderInfoReq;
 import com.cqut.atao.farm.order.domain.remote.model.req.OrderItemInfo;
@@ -75,7 +73,7 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
             List<OrderProduct> orderProducts = e.getOrderProducts();
             orderProducts.forEach(p -> {
                 OrderItemInfo orderItemInfo = OrderItemInfo.builder()
-                        .skuId(p.getProductSkuId())
+                        .skuId(Long.valueOf(p.getProductSkuId()))
                         .num(p.getProductQuantity())
                         .build();
                 list.add(orderItemInfo);
@@ -87,10 +85,9 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         remoteProductService.unlockProductStock(orderInfoReq);
         // MQ异步返还用户的优惠信息
         Order order = orderService.getOrderByOrderId(parentOrderId);
-        if (order.getOrderSn() != null || order.getSpecialActivityId() != null) {
+        if (order.getOrderSn() != null ) {
             ReturnSpecialMessageSendEvent returnSpecialMessageSendEvent = ReturnSpecialMessageSendEvent.builder()
                     .messageSendId(UUID.randomUUID().toString())
-                    .acitivityId(order.getSpecialActivityId())
                     .couponId(order.getCouponSn())
                     .build();
             messageProduce.returnSpecialMessageSend(returnSpecialMessageSendEvent);
@@ -139,8 +136,8 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
     }
 
     @Override
-    public void deliveryOfgoods(String orderNo) {
-        stateHandler.sendProduct(orderNo,Constants.OrderState.WAIT_SEND);
+    public void deliveryOfgoods(SendProductReq req) {
+        orderService.orderDelivery(req);
     }
 
     @Override
@@ -151,5 +148,15 @@ public class OrderOperationProcessImpI extends AbstractOrderOperation {
         req.picToStr();
         // 插入记录
         refundProductRepository.addRefundProductRecord(req);
+    }
+
+    @Override
+    public PageResponse<Order> pageQueryOrderAdmin(OrderPageReq req) {
+        return orderService.queryOrderPageInfoAdmin(req);
+    }
+
+    @Override
+    public void alterOrderAddress(AlterAddressReq req) {
+        orderService.updateOrderAddress(req);
     }
 }

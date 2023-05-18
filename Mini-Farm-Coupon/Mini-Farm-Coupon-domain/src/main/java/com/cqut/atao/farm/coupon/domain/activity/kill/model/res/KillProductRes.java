@@ -23,13 +23,22 @@ import java.math.BigInteger;
 @AllArgsConstructor
 public class KillProductRes {
 
+    /**
+     * id
+     */
+    private String id;
+
     private String killProductId;
 
     private BigDecimal price;
 
-    private Long productId;
+    private Integer killNum;
 
-    private Long productSkuId;
+    private Integer status;
+
+    private String productId;
+
+    private String productSkuId;
 
     private Product product;
 

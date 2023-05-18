@@ -1,10 +1,8 @@
 package com.cqut.atao.farm.message.web.controller;
 
 import com.cqut.atao.farm.message.application.service.IndustryInformationRepositoryMange;
-import com.cqut.atao.farm.message.domain.email.model.req.AddIndustryInformationReq;
-import com.cqut.atao.farm.message.domain.email.model.req.ClickReq;
-import com.cqut.atao.farm.message.domain.email.model.req.CommentReq;
-import com.cqut.atao.farm.message.domain.email.model.req.InformationListReq;
+import com.cqut.atao.farm.message.domain.email.model.req.*;
+import com.cqut.atao.farm.message.domain.email.model.res.CommentRes;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationDetail;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationRes;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -56,18 +54,25 @@ public class IndustryInformationContrller {
     }
 
 
-    @ApiOperation("资讯点击")
+    @ApiOperation("点击资讯")
     @PutMapping(value = "/click")
     public Result<Void> clickIndustryInformation(ClickReq req) throws Exception {
         industryInformationRepositoryMange.click(req);
         return Results.success();
     }
 
-    @ApiOperation("资讯下的评论")
+    @ApiOperation("评论资讯")
     @PutMapping(value = "/comment")
     public Result<Void> commentIndustryInformation(CommentReq req) throws Exception {
         industryInformationRepositoryMange.comment(req);
         return Results.success();
+    }
+
+    @ApiOperation("资讯评论列表")
+    @GetMapping(value = "/comment/list/{id}")
+    public Result<PageResponse<CommentRes>> industryInformationCommentList(PageCommentReq req) throws Exception {
+        PageResponse<CommentRes> res = industryInformationRepositoryMange.commentList(req);
+        return Results.success(res);
     }
 
 

@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,30 +22,73 @@ import java.util.List;
  */
 public interface OrderDAO extends BaseMapper<OrderPO> {
 
-    @Update("update order_info set status=#{nextOrderState} where order_sn=#{orderId} and status=#{currentOrderState}")
-    int alterOrderState(@Param("orderId") String orderId,@Param("currentOrderState") Integer currentOrderState,@Param("nextOrderState") Integer nextOrderState);
+    @Update("<script>" +
+            "update order_info set status=#{nextOrderState}" +
+            "<if test = 'nextOrderState eq 2'> ,pay_time=now() </if>" +
+            "where order_sn=#{orderId}" +
+            "</script>")
+    int alterOrderState(@Param("orderId") String orderId, @Param("currentOrderState") Integer currentOrderState, @Param("nextOrderState") Integer nextOrderState);
 
-    @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id = id limit #{current},#{size}")
+
+    @Select(
+            "<script>" +
+                    "select * from order_info where " +
+                    "<if test='userId != null'> user_id = #{userId} and </if>" +
+                    "status =#{orderStatus} and parent_id = id limit #{current},#{size}" +
+                    "</script>"
+    )
     List<OrderPO> pageParentOrder(OrderPageReq req);
 
 
     @Select("select * from order_info where order_sn = #{orderSn} and parent_id = id")
     OrderPO parentOrder(String orderSn);
 
-    @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id != id limit #{current},#{size}")
+    @Select("<script>" +
+            "select * from order_info where" +
+            " <if test='userId != null'> user_id = #{userId} and </if>" +
+            " status =#{orderStatus} and parent_id != id limit #{current},#{size}" +
+            "</script>")
     List<OrderPO> pageSubOrder(OrderPageReq req);
 
-    @Select("select * from order_info where user_id = #{userId} and status =#{orderStatus} and parent_id != id and parent_id=#{parentId}")
-    List<OrderPO> listSubOrder(@Param("userId") Long userId,@Param("parentId") String parentId,@Param("orderStatus") Integer orderStatus);
+    @Select("<script>" +
+            "select * from order_info where " +
+            "<if test='userId != null'> user_id = #{userId} and </if>" +
+            "status =#{orderStatus} and parent_id != id and parent_id=#{parentId}" +
+            "</script>")
+    List<OrderPO> listSubOrder(@Param("userId") Long userId, @Param("parentId") String parentId, @Param("orderStatus") Integer orderStatus);
 
     @Select("select * from order_info where  parent_id != id and parent_id=#{parentId}")
     List<OrderPO> subOrderList(@Param("parentId") String parentId);
 
 
-    @Select("select count(*) from order_info where status =#{orderStatus} and parent_id != id")
+    @Select("<script>" +
+            "select count(*) from order_info where " +
+            "<if test='userId != null'> user_id = #{userId} and </if>" +
+            "status =#{orderStatus} and parent_id != id" +
+            "</script>")
     int countSubOrder(Integer orderStatus);
 
-    @Select("select count(*) from order_info where status =#{orderStatus} and parent_id = id")
+    @Select("<script>" +
+            "select count(*) from order_info where" +
+            "<if test='userId != null'> user_id = #{userId} and </if>" +
+            " status =#{orderStatus} and parent_id = id" +
+            "</script>")
     int countParentOrder(Integer orderStatus);
+
+    @Select("select count(*) from order_info where parent_id = id and create_time between #{current} and #{end}")
+    int countOrderSales(@Param("current") Date current,@Param("end") Date end);
+
+    @Select("select sum(pay_amount) from order_info where parent_id = id and create_time between #{current} and #{end}")
+    BigDecimal sumOrderSales(@Param("current") Date current,@Param("end") Date end);
+
+    @Select("select count(*) from order_info where parent_id = id and status = 1")
+    int waitPayOrder();
+
+    @Select("select count(*) from order_info where parent_id != id and status = 2")
+    int waitSendOrder();
+
+    @Select("select count(*) from order_info where parent_id != id and status = 3")
+    int waitSigneOrder();
+
 
 }

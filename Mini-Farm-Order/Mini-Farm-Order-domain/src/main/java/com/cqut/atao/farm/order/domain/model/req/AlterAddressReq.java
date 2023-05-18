@@ -1,24 +1,27 @@
-package com.cqut.atao.farm.order.domain.model.aggregate;
+package com.cqut.atao.farm.order.domain.model.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 /**
  * @author atao
  * @version 1.0.0
- * @ClassName Address.java
- * @Description 用户收货信息集合类
- * @createTime 2023年02月04日 15:56:00
+ * @ClassName AlterAddressReq.java
+ * @Description 修改订单上的用户地址
+ * @createTime 2023年04月23日 11:01:00
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class AlterAddressReq {
+
+    /**
+     * 订单号
+     */
+    private String orderSn;
 
     /**
      * 收货人
@@ -30,20 +33,6 @@ public class Address {
      */
     private String cneePhone;
 
-    /**
-     * 收货人邮编
-     */
-    private String cneePostCode;
-
-    /**
-     * 收货人所在省
-     */
-    private String cneeProvinc;
-
-    /**
-     * 收货人所在市
-     */
-    private String cneeCity;
 
     /**
      * 收货人所在区
@@ -55,9 +44,4 @@ public class Address {
      */
     private String cneeDetailAddress;
 
-    /**
-     * 收货时间
-     */
-    private Date receiveTime;
 }
-

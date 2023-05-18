@@ -56,6 +56,17 @@ public class VxUtil {
                 .compact();
     }
 
+    public static Claims decode(String token) {
+        return Jwts.parser()
+                // 设置签名的秘钥
+                .setSigningKey(SECRET)
+                // 设置需要解析的 jwt
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+
+
 
     /**
      * 验证token

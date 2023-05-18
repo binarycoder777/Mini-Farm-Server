@@ -5,6 +5,7 @@ import com.cqut.atao.farm.coupon.domain.activity.kill.SecondKillActivity;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.req.*;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillACtivityRes;
 import com.cqut.atao.farm.coupon.domain.activity.kill.model.res.KillProductRes;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.cqut.atao.farm.springboot.starter.convention.result.Result;
 import com.cqut.atao.farm.springboot.starter.log.annotation.MiniLog;
 import com.cqut.atao.farm.springboot.starter.web.Results;
@@ -62,6 +63,20 @@ public class KillActivityController {
         return Results.success();
     }
 
+    @PutMapping("/kill/product/update/")
+    @ApiOperation(value = "修改秒杀商品")
+    public Result<Void> updateKillProduct(@RequestBody AddKillProductReq req) {
+        secondKillActivity.updateKillProduct(req);
+        return Results.success();
+    }
+
+    @GetMapping("/kill/product/admin/{killId}")
+    @ApiOperation(value = "根据秒杀场次查询秒杀商品")
+    public Result<List<KillProductRes>> getKillProductAdmin(@PathVariable("killId") Long killId) {
+        List<KillProductRes> res = secondKillActivity.pageQueryKillProductAdmin(killId);
+        return Results.success(res);
+    }
+
     @GetMapping("/kill/product/{killId}")
     @ApiOperation(value = "根据秒杀场次查询秒杀商品")
     public Result<List<KillProductRes>> getKillProduct(@PathVariable("killId") Long killId) {
@@ -83,6 +98,32 @@ public class KillActivityController {
         return Results.success();
     }
 
+    @PostMapping("/list")
+    @ApiOperation(value = "列表")
+    public Result<PageResponse<KillACtivityRes>> activityPage(@RequestBody ActivityPageReq req ) {
+        PageResponse<KillACtivityRes> res = secondKillActivity.activityPage(req);
+        return Results.success(res);
+    }
 
+    @PostMapping("/status/{id}")
+    @ApiOperation(value = "上线/下线")
+    public Result<Void> activityStatus(@PathVariable("id")Long id) {
+        secondKillActivity.activityStatus(id);
+        return Results.success();
+    }
+
+    @PostMapping("/kill/update")
+    @ApiOperation(value = "更新秒杀场次")
+    public Result<Void> updateKillSeconds(@RequestBody DeployActivityReq req) {
+        secondKillActivity.updateActivity(req);
+        return Results.success();
+    }
+
+    @PostMapping("/delete/{id}")
+    @ApiOperation(value = "删除活动")
+    public Result<Void> activityDelete(@PathVariable("id")Long id) {
+        secondKillActivity.activityDelete(id);
+        return Results.success();
+    }
 
 }

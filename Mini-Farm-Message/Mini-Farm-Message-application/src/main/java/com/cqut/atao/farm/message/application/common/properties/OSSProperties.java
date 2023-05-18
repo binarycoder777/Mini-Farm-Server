@@ -1,4 +1,4 @@
-package com.cqut.atao.farm.message.domain.email.properties;
+package com.cqut.atao.farm.message.application.common.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

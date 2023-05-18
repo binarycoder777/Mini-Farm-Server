@@ -3,6 +3,7 @@ package com.cqut.atao.farm.order.domain.service.listener;
 
 import com.cqut.atao.farm.order.domain.common.Constants;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
+import com.cqut.atao.farm.order.domain.model.req.AlterAddressReq;
 import com.cqut.atao.farm.order.domain.model.req.AlterOrderStateReq;
 import com.cqut.atao.farm.order.domain.remote.RemoteUserService;
 import com.cqut.atao.farm.order.domain.remote.model.res.UserInfoRes;
@@ -81,5 +82,12 @@ public class OrderEventListener {
         stateHandler.signProduct(orderSn, Constants.OrderState.WAIT_SIGNATURE);
     }
 
+
+    @Transactional
+    @EventListener(UpdateAddressEvent.class)
+    public void updateOrder(UpdateAddressEvent event) {
+        AlterAddressReq req = (AlterAddressReq)event.getSource();
+        orderRepository.updateOrder(req);
+    }
 
 }

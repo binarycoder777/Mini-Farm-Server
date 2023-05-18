@@ -1,7 +1,6 @@
 package com.cqut.atao.farm.order.domain.model.req;
 
 
-import com.cqut.atao.farm.order.domain.model.aggregate.Address;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,40 +32,50 @@ public class PlaceOrderReq {
     private Long userId;
 
     /**
-     * 收货人信息
+     * 收货人
      */
-    @ApiModelProperty("收货人信息")
-    private Address address;
+    private String cneeName;
+
+    /**
+     * 收货人电话
+     */
+    private String cneePhone;
+
+    /**
+     * 收货人邮编
+     */
+    private String cneePostCode;
+
+    /**
+     * 收货人所在省
+     */
+    private String cneeProvinc;
+
+    /**
+     * 收货人所在市
+     */
+    private String cneeCity;
+
+    /**
+     * 收货人所在区
+     */
+    private String cneeRegion;
+
+    /**
+     * 收货人详细地址
+     */
+    private String cneeDetailAddress;
+
+    /**
+     * 收货时间
+     */
+    private Date receiveTime;
 
     /**
      * 订单商品集合
      */
     @ApiModelProperty("订单商品集合")
     private List<OrderProduct> orderProducts;
-
-    /**
-     * 优惠卷id
-     */
-    @ApiModelProperty("优惠卷Sn")
-    private String couponSn;
-
-    /**
-     * 优惠卷id
-     */
-    @ApiModelProperty("优惠卷金额")
-    private BigDecimal couponTick;
-
-    /**
-     * 满减活动id
-     */
-    @ApiModelProperty("满减活动id")
-    private Long specialActivityId;
-
-    /**
-     * 优惠总金额
-     */
-    @ApiModelProperty("优惠总金额")
-    private BigDecimal specialTotalAmount;
 
     /**
      * 运费金额
@@ -102,5 +112,35 @@ public class PlaceOrderReq {
      */
     @ApiModelProperty("订单类型 0：正常订单 1：秒杀订单 2：促销订单")
     private Integer type;
+
+    /**
+     * 优惠卷id
+     */
+    @ApiModelProperty("优惠卷Sn")
+    private String couponSn;
+
+    /**
+     * 优惠券抵扣金额 | 分摊优惠
+     */
+    private BigDecimal couponAmount;
+
+    /**
+     * 促销活动编码
+     */
+    private Long promotionSn;
+    /**
+     * 促销金额 | 分摊优惠
+     */
+    private BigDecimal promotionAmount;
+
+    /**
+     * 使用积分
+     */
+    private Integer useIntegration;
+
+    /**
+     * 积分抵扣金额
+     */
+    private BigDecimal integrationAmount;
 
 }

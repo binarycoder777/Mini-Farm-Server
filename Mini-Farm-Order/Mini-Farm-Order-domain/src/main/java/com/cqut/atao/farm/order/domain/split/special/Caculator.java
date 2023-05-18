@@ -3,6 +3,7 @@ package com.cqut.atao.farm.order.domain.split.special;
 import com.cqut.atao.farm.order.domain.model.aggregate.Order;
 import com.cqut.atao.farm.order.domain.model.aggregate.OrderProduct;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -26,32 +27,34 @@ public class Caculator implements SpecialSplit {
      */
     @Override
     public Order cacualte(Order order) {
-        // 订单总金额
-        BigDecimal orderTotalAmount = new BigDecimal("0");
-        // 订单实付金额
-        BigDecimal orderPayAmount = new BigDecimal("0");
+        log.info("{}",order);
+        // 优惠总金额
+        BigDecimal promitionTotal = new BigDecimal("0");
+        if (ObjectUtils.isNotEmpty(order.getCouponAmount())) {
+            promitionTotal = promitionTotal.add(order.getCouponAmount());
+        }
+        if (ObjectUtils.isNotEmpty(order.getPromotionAmount())) {
+            promitionTotal = promitionTotal.add(order.getPromotionAmount());
+        }
+        if (ObjectUtils.isNotEmpty(order.getIntegrationAmount())) {
+            promitionTotal = promitionTotal.add(order.getIntegrationAmount());
+        }
+        // 子订单优惠金额
+        BigDecimal promitionTotalAmount = new BigDecimal("0");
+        // 子订总的金额
+        BigDecimal skuTotalAmount = new BigDecimal("0");
+        // todo 这里计算有问题
         for (OrderProduct orderProduct : order.getOrderProducts()) {
             // 单品总金额
             BigDecimal totalAmount = orderProduct.getProductPrice().multiply(BigDecimal.valueOf(orderProduct.getProductQuantity()));
-            // 单品优惠(远程调用营销服务获取)
-            BigDecimal specialAmount = new BigDecimal("0");
-            // 满减优惠(远程调用营销服务获取)
-            BigDecimal fullSubtractionAmount = new BigDecimal("0");
-            // 满减分摊优惠
-            BigDecimal fullSubtractionSplitAmount = (totalAmount.subtract(specialAmount)).divide(order.getTotalAmount(), BigDecimal.ROUND_CEILING).multiply(fullSubtractionAmount);
-            // 优惠卷优惠(远程调用营销服务获取)
-            BigDecimal couponAmount = (order.getCouponTick() != null ? order.getCouponTick() : new BigDecimal("0"));
-            // 优惠券分摊优惠
-            BigDecimal couponSplitAmount = (totalAmount.subtract(couponAmount)).divide(order.getTotalAmount(), BigDecimal.ROUND_CEILING).multiply(fullSubtractionAmount);
-            // 子订单实付款
-            BigDecimal payAmount = totalAmount.subtract(specialAmount).subtract(fullSubtractionSplitAmount).subtract(couponSplitAmount);
-            // 相加
-            orderTotalAmount = orderTotalAmount.add(totalAmount);
-            orderPayAmount = orderPayAmount.add(payAmount);
+            skuTotalAmount = skuTotalAmount.add(totalAmount);
+            // 单品优惠
+            BigDecimal multiply = totalAmount.divide(order.getTotalAmount(),3, BigDecimal.ROUND_HALF_UP).multiply(promitionTotal);
+            promitionTotalAmount = promitionTotalAmount.add(multiply);
         }
         // 注入总金额和实付金额
-        order.setTotalAmount(orderTotalAmount);
-        order.setPayAmount(orderPayAmount);
+        order.setTotalAmount(skuTotalAmount.add(order.getFreightAmount()));
+        order.setPayAmount(order.getTotalAmount().subtract(promitionTotalAmount));
         return order;
     }
 }

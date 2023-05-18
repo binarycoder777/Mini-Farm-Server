@@ -10,9 +10,12 @@ import com.cqut.atao.farm.coupon.domain.remote.RemoteProductService;
 import com.cqut.atao.farm.coupon.domain.remote.model.req.BatchQueryReq;
 import com.cqut.atao.farm.coupon.domain.remote.model.req.PlaceOrderReq;
 import com.cqut.atao.farm.coupon.domain.remote.model.res.Product;
+import com.cqut.atao.farm.coupon.domain.remote.model.res.ProductRes;
 import com.cqut.atao.farm.coupon.domain.remote.model.res.ProductSpuVO;
+import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -50,6 +53,10 @@ public class SecondKillActivity {
      * @param req
      */
     public void addKillProduct(AddKillProductReq req) {
+        if (ObjectUtils.isEmpty(req.getProductSkuId())) {
+            ProductRes data = remoteProductService.getProductBySpuId(req.getProductId() + "").getData();
+            req.setProductSkuId(Long.valueOf(data.getProductSkus().get(0).getId()));
+        }
         // 添加商品
         killRepository.addKillActivity(req);
     }
@@ -108,8 +115,8 @@ public class SecondKillActivity {
         ArrayList<BatchQueryReq> productLists = Lists.newArrayList();
         for (int i = 0; i < spuIdList.size(); ++i) {
             BatchQueryReq build = BatchQueryReq.builder()
-                    .productId(spuIdList.get(i).getProductId())
-                    .productSkuId(spuIdList.get(i).getProductSkuId())
+                    .productId(Long.valueOf(spuIdList.get(i).getProductId()))
+                    .productSkuId(Long.valueOf(spuIdList.get(i).getProductSkuId()))
                     .build();
             productLists.add(build);
         }
@@ -125,5 +132,45 @@ public class SecondKillActivity {
 
     public void addKillNotice(addKillNoticeReq req) {
         killRepository.noticeKill(req);
+    }
+
+    public PageResponse<KillACtivityRes> activityPage(ActivityPageReq req) {
+        return killRepository.activityPage(req);
+    }
+
+    public void activityStatus(Long id) {
+        killRepository.activityStatus(id);
+    }
+
+    public void updateActivity(DeployActivityReq req) {
+        killRepository.activityUpdate(req);
+    }
+
+    public void activityDelete(Long id) {
+        killRepository.activityDelete(id);
+    }
+
+    public void updateKillProduct(AddKillProductReq req) {
+        killRepository.updateKillProduct(req);
+    }
+
+    public List<KillProductRes> pageQueryKillProductAdmin(Long killId) {
+        List<KillProductRes> spuIdList = killRepository.queryKillProductAdmin(killId);
+        // 构造请求
+        ArrayList<BatchQueryReq> productLists = Lists.newArrayList();
+        for (int i = 0; i < spuIdList.size(); ++i) {
+            BatchQueryReq build = BatchQueryReq.builder()
+                    .productId(Long.valueOf(spuIdList.get(i).getProductId()))
+                    .productSkuId(Long.valueOf(spuIdList.get(i).getProductSkuId()))
+                    .build();
+            productLists.add(build);
+        }
+        // 远程获取秒杀商品详情
+        List<Product> res = remoteProductService.getProductBySpuId(productLists).getData();
+        // 构造返回结果
+        for (int i = 0; i < Math.min(spuIdList.size(),res.size()); ++i) {
+            spuIdList.get(i).setProduct(res.get(i));
+        }
+        return spuIdList;
     }
 }

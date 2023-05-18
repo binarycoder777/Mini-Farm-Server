@@ -19,6 +19,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddKillProductReq {
+
+    private Long id;
     /**
      * 秒杀场次id
      */

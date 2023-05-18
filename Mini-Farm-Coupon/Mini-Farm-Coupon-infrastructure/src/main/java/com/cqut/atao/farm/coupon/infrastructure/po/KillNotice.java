@@ -19,7 +19,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @TableName("kill_notice")
 public class KillNotice extends BaseDO {
 

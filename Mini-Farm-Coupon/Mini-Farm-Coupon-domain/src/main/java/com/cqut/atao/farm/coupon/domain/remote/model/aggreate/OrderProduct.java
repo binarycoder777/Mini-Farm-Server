@@ -35,6 +35,8 @@ public class OrderProduct {
      */
     private Long productSkuId;
 
+    private Long productSpuId;
+
     /**
      * 商家id
      */

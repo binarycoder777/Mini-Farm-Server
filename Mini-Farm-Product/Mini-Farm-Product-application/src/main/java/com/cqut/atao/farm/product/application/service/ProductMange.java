@@ -76,4 +76,8 @@ public interface ProductMange {
     void updateProductInfo(Product req);
 
     List<Product> queryProducts(List<BatchQueryReq> spuIds);
+
+    void addProductInfo(Product req);
+
+    void deleteProductInfo(Long id);
 }

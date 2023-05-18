@@ -33,12 +33,12 @@ public class OrderProduct {
     /**
      * 商品spuid
      */
-    private Long productSpuId;
+    private String productSpuId;
 
     /**
      * 商品skuid
      */
-    private Long productSkuId;
+    private String productSkuId;
 
     /**
      * 商家id

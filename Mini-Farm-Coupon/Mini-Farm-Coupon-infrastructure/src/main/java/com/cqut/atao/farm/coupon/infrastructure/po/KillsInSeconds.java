@@ -19,7 +19,6 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @TableName("second_kill")
 public class KillsInSeconds extends BaseDO {
 
@@ -35,5 +34,10 @@ public class KillsInSeconds extends BaseDO {
      * 结束时间
      */
     private Date endTime;
+
+    /**
+     * 活动状态
+     */
+    private Integer status;
 
 }

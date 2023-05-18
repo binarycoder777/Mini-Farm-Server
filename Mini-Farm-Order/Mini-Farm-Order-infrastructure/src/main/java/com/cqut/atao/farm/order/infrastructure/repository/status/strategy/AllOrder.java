@@ -8,6 +8,7 @@ import com.cqut.atao.farm.order.domain.model.req.OrderPageReq;
 import com.cqut.atao.farm.order.infrastructure.repository.status.PageQueryOrderInfo;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,6 +21,7 @@ import java.util.List;
  * @Description 所有订单
  * @createTime 2023年04月04日 09:12:00
  */
+@Slf4j
 @Component
 public class AllOrder implements PageQueryOrderInfo {
 
@@ -73,6 +75,7 @@ public class AllOrder implements PageQueryOrderInfo {
         // 封装
         Page<Order> orderPage = new Page<>(req.getCurrent(), req.getSize(), num);
         orderPage.setRecords(list);
+        log.warn("{}",list);
         return PageUtil.convert(orderPage,Order.class);
     }
 }

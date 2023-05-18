@@ -92,4 +92,10 @@ public interface ProductRepository {
     PageResponse<EsProduct> searchProductInfo(PageRequest request, String keyword, Integer sortPrice, Integer sortSales);
 
     List<Product> queryProductList(List<BatchQueryReq> spuIdList);
+
+    ProductSpuVO addProductInfo(Product req);
+
+    void deleteProductInfo(Long id);
+
+    void deleteEsProduct(Long id);
 }

@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @TableName("second_kill_products")
 public class SecondKillProduct extends BaseDO {
     /**

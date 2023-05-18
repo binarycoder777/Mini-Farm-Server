@@ -62,4 +62,5 @@ public interface UserMange {
      */
     UserInfoRes queryUserInfo(Long userId);
 
+    UserInfoRes queryUserInfoByAuthorzation(String authorzation);
 }

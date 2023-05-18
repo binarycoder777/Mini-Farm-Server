@@ -1,9 +1,7 @@
 package com.cqut.atao.farm.message.application.service;
 
-import com.cqut.atao.farm.message.domain.email.model.req.AddIndustryInformationReq;
-import com.cqut.atao.farm.message.domain.email.model.req.ClickReq;
-import com.cqut.atao.farm.message.domain.email.model.req.CommentReq;
-import com.cqut.atao.farm.message.domain.email.model.req.InformationListReq;
+import com.cqut.atao.farm.message.domain.email.model.req.*;
+import com.cqut.atao.farm.message.domain.email.model.res.CommentRes;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationDetail;
 import com.cqut.atao.farm.message.domain.email.model.res.IndustryInformationRes;
 import com.cqut.atao.farm.springboot.starter.convention.page.PageResponse;
@@ -25,4 +23,6 @@ public interface IndustryInformationRepositoryMange {
     void click(ClickReq req);
 
     void comment(CommentReq req);
+
+    PageResponse<CommentRes> commentList(PageCommentReq req);
 }
